@@ -1,4 +1,5 @@
 /* eslint-disable no-trailing-spaces */
+/*eslint quotes: [2, "double", "avoid-escape"]*/
 
 <template>
 <div class="wrapper">
@@ -19,6 +20,9 @@
 
 <script>
 import axios from 'axios';
+import debounce from 'lodash.debounce';
+
+const API = 'https://images-api.nasa.gov';
 
 export default {
   name: 'SearchView',
@@ -28,8 +32,7 @@ export default {
     };
   },
   methods: {
-    handleInput() {
-      const API = 'https://images-api.nasa.gov';
+    handleInput: debounce(function () {
       axios.get(`${API}/search?q=${this.searchValue}&media_type=image`)
         .then((response) => {
           console.log(response);
@@ -37,7 +40,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
+    }, 500),
   },
 };
 </script>
