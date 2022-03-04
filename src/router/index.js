@@ -1,15 +1,15 @@
 import AboutViewVue from '@/views/AboutView.vue';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import SearchView from '../views/SearchView.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'search',
+    component: SearchView,
   },
   {
     path: '/about',
