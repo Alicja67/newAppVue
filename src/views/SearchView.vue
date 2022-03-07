@@ -1,36 +1,26 @@
-/* eslint-disable no-trailing-spaces */
-/*eslint quotes: [2, "double", "avoid-escape"]*/
-
 <template>
-<div class="wrapper">
-    <div class="search">
-      <p>Search</p>
-      <label for="search">
-        <input
-          name="search"
-          id="search"
-          type="text"
-          v-model="searchValue"
-          @input="handleInput"
-        />
-      </label>
-    </div>
-    <ul>
-      <li v-for="result in results" :key="result.data[0].nasa_id">
-        <p>{{ result.data[0].description }}</p>
-      </li>
-    </ul>
+  <div class="wrapper">
+    <HeaderComponent />
+    // eslint-disable-next-line
+    <SearchInput v-model="searchValue" @input="handleInput"/>
   </div>
+
 </template>
 
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import HeaderComponent from '../components/HeaderComponent.vue';
+import SearchInput from '../components/SearchInput.vue';
 
 const API = 'https://images-api.nasa.gov';
 
 export default {
   name: 'SearchView',
+  components: {
+    HeaderComponent,
+    SearchInput,
+  },
   data() {
     return {
       searchValue: '',
@@ -39,6 +29,7 @@ export default {
   },
   methods: {
     handleInput: debounce(function () {
+      console.log(this.searchValue);
       axios.get(`${API}/search?q=${this.searchValue}&media_type=image`)
         .then((response) => {
           this.results = response.data.collection.items;
@@ -52,26 +43,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
   .wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.1)), url('../assets/moon.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    width: 100%;
+    height: 100vh;
   }
-  .search {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
 
-    input {
-      height: 30px;
-      border: 0;
-      border-bottom: 1px solid black;
-    }
-
-    p {
-      margin-bottom: 0;
-    }
-  }
 </style>
