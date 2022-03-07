@@ -15,6 +15,11 @@
         />
       </label>
     </div>
+    <ul>
+      <li v-for="result in results" :key="result.data[0].nasa_id">
+        <p>{{ result.data[0].description }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -29,13 +34,15 @@ export default {
   data() {
     return {
       searchValue: '',
+      results: [],
     };
   },
   methods: {
     handleInput: debounce(function () {
       axios.get(`${API}/search?q=${this.searchValue}&media_type=image`)
         .then((response) => {
-          console.log(response);
+          this.results = response.data.collection.items;
+          console.log(response.data.collection.items);
         })
         .catch((error) => {
           console.log(error);
