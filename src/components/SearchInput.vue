@@ -6,6 +6,7 @@
       type="text"
       :value="value"
       @input="handleChange"
+      :class="{ dark }"
     />
   </label>
   <!-- <ul>
@@ -21,6 +22,10 @@ export default {
     value: {
       type: String,
       required: true,
+    },
+    dark: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -52,5 +57,13 @@ input:focus {
 }
 p {
   margin-bottom: 0;
+}
+.dark {
+  color: black;
+  border-bottom-color: black;
+
+}
+.dark:focus {
+  box-shadow: 0 3px 3px black;
 }
 </style>

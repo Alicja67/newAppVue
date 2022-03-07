@@ -1,10 +1,9 @@
 <template>
-  <div class="wrapper">
-    <HeaderComponent />
-    // eslint-disable-next-line
-    <SearchInput v-model="searchValue" @input="handleInput"/>
+  <div :class="[{ flexStart: step === 1 }, 'wrapper']">
+    <HeroImage v-if="step === 0"/>
+    <HeaderComponent v-if="step === 0" />
+    <SearchInput v-model="searchValue" @input="handleInput" :dark="step === 1" />
   </div>
-
 </template>
 
 <script>
@@ -12,6 +11,7 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SearchInput from '../components/SearchInput.vue';
+import HeroImage from '../components/HeroImage.vue';
 
 const API = 'https://images-api.nasa.gov';
 
@@ -20,9 +20,12 @@ export default {
   components: {
     HeaderComponent,
     SearchInput,
+    HeroImage,
   },
   data() {
     return {
+      loading: false,
+      step: 0,
       searchValue: '',
       results: [],
     };
@@ -30,10 +33,13 @@ export default {
   methods: {
     handleInput: debounce(function () {
       console.log(this.searchValue);
+      this.loading = true;
       axios.get(`${API}/search?q=${this.searchValue}&media_type=image`)
         .then((response) => {
           this.results = response.data.collection.items;
           console.log(response.data.collection.items);
+          this.loading = false;
+          this.step = 1;
         })
         .catch((error) => {
           console.log(error);
@@ -49,13 +55,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.1)), url('../assets/moon.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 0;
-    width: 100%;
-    height: 100vh;
+
+    &.flexStart {
+      justify-content: flex-start;
+    }
   }
 
 </style>
