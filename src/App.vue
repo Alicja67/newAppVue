@@ -20,4 +20,12 @@ body {
   padding: 0;
   margin: 0;
 }
+nav {
+  padding: 15px;
+}
+
+nav a{
+  color: white;
+  text-decoration: none;
+}
 </style>
