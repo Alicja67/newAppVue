@@ -24,6 +24,7 @@ export default {
     text-align: center;
     flex-direction: column;
     padding-top: 180px;
+
 }
 .title {
     font-size: 4rem;
