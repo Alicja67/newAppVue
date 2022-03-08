@@ -1,5 +1,5 @@
 /* eslint-disable */
-<template lang=''>
+<template>
     <div class='header-wrapper'>
         <h1 class='title'>Kosmiczny spacer</h1>
         <p class='subtitle'>
@@ -23,7 +23,7 @@ export default {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    padding-top: 80px;
+    padding-top: 180px;
 }
 .title {
     font-size: 4rem;
