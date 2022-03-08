@@ -2,16 +2,34 @@
   <div :class="[{ flexStart: step === 1 }, 'wrapper']">
     <HeroImage v-if="step === 0"/>
     <HeaderComponent v-if="step === 0" />
-    <SearchInput v-model="searchValue" @input="handleInput" :dark="step === 1" />
+    <SearchInput
+      v-model="searchValue"
+      @input="handleInput"
+      :dark="step === 1"
+    />
+    <div
+      class="results"
+      v-if="results && !loading && step === 1"
+    >
+      <ItemComponent
+        @click.native="handleModelOpen(item)"
+        v-for="item in results"
+        :item="item"
+        :key="item.data[0].nasa_id"
+      />
+    </div>
+    <ItemModel v-if="modelOpen" @closeModel="modelOpen = false"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import ItemComponent from '@/components/ItemComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SearchInput from '../components/SearchInput.vue';
 import HeroImage from '../components/HeroImage.vue';
+import ItemModel from '../components/ItemModel.vue';
 
 const API = 'https://images-api.nasa.gov';
 
@@ -21,6 +39,8 @@ export default {
     HeaderComponent,
     SearchInput,
     HeroImage,
+    ItemComponent,
+    ItemModel,
   },
   data() {
     return {
@@ -28,6 +48,7 @@ export default {
       step: 0,
       searchValue: '',
       results: [],
+      modelOpen: false,
     };
   },
   methods: {
@@ -45,6 +66,10 @@ export default {
           console.log(error);
         });
     }, 500),
+    handleModelOpen(item) {
+      this.modelOpen = true;
+      console.log(item);
+    },
   },
 };
 </script>
@@ -60,5 +85,19 @@ export default {
       justify-content: flex-start;
     }
   }
+  .results {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    margin: 30px;
+    margin-top: 50px;
 
+    // @media (min-width: 992px ) {
+    //   grid-template-columns: 1fr 1fr 1fr;
+    //   width: 90%;
+    // }
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 </style>
