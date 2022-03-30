@@ -1,0 +1,12 @@
+version: "3"  # optional since v1.27.
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - "8081:8080"
+    volumes:
+      - .:/app

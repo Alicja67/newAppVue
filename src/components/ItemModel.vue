@@ -9,9 +9,10 @@
         <p class="subtitle">
           {{ description }}
         </p>
-        <p class='tags'>
-          Tags:
-        </p>
+        <!-- <p>Tags:</p> -->
+        <ul class='tags' v-for="tag in tags" :key="tag">
+          <li>{{ tag }}</li>
+        </ul>
       </div>
     </div>
     <button type="button" class="close" @click="$emit('closeModel')">
@@ -43,12 +44,12 @@ export default {
     this.photo = this.item.links[0].href;
     this.description = this.item.data[0].description;
     this.title = this.item.data[0].title;
-    // this.tags = this.data[0].keywords;
+    this.tags = this.item.data[0].keywords;
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .outer-wrapper {
   max-width: 60%;
@@ -66,20 +67,30 @@ export default {
   align-items: center;
   height: 100%;
   padding: 50px;
-  // flex-direction: columns;
+  flex-direction: column;
 }
 .photo {
-  width: 80%;
-  height: auto;
+  // position: absolute;
+  width: 70%;
+  height: 70%;
   background: black;
   img {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
   }
 }
 .description {
+  // position: absolute;
   text-align: center;
   margin-top: 30px;
+
+  .title {
+    font-size: 30px;
+    text-transform: uppercase;
+  }
+  .subtitle {
+    font-size: 25px;
+  }
 }
 .close{
   position: absolute;
@@ -92,5 +103,8 @@ export default {
 }
 .close:hover {
   color: grey;
+}
+.tags {
+  list-style-type: none;
 }
 </style>
