@@ -70,7 +70,7 @@ export default {
     handleModelOpen(item) {
       this.modelOpen = true;
       this.modalItem = item;
-      console.log(item);
+      console.log(item.data[0].keywords);
     },
   },
 };
