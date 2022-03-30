@@ -27,8 +27,10 @@ export default {
 .item {
   width: 25vw;
   height: 250px;
+  // background-color: rgb(226, 221, 221);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
+  // border: 1px solid black;
 }
 </style>
