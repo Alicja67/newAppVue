@@ -18,7 +18,7 @@
         :key="item.data[0].nasa_id"
       />
     </div>
-    <ItemModel v-if="modelOpen" @closeModel="modelOpen = false"/>
+    <ItemModel v-if="modelOpen" :item="modalItem" @closeModel="modelOpen = false" />
   </div>
 </template>
 
@@ -49,6 +49,7 @@ export default {
       searchValue: '',
       results: [],
       modelOpen: false,
+      modalItem: null,
     };
   },
   methods: {
@@ -68,7 +69,8 @@ export default {
     }, 500),
     handleModelOpen(item) {
       this.modelOpen = true;
-      console.log(item);
+      this.modalItem = item;
+      console.log(item.data[0].keywords);
     },
   },
 };

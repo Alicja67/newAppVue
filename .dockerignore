@@ -1,0 +1,7 @@
+**/node_modules
+**/dist
+**/.git
+**/.vscode
+**/static/**/GamesTemplate
+**/static/**/GamesTest
+iron-ant_engine_multibook.mac.pl.conf

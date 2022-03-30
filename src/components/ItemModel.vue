@@ -2,16 +2,17 @@
 <div class="outer-wrapper">
   <div class="inner-wrapper">
       <div class="photo">
-        <img src="https://images-assets.nasa.gov/image/PIA12235/PIA12235~thumb.jpg" alt="albedo">
+        <img :src="photo" alt="albedo">
       </div>
       <div class="description">
-        <h2 class="title">Lorem Ipsum</h2>
+        <h2 class="title">{{ title }}</h2>
         <p class="subtitle">
-          Lorem Ipsum is simply dummy text of the printing and typesetting.
+          {{ description }}
         </p>
-        <p class='tags'>
-          Tags:
-        </p>
+        <!-- <p>Tags:</p> -->
+        <ul class='tags' v-for="tag in tags" :key="tag">
+          <li>{{ tag }}</li>
+        </ul>
       </div>
     </div>
     <button type="button" class="close" @click="$emit('closeModel')">
@@ -22,17 +23,43 @@
 <script>
 export default {
   name: 'ItemModel',
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      photo: null,
+      title: '',
+      description: '',
+      tags: [],
+      // photo: this.links[0].href,
+      // description: this.links[0].description.substring(0, 200),
+      // decsr: this.links[0].title,
+    };
+  },
+  mounted() {
+    this.photo = this.item.links[0].href;
+    this.description = this.item.data[0].description;
+    this.title = this.item.data[0].title;
+    this.tags = this.item.data[0].keywords;
+  },
 };
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 
 .outer-wrapper {
   max-width: 60%;
   height: 60%;
   position: fixed;
-  background: white;
-  top: 50px;
-  left: 0;
+  background: rgb(248, 245, 245);
+  top: 20px;
+  left: 20px;
+  // border: 4px solid rgb(212, 208, 208);
+  box-shadow: 0 30px 30px -10px rgba(0,0,0,.3);
 }
 .inner-wrapper {
   display: flex;
@@ -43,8 +70,9 @@ export default {
   flex-direction: column;
 }
 .photo {
-  width: 90%;
-  height: auto;
+  // position: absolute;
+  width: 70%;
+  height: 70%;
   background: black;
   img {
     width: 100%;
@@ -52,8 +80,17 @@ export default {
   }
 }
 .description {
+  // position: absolute;
   text-align: center;
   margin-top: 30px;
+
+  .title {
+    font-size: 30px;
+    text-transform: uppercase;
+  }
+  .subtitle {
+    font-size: 25px;
+  }
 }
 .close{
   position: absolute;
@@ -66,5 +103,8 @@ export default {
 }
 .close:hover {
   color: grey;
+}
+.tags {
+  list-style-type: none;
 }
 </style>
