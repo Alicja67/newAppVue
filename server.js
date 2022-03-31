@@ -1,25 +1,43 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('./db');
 
 const app = express();
-const path = require('path');
-// app.use(cors());
-// app.use(express.json());
-// const router = express.Router();
-// app.use(express.static('public'));
+const PORT = '8000';
 
-// app.use(express.static(path.join(__dirname, '/src')));
+app.use(express.json());
+app.use(bodyParser.json());
 
-//Geting all
+
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send(db);
 });
 
-//Geting one
-// app.get('/images', (req, res) => {
+app.get('/data', (req, res) => {
+  console.log(db[0].data[0].title)
+  return res.send(db);
+});
 
+
+// app.get('/title', (req, res) => {
+//   return res.json(db[0].data[0].title);
 // });
 
 
+// app.get('/data', (req, res) => {
+//   return res.json(db[0].data[0].title)
+//     // db.map(data => {
+//     //   `${data.href}`;
+//     // })
+//   // );
+// });
 
 
-app.listen(8000, () => console.log('Server started on port 8000'));
+app.use((req, res) => {
+  res.status(404).send({
+    message: 'Not found...',
+    status: 404
+  });
+});
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
