@@ -1,25 +1,24 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const dataRoutes = require('./routes/data.routes');
 const linksRoutes = require('./routes/links.routes');
-// const db = require('./db');
+const path = require('path');
+const mongoose = require('mongoose');
+require('dotenv/config');
 
+// const bodyParser = require('body-parser');
+// const db = require('./db');
 
 const app = express();
 const PORT = '8000';
 
 app.use(express.json());
-// app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '/dist')));
 
-app.get('/', (req, res) => {
-  res.send('Hello from HomePage!');
-});
+//import ROUTES
 app.use('/data', dataRoutes);
 app.use('/links', linksRoutes);
-
-app.post('/title', (req, res) => {
-  // const { title } = req.body;
-  // db.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
 
 app.use((req, res) => {
@@ -27,6 +26,11 @@ app.use((req, res) => {
     message: 'Not found...',
     status: 404,
   });
+});
+
+//Connect to DB
+mongoose.connect(process.env.DB_CONNECTION, () => {
+  console.log('Connected to DB');
 });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
