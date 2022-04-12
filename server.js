@@ -1,5 +1,5 @@
 const express = require('express');
-const dataRoutes = require('./routes/data.routes');
+const datasRoutes = require('./routes/datas.routes');
 const linksRoutes = require('./routes/links.routes');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/dist')));
 
 //import ROUTES
-app.use('/data', dataRoutes);
+app.use('/datas', datasRoutes);
 app.use('/links', linksRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/dist/index.html'));

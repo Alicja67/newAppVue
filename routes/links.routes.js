@@ -1,51 +1,71 @@
 const express = require('express');
-const { v4: uuidv4 } = require('uuid');
-const db = require('../db');
+const Links = require('../models/links.model');
 
 const router = express.Router();
 
-const getElementFromLink = (req) => (
-  db.data.find(element => element.nasa_id === parseInt(req.params.id))
-);
-
-router.get('/', (req, res) => {
-  res.json(db.links);
+router.get('/', async (req, res) => {
+  // res.json(db.links);
+  try {
+    res.json(await Links.find());
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
 });
 
+//GET ONE BY _ID
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    res.json(await Links.findById(id));
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+});
+
+//ADD NEW DATA
 router.post('/', async(req, res) => {
   try {
-    const { href} = req.body;
-    const newData = { nasa_id: uuidv4(), href };
-    db.links.push(newData);
-    res.send({
-      message: 'Ok',
-      newData,
-    });
-    console.log(req.body);
+    const { href, nasa_id } = req.body;
+    const post = new Links({ href, nasa_id  });
+    const newLink = await post.save();
+    res.json({ message: 'Ok', newLink });
   } catch(err) {
     res.json({ error: err.message || err.toString() });
   }
 });
 
-router.put('/:id', (req, res) => {
+//EDIT BY ID
+router.put('/:id', async (req, res) => {
   const { href } = req.body;
   const { id } = req.params;
-  const updatedElement = { nasa_id: id, href };
-  db.links[ db.links.indexOf(getElementFromLink(req))] = updatedElement;
-  res.send({
-    message: 'OK',
-    updatedElement,
-  })
-  console.log(updatedElement);
+
+  try {
+    const dep = await Links.findById(id);
+    if(dep) {
+      const editedLink = await Links.updateOne( { _id: id }, { $set: { href } });
+      res.json({ message: 'OK', editedLink });
+    } else {
+      res.status(404).json({ message: 'Not found...'});
+    }
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
 });
 
-router.delete('/:id', (req, res) => {
+//DELETE BY ID
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  const deletedElement = links.splice(links.indexOf(getElementFromLink(req)), 1);
-  res.send({
-    message: 'Element is deleted',
-  });
-  console.log(id);
+  try {
+    const dep = await Links.findById(id);
+    if(dep) {
+      await Links.deleteOne( {_id: id} );
+      res.json({ message: 'OK', dep });
+    } else {
+      res.status(404).json({ message: 'Not found...'});
+    }
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
 });
 
 module.exports = router;
