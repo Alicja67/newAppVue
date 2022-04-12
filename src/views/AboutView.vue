@@ -10,3 +10,9 @@ export default {
 };
 
 </script>
+<style lang="scss">
+  body {
+    background: black;
+    color: white;
+  }
+</style>
