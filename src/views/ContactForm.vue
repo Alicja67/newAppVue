@@ -1,26 +1,61 @@
 <template>
   <div>
     <h2>Contact me</h2>
-    <form>
+    <form action="/contacts/send-message" method="POST" @submit.prevent="submitForm">
       <label for="author">
-      Your name: <input type="text" name="author">
+      Your name: <input type="text" name="author" v-model="authorValue" required>
       </label>
-      <label for="sender">
-      Your email: <input type="email" name="sender">
+      <label for="email">
+      Your email: <input type="email" name="email" v-model="emailValue" required>
       </label>
       <label for="title">
-      Title: <input type="text" name="title">
+      Title: <input type="text" name="title" v-model="titleValue" required>
       </label>
       <label for="message">
-      Message: <textarea name="message"></textarea>
+      Message: <textarea name="message" v-model="messageValue" required></textarea>
       </label>
-      <button type="submit">Send message</button>
+      <!-- <div class="terms">
+        <label for="terms">
+          Accept tems and conditions<input name ="terms" type="checkbox" v-model="terms" required>
+        </label>
+      </div> -->
+      <div class="submit-form">
+        <button type="submit"> Send message</button>
+      </div>
     </form>
+    <div>
+      <p> Sender: {{ authorValue }}</p>
+    </div>
   </div>
 </template>
+
 <script>
+
 export default {
   name: 'ContactForm',
+  data() {
+    return {
+      authorValue: '',
+      emailValue: '',
+      titleValue: '',
+      messageValue: '',
+      // terms: false,
+    };
+  },
+  methods: {
+    submitForm() {
+      console.log('Button is clicked');
+      this.$axios.post('/contacts/send-message', {
+        author: this.author,
+        email: this.email,
+        title: this.title,
+        message: this.message,
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    // this.terms = false;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -89,5 +124,13 @@ export default {
     outline: none;
     transition: .2s;
     cursor: pointer;
+  }
+  input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+  }
+  .submit-form {
+    display: flex;
+    justify-content: right;
   }
 </style>

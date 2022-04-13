@@ -5,7 +5,7 @@
       <span>  .  </span>
       <router-link to="/about">About</router-link>
       <span>  .  </span>
-      <router-link to="/contact">Contact</router-link>
+      <router-link to="/contacts/send-message">Contact</router-link>
     </nav>
     <router-view/>
   </div>

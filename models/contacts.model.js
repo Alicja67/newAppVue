@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const ContactsSchema = new mongoose.Schema({
   author: { type: String, required: true },
-  sender: { type: String, required: true },
-  title: { type: Array, required: true },
+  email: { type: String, required: true },
+  title: { type: String, required: true },
   message: { type: String, required: true },
 });
 

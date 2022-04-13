@@ -18,8 +18,8 @@ const routes = [
     component: AboutViewVue,
   },
   {
-    path: '/contact',
-    name: 'contact',
+    path: '/contacts/send-message',
+    name: 'contacts',
     component: ContactForm,
   },
 ];

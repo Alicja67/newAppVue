@@ -1,6 +1,7 @@
 const express = require('express');
 const datasRoutes = require('./routes/datas.routes');
 const linksRoutes = require('./routes/links.routes');
+const contactRoutes= require('./routes/contacts.routes');
 const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv/config');
@@ -12,12 +13,13 @@ const app = express();
 const PORT = '3000';
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/dist')));
 
 //import ROUTES
 app.use('/datas', datasRoutes);
 app.use('/links', linksRoutes);
-app.use('/contact', contactRouts);
+app.use('/contacts', contactRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
