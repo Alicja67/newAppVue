@@ -52,12 +52,12 @@ export default {
 <style lang="scss" scoped>
 
 .outer-wrapper {
-  max-width: 60%;
+  max-width: 1000px;
   height: 60%;
   position: fixed;
   background: rgb(248, 245, 245);
-  top: 20px;
-  left: 20px;
+  // top: 20px;
+  // left: 20px;
   // border: 4px solid rgb(212, 208, 208);
   box-shadow: 0 30px 30px -10px rgba(0,0,0,.3);
 }
@@ -68,11 +68,12 @@ export default {
   height: 100%;
   padding: 50px;
   flex-direction: column;
+  color: black;
 }
 .photo {
   // position: absolute;
-  width: 70%;
-  height: 70%;
+  // width: 200px;
+  height: 200px;
   background: black;
   img {
     width: 100%;
