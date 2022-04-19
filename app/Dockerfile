@@ -5,5 +5,5 @@ COPY yarn.lock ./
 RUN yarn
 COPY . .
 # RUN yarn build
-EXPOSE 3000
-CMD ["yarn","start"]
+EXPOSE 8080
+CMD ["yarn","serve"]

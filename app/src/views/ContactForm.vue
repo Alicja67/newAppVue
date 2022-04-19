@@ -1,18 +1,21 @@
 <template>
   <div>
     <h2>Contact me</h2>
-    <form action="/contacts/send-message" method="POST" @submit.prevent="submitForm">
+    <form
+      method="post"
+      @submit="submitForm"
+    >
       <label for="author">
-      Your name: <input type="text" name="author" v-model="authorValue" required>
+      Your name: <input type="text" name="author" v-model="author" required>
       </label>
       <label for="email">
-      Your email: <input type="email" name="email" v-model="emailValue" required>
+      Your email: <input type="email" name="email" v-model="email" required>
       </label>
       <label for="title">
-      Title: <input type="text" name="title" v-model="titleValue" required>
+      Title: <input type="text" name="title" v-model="title" required>
       </label>
       <label for="message">
-      Message: <textarea name="message" v-model="messageValue" required></textarea>
+      Message: <textarea name="message" v-model="message" required></textarea>
       </label>
       <!-- <div class="terms">
         <label for="terms">
@@ -24,28 +27,34 @@
       </div>
     </form>
     <div>
-      <p> Sender: {{ authorValue }}</p>
+      <p> Sender: {{ author }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'ContactForm',
+  // mounted() {
+  //   this.submitForm();
+  // },
   data() {
     return {
-      authorValue: '',
-      emailValue: '',
-      titleValue: '',
-      messageValue: '',
+      author: null,
+      email: null,
+      title: null,
+      message: null,
+      // errors: [],
       // terms: false,
     };
   },
   methods: {
-    submitForm() {
+    submitForm(e) {
+      console.log(this.posts);
       console.log('Button is clicked');
-      this.$axios.post('/contacts/send-message', {
+      axios.post('http://localhost:3000/contacts/send-message', {
         author: this.author,
         email: this.email,
         title: this.title,
@@ -53,7 +62,7 @@ export default {
       })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
-    // this.terms = false;
+      e.preventDefault();
     },
   },
 };
