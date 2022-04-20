@@ -1,33 +1,37 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <titles-component> </titles-component>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 
-import axios from "axios";
+// import axios from 'axios';
+import TitlesComponent from '../components/TitlesComponent.vue';
 
 export default {
-  name: "AboutView",
-  mounted() {
-    this.getData();
+  name: 'about-view',
+  components: {
+    TitlesComponent,
   },
+  // mounted() {
+  //   this.getData();
+  // },
   methods: {
-    getData() {
-      const config = {
-        headers: {
-          // "content-type": "application/vnd.api+json",
-          // "Access-Control-Allow-Origin": "*",
-        },
-      };
-      axios.get("http://localhost:3000/links", config).then(function (response) {
-        console.log(response);
-        // response.data
-      });
-    },
-    /* eslint-enabled */
+  //   getData() {
+  //     const config = {
+  //       headers: {
+  //         // 'content-type': 'application/vnd.api+json',
+  //         // 'Access-Control-Allow-Origin': '*',
+  //       },
+  //     };
+  //     axios.get('http://localhost:3000/links', config).then(function (response) {
+  //       console.log(response);
+  //       // response.data
+  //     });
+  //   },
+  //   /* eslint-enabled */
   },
 };
 </script>

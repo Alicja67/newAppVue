@@ -1,8 +1,8 @@
 <template>
-<div class="outer-wrapper">
-  <div class="inner-wrapper">
+  <div class="outer-wrapper">
+    <div class="inner-wrapper">
       <div class="photo">
-        <img :src="photo" alt="albedo">
+        <img :src="photo" alt="albedo" />
       </div>
       <div class="description">
         <h2 class="title">{{ title }}</h2>
@@ -10,7 +10,7 @@
           {{ description }}
         </p>
         <!-- <p>Tags:</p> -->
-        <ul class='tags' v-for="tag in tags" :key="tag">
+        <ul class="tags" v-for="tag in tags" :key="tag">
           <li>{{ tag }}</li>
         </ul>
       </div>
@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-  name: 'ItemModel',
+  name: 'item-model',
   props: {
     item: {
       type: Object,
@@ -50,7 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .outer-wrapper {
   max-width: 1000px;
   height: 60%;
@@ -59,7 +58,7 @@ export default {
   // top: 20px;
   // left: 20px;
   // border: 4px solid rgb(212, 208, 208);
-  box-shadow: 0 30px 30px -10px rgba(0,0,0,.3);
+  box-shadow: 0 30px 30px -10px rgba(0, 0, 0, 0.3);
 }
 .inner-wrapper {
   display: flex;
@@ -93,14 +92,14 @@ export default {
     font-size: 25px;
   }
 }
-.close{
+.close {
   position: absolute;
   top: 20px;
   right: 20px;
   color: black;
   font-size: 20px;
   border: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 .close:hover {
   color: grey;

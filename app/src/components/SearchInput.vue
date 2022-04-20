@@ -1,13 +1,6 @@
 <template>
   <label for="search">
-    <input
-      name="search"
-      id="search"
-      type="text"
-      :value="value"
-      @input="handleChange"
-      :class="{ dark }"
-    />
+    <input name="search" id="search" type="text" :value="value" @input="handleChange" :class="{ dark }" />
   </label>
   <!-- <ul>
     <li v-for='result in results' :key='result.data[0].nasa_id'>
@@ -17,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: 'SearchInput',
+  name: 'search-input',
   props: {
     value: {
       type: String,
@@ -61,7 +54,6 @@ p {
 .dark {
   color: black;
   border-bottom-color: black;
-
 }
 .dark:focus {
   box-shadow: 0 3px 3px black;

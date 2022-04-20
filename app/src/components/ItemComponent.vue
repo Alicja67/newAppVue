@@ -1,9 +1,9 @@
 <template>
-  <div :style="style" class="item" />
+  <div :style="style" class="item"></div>
 </template>
 <script>
 export default {
-  name: 'ItemComponent',
+  name: 'item-component',
   props: {
     item: {
       type: Object,

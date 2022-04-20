@@ -1,4 +1,4 @@
-version: "3"  # optional since v1.27.
+version: '3' # optional since v1.27.
 services:
   web:
     build:
@@ -7,6 +7,6 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "80:8080"
+      - '80:8080'
     volumes:
       - .:/app

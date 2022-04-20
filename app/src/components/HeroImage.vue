@@ -1,11 +1,10 @@
 <template>
-  <div class="hero-wrapper">
-  </div>
+  <div class="hero-wrapper"></div>
 </template>
 
 <script>
 export default {
-  name: 'HeroImage',
+  name: 'hero-image',
 };
 </script>
 <style lang="scss" scoped>
@@ -13,7 +12,7 @@ export default {
   position: fixed;
   z-index: -1;
   top: 0;
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.1)), url('../assets/moon.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url('../assets/moon.jpg');
   // background-image: url('../assets/moon.jpg');
   background-attachment: fixed;
   background-size: cover;

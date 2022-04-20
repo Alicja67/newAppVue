@@ -1,24 +1,17 @@
 <template>
   <div :class="[{ flexStart: step === 1 }, 'wrapper']">
-    <HeroImage v-if="step === 0"/>
-    <HeaderComponent v-if="step === 0" />
-    <SearchInput
-      v-model="searchValue"
-      @input="handleInput"
-      :dark="step === 1"
-    />
-    <div
-      class="results"
-      v-if="results && !loading && step === 1"
-    >
-      <ItemComponent
-        @click.native="handleModelOpen(item)"
+    <hero-image v-if="step === 0"></hero-image>
+    <header-component v-if="step === 0"></header-component>
+    <search-input v-model="searchValue" @input="handleInput" :dark="step === 1"></search-input>
+    <div class="results" v-if="results && !loading && step === 1">
+      <item-component
+        @click="handleModelOpen(item)"
         v-for="item in results"
         :item="item"
         :key="item.data[0].nasa_id"
-      />
+      ></item-component>
     </div>
-    <ItemModel v-if="modelOpen" :item="modalItem" @closeModel="modelOpen = false" />
+    <item-model v-if="modelOpen" :item="modalItem" @closeModel="modelOpen = false"></item-model>
   </div>
 </template>
 
@@ -34,7 +27,7 @@ import ItemModel from '../components/ItemModel.vue';
 const API = 'https://images-api.nasa.gov';
 
 export default {
-  name: 'SearchView',
+  name: 'search-view',
   components: {
     HeaderComponent,
     SearchInput,
@@ -56,7 +49,8 @@ export default {
     handleInput: debounce(function () {
       console.log(this.searchValue);
       this.loading = true;
-      axios.get(`${API}/search?q=${this.searchValue}&media_type=image`)
+      axios
+        .get(`${API}/search?q=${this.searchValue}&media_type=image`)
         .then((response) => {
           this.results = response.data.collection.items;
           console.log(response.data.collection.items);
@@ -76,30 +70,30 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+<style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    &.flexStart {
-      justify-content: flex-start;
-    }
+  &.flexStart {
+    justify-content: flex-start;
   }
-  .results {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 15px;
-    margin: 30px;
-    margin-top: 50px;
+}
+.results {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+  margin: 30px;
+  margin-top: 50px;
 
-    // @media (min-width: 992px ) {
-    //   grid-template-columns: 1fr 1fr 1fr;
-    //   width: 90%;
-    // }
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
+  // @media (min-width: 992px ) {
+  //   grid-template-columns: 1fr 1fr 1fr;
+  //   width: 90%;
+  // }
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr;
   }
+}
 </style>
