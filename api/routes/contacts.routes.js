@@ -31,16 +31,4 @@ router.post('/send-message', async (req, res) => {
   // }
 });
 
-// router.post('/send-message', async (req, res) => {
-//   const { author, email, title, message } = req.body;
-//   try {
-//     const post = await new Contacts({ author, email, title, message });
-//     const newContact = await post.save();
-//     res.json({message: 'OK', newContact});
-//   } catch(err) {
-//     res.status(500).json({message: err})
-//   }
-//   // res.json(req.body);
-// });
-
 module.exports = router;

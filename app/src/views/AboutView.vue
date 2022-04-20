@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <add-title> </add-title>
     <titles-component> </titles-component>
   </div>
 </template>
@@ -9,11 +10,13 @@
 
 // import axios from 'axios';
 import TitlesComponent from '../components/TitlesComponent.vue';
+import AddTitle from '../components/AddTitle.vue';
 
 export default {
   name: 'about-view',
   components: {
     TitlesComponent,
+    AddTitle,
   },
   // mounted() {
   //   this.getData();

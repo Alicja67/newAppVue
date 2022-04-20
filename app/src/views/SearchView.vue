@@ -5,7 +5,7 @@
     <search-input v-model="searchValue" @input="handleInput" :dark="step === 1"></search-input>
     <div class="results" v-if="results && !loading && step === 1">
       <item-component
-        @click="handleModelOpen(item)"
+        @click:native="handleModelOpen(item)"
         v-for="item in results"
         :item="item"
         :key="item.data[0].nasa_id"

@@ -52,7 +52,12 @@ export default {
         })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
+
       e.preventDefault();
+      this.author = null;
+      this.email = null;
+      this.title = null;
+      this.message = null;
     },
   },
 };

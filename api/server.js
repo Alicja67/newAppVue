@@ -2,6 +2,7 @@ const express = require("express");
 const datasRoutes = require("./routes/datas.routes");
 const linksRoutes = require("./routes/links.routes");
 const contactRoutes = require("./routes/contacts.routes");
+const titlesRoutes = require("./routes/titles.routes");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -22,9 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, '/app/dist')));
 
 //import ROUTES
+app.get("/", (req, res) => {
+  res.send(`This is Alisha's REST API aplication`);
+})
 app.use("/datas", datasRoutes);
 app.use("/links", linksRoutes);
 app.use("/contacts", contactRoutes);
+app.use("/titles", titlesRoutes);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '/app/dist/index.html'));
 // });
