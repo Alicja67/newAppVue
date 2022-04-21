@@ -59,7 +59,7 @@ router.delete("/:id", async (req, res) => {
     const dep = await Links.findById(id);
     if (dep) {
       await Links.deleteOne({ _id: id });
-      res.json({ message: "OK", dep });
+      res.status(204).res.json({ message: "OK", dep });
     } else {
       res.status(404).json({ message: "Not found..." });
     }

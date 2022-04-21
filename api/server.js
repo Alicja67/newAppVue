@@ -3,6 +3,7 @@ const datasRoutes = require("./routes/datas.routes");
 const linksRoutes = require("./routes/links.routes");
 const contactRoutes = require("./routes/contacts.routes");
 const titlesRoutes = require("./routes/titles.routes");
+const titleRoutes = require("./routes/title.routes");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -30,6 +31,7 @@ app.use("/datas", datasRoutes);
 app.use("/links", linksRoutes);
 app.use("/contacts", contactRoutes);
 app.use("/titles", titlesRoutes);
+app.use("/title", titleRoutes);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '/app/dist/index.html'));
 // });

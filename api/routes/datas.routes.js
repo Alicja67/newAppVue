@@ -65,7 +65,7 @@ router.delete("/:id", async (req, res) => {
     const dep = await Datas.findById(id);
     if (dep) {
       const deletedData = await Datas.remove({ _id: id });
-      res.json({ message: "Ok", deletedData });
+      res.status(204).res.json({ message: "Ok", deletedData });
     } else {
       res.status(404).json({ message: "Not found..." });
     }

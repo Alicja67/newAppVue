@@ -1,8 +1,9 @@
 <template>
   <div>
     <h3>All titles related to the space tag</h3>
-    <div class="tags">
-      <div class="tag" v-for="tag in allTags" :key="tag.data[0].nasa_id">{{ tag.data[0].title }}</div>
+    <div class="titles">
+      <div class="title" v-for="one in newTitles" :key="one.id">{{ one }}</div>
+      <div class="title" v-for="title in allTitles" :key="title.data[0].nasa_id">{{ title.data[0].title }}</div>
     </div>
   </div>
 </template>
@@ -12,11 +13,11 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'titles-component',
   methods: {
-    ...mapActions(['fetchTags']),
+    ...mapActions(['fetchTitles']),
   },
-  computed: { ...mapGetters(['allTags']) },
+  computed: { ...mapGetters(['allTitles', 'newTitles']) },
   created() {
-    this.fetchTags();
+    this.fetchTitles();
   },
 };
 </script>
@@ -31,13 +32,13 @@ h3 {
   text-align: center;
   font-size: 35px;
 }
-.tags {
+.titles {
   margin: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
 }
-.tag {
+.title {
   border: 1px solid rgb(231, 210, 210);
   background: #343a46;
   padding: 1rem;
@@ -48,7 +49,7 @@ h3 {
   transition: 0.5s;
   // font-family: 'Hubballi', cursive;
 }
-.tag:hover {
+.title:hover {
   background: #25272c;
 }
 </style>

@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import tags from './modules/tags';
+import titles from './modules/titles';
 
 //Load Vuex
 Vue.use(Vuex);
 
 //Create store
-export default new Vuex.Store({ modules: { tags } });
+export default new Vuex.Store({ modules: { titles } });

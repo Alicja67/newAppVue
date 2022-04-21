@@ -2,7 +2,7 @@
   <div>
     <!-- <h3>Add new title</h3> -->
     <div class="add">
-      <form>
+      <form @submit="onSubmit">
         <input type="text" v-model="title" placeholder="Add new title..." />
         <input type="submit" value="Submit" />
       </form>
@@ -11,10 +11,16 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
+
 export default {
   name: 'add-title',
   methods: {
-    ...mapActions('addTitles'),
+    ...mapActions(['addTitle']),
+    onSubmit(e) {
+      e.preventDefault();
+      this.addTitle(this.title);
+      this.title = '';
+    },
   },
   date() {
     return {

@@ -6,27 +6,29 @@ import axios from 'axios';
 
 const state = {
   titles: [],
+  newTitles: [],
 };
 
 const getters = {
-  allTags: (state) => state.titles,
+  allTitles: (state) => state.titles,
+  newTitles: (state) => state.newTitles,
 };
 
 const actions = {
-  async fetchTags({ commit }) {
+  async fetchTitles({ commit }) {
     const response = await axios.get('https://images-api.nasa.gov/search?q=space&media_type=image');
     console.log(response.data.collection.items);
-    commit('setTitles', response.data.collection.items);
+    commit('SET_TITLE', response.data.collection.items);
   },
   async addTitle({ commit }, title) {
-    const response = await axios.post('http://localhost:3000/contacts', { title, completed: false });
-    commit('newTitle', response.data);
+    const response = await axios.post('http://localhost:3000/title', { title });
+    commit('NEW_TITLE', response.data.newTitle.title);
   },
 };
 
 const mutations = {
-  setTitles: (state, titles) => (state.titles = titles),
-  newTitle: (state, title) => state.titles.unshift(title),
+  SET_TITLE: (state, titles) => (state.titles = titles),
+  NEW_TITLE: (state, title) => state.newTitles.push(title),
 };
 
 export default {
