@@ -20,15 +20,26 @@ const actions = {
     console.log(response.data.collection.items);
     commit('SET_TITLE', response.data.collection.items);
   },
+  async fetchNewTitles({ commit }) {
+    const response = await axios.get('http://localhost:3000/titles');
+    console.log(response.data);
+    commit('SET_NEWTITLES', response.data);
+  },
   async addTitle({ commit }, title) {
     const response = await axios.post('http://localhost:3000/title', { title });
-    commit('NEW_TITLE', response.data.newTitle.title);
+    commit('NEW_TITLE', response.data.newTitle);
+  },
+  async deleteTitle({ commit }, id) {
+    const response = await axios.delete(`http://localhost:3000/title/${id}`);
+    commit('DELETE_TITLE', id);
   },
 };
 
 const mutations = {
   SET_TITLE: (state, titles) => (state.titles = titles),
-  NEW_TITLE: (state, title) => state.newTitles.push(title),
+  SET_NEWTITLES: (state, newTitles) => (state.newTitles = newTitles),
+  NEW_TITLE: (state, title) => state.newTitles.unshift(title),
+  DELETE_TITLE: (state, id) => (state.newTitles = state.newTitles.filter((title) => title._id !== id)),
 };
 
 export default {

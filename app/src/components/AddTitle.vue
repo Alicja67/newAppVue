@@ -14,18 +14,18 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'add-title',
+  date() {
+    return {
+      title: '',
+    };
+  },
   methods: {
-    ...mapActions(['addTitle']),
+    ...mapActions(['addTitle', 'fetchNewTitles']),
     onSubmit(e) {
       e.preventDefault();
       this.addTitle(this.title);
       this.title = '';
     },
-  },
-  date() {
-    return {
-      title: '',
-    };
   },
 };
 </script>

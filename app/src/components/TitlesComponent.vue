@@ -2,7 +2,11 @@
   <div>
     <h3>All titles related to the space tag</h3>
     <div class="titles">
-      <div class="title" v-for="one in newTitles" :key="one.id">{{ one }}</div>
+      <div class="title" v-for="one in newTitles" :key="one._id">
+        {{ one.title }}
+        <i @click="updateTitle(one._id)" class="fa-solid fa-pen"></i>
+        <i @click="deleteTitle(one._id)" class="fa-solid fa-trash"></i>
+      </div>
       <div class="title" v-for="title in allTitles" :key="title.data[0].nasa_id">{{ title.data[0].title }}</div>
     </div>
   </div>
@@ -13,11 +17,12 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'titles-component',
   methods: {
-    ...mapActions(['fetchTitles']),
+    ...mapActions(['fetchTitles', 'fetchNewTitles', 'deleteTitle']),
   },
   computed: { ...mapGetters(['allTitles', 'newTitles']) },
   created() {
     this.fetchTitles();
+    this.fetchNewTitles();
   },
 };
 </script>
@@ -51,5 +56,17 @@ h3 {
 }
 .title:hover {
   background: #25272c;
+}
+i {
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+}
+i[class*='trash'] {
+  top: 30px;
+}
+i[class*='pen'] {
+  top: 5px;
 }
 </style>
