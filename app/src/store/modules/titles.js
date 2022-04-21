@@ -1,6 +1,7 @@
 // import axios from 'axios';
 
 import axios from 'axios';
+import { title } from 'process';
 
 // import store from "store";
 
@@ -33,6 +34,13 @@ const actions = {
     const response = await axios.delete(`http://localhost:3000/title/${id}`);
     commit('DELETE_TITLE', id);
   },
+  async updateTitle({ commit }, data) {
+    const { id, title } = data;
+    const response = await axios.put(`http://localhost:3000/title/${id}`, { title: title });
+    console.log('respomnse', response);
+
+    commit('UPDATE_TITLE', { id: response.data._id, title: response.data.title });
+  },
 };
 
 const mutations = {
@@ -40,6 +48,16 @@ const mutations = {
   SET_NEWTITLES: (state, newTitles) => (state.newTitles = newTitles),
   NEW_TITLE: (state, title) => state.newTitles.unshift(title),
   DELETE_TITLE: (state, id) => (state.newTitles = state.newTitles.filter((title) => title._id !== id)),
+  UPDATE_TITLE: (state, data) => {
+    const { id, title } = data;
+    return state.newTitles.map((o) => {
+      if (o._id === id) {
+        o.title = title;
+      }
+
+      return o;
+    });
+  },
 };
 
 export default {

@@ -43,7 +43,7 @@ router.put("/:id", async (req, res) => {
     const dep = await Links.findById(id);
     if (dep) {
       const editedLink = await Links.updateOne({ _id: id }, { $set: { href } });
-      res.json({ message: "OK", editedLink });
+      res.status(201).json({ message: "OK", editedLink });
     } else {
       res.status(404).json({ message: "Not found..." });
     }
