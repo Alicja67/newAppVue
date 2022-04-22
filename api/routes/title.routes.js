@@ -31,10 +31,11 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const dep = await Titles.findById(id);
+    let dep = await Titles.findById(id);
     if (dep) {
       const editedLink = await Titles.updateOne({ _id: id }, { $set: { title } });
-      res.status(200).json({ message: "ok", editedLink });
+      dep = await Titles.findById(id);
+      res.status(200).json(dep);
     } else {
       res.status(404).json({ message: "Not found..." });
     }

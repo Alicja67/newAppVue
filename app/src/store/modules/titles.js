@@ -18,12 +18,12 @@ const getters = {
 const actions = {
   async fetchTitles({ commit }) {
     const response = await axios.get('https://images-api.nasa.gov/search?q=space&media_type=image');
-    console.log(response.data.collection.items);
+    // console.log(response.data.collection.items);
     commit('SET_TITLE', response.data.collection.items);
   },
   async fetchNewTitles({ commit }) {
     const response = await axios.get('http://localhost:3000/titles');
-    console.log(response.data);
+    // console.log(response.data);
     commit('SET_NEWTITLES', response.data);
   },
   async addTitle({ commit }, title) {
@@ -37,7 +37,6 @@ const actions = {
   async updateTitle({ commit }, data) {
     const { id, title } = data;
     const response = await axios.put(`http://localhost:3000/title/${id}`, { title: title });
-    console.log('respomnse', response);
 
     commit('UPDATE_TITLE', { id: response.data._id, title: response.data.title });
   },

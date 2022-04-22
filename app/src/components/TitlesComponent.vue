@@ -4,20 +4,15 @@
     <div class="titles" v-if="!editing">
       <div class="title" v-for="one in newTitles" :key="one._id">
         {{ one.title }}
-        <i
-          @click="updatingTitle(one, title)"
-          v-bind="titleText"
-          @change="titleTextChange"
-          :class="[editig ? duringEditingClass : editClass]"
-        ></i>
+        <i @click="updatingTitle(one)" v-bind="titleText" :class="[editig ? duringEditingClass : editClass]"></i>
         <i @click="deleteTitle(one._id)" class="fa-solid fa-trash"></i>
       </div>
       <div class="title" v-for="title in allTitles" :key="title.data[0].nasa_id">{{ title.data[0].title }}</div>
     </div>
-    <div v-else>
-      <input v-model="titleText" type="text" class="form-control" />
-      <button type="button" @click="updateTitleAction(currentTitle)">
-        <span>×</span>
+    <div v-else class="form-control">
+      <input v-model="titleText" type="text" class="form-control-input" placeholder="Update your title" />
+      <button type="button" @click="updateTitleAction(currentData)" class="form-control-button">
+        <span>Update</span>
       </button>
     </div>
   </div>
@@ -29,32 +24,25 @@ export default {
   name: 'titles-component',
   data() {
     return {
-      currentTitle: {},
+      currentData: {},
       editing: false,
-      titleText: 'ddd',
+      titleText: '',
       editClass: 'fa-solid fa-pen',
       duringEditingClass: 'fa-solid fa-pen-field',
     };
   },
   methods: {
     ...mapActions(['fetchTitles', 'fetchNewTitles', 'deleteTitle', 'updateTitle']),
-    titleTextChange(e) {
-      this.textTitle = e.target.value;
-    },
-    updatingTitle(data, title) {
-      this.currentTitle = { id: data._id, title: this.titleText };
-
+    updatingTitle(data) {
+      this.currentData = { id: data._id, title: '' };
       this.editing = !this.editing;
-      console.log('title', this.titleText);
-      if (this.editing) {
-        this.titleText = title.title;
-      }
     },
     updateTitleAction(data) {
-      // const { id, title } = data;
-      console.log('data', data);
-      console.log('textTile', this.textTitle);
-      this.updateTitle(data);
+      const { id, title } = data;
+      this.currentData = { ...{ id: data.id, title: this.titleText } };
+      this.editing = !this.editing;
+      this.updateTitle(this.currentData);
+      this.titleText = '';
     },
   },
   computed: { ...mapGetters(['allTitles', 'newTitles']) },
@@ -79,7 +67,8 @@ h3 {
   margin: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1rem;
 }
 .title {
   border: 1px solid rgb(231, 210, 210);
@@ -106,5 +95,23 @@ i[class*='trash'] {
 }
 i[class*='pen'] {
   top: 5px;
+}
+.form-control {
+  display: flex;
+  margin: 200px 200px;
+  border-radius: 5px;
+  .form-control-input {
+    flex: 10;
+    padding: 10px;
+    border: 1px solid #2e3035;
+    cursor: pointer;
+  }
+  .form-control-button {
+    cursor: pointer;
+    background: #36383b;
+    color: #fff;
+    flex: 2;
+    border: 1px solid #33394b;
+  }
 }
 </style>
