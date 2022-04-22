@@ -4,8 +4,9 @@ const linksRoutes = require("./routes/links.routes");
 const contactRoutes = require("./routes/contacts.routes");
 const titlesRoutes = require("./routes/titles.routes");
 const titleRoutes = require("./routes/title.routes");
-const path = require("path");
+// const path = require("path");
 const cors = require("cors");
+const morgan = require('morgan');
 const mongoose = require("mongoose");
 require("dotenv/config");
 
@@ -21,6 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
 // app.use(express.static(path.join(__dirname, '/app/dist')));
 
 //import ROUTES
@@ -36,22 +38,24 @@ app.use("/title", titleRoutes);
 //   res.sendFile(path.join(__dirname, '/app/dist/index.html'));
 // });
 
-app.use((req, res) => {
-  res.status(404).send({
-    message: "Not found...",
-    status: 404,
-  });
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+    }
+  })
 });
 
 // Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, () => {
   console.log("Connected to DB");
 });
-// mongoose.connect(
-//   'mongodb://mongo:27017/docker-node-mongo',
-//   { useNewUrlParser: true }
-// )
-// .then(()=> console.log('MongoDB connecion'))
-// .catch(err => console.log(err));
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
