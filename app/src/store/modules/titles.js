@@ -27,8 +27,24 @@ const actions = {
     commit('SET_NEWTITLES', response.data);
   },
   async addTitle({ commit }, title) {
-    const response = await axios.post('http://localhost:3000/title', { title });
-    commit('NEW_TITLE', response.data);
+    try {
+      const response = await axios.post('http://localhost:3000/title', { title });
+      console.log(response.data);
+      commit('NEW_TITLE', response.data);
+    } catch (error) {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+    }
   },
   async deleteTitle({ commit }, id) {
     const response = await axios.delete(`http://localhost:3000/title/${id}`);

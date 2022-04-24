@@ -16,11 +16,11 @@ export default {
   name: 'add-title',
   date() {
     return {
-      title: '',
+      title: null,
     };
   },
   methods: {
-    ...mapActions(['addTitle', 'fetchNewTitles']),
+    ...mapActions(['addTitle']),
     onSubmit(e) {
       e.preventDefault();
       this.addTitle(this.title);
@@ -45,7 +45,8 @@ input[type='text'] {
 input[type='submit'] {
   cursor: pointer;
   background: #36383b;
-  color: #fff;
+  color: rgb(139, 142, 155);
+  font-size: 1.1rem;
   flex: 2;
   border: 1px solid #33394b;
   border-top-right-radius: 5px;
