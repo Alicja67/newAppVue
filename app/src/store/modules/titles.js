@@ -37,9 +37,11 @@ const actions = {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+        alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
+        alert(error);
       } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
