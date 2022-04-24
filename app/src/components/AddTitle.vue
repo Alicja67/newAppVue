@@ -24,7 +24,7 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       this.addTitle(this.title);
-      this.title = '';
+      this.title = null;
     },
   },
 };
@@ -33,12 +33,13 @@ export default {
 form {
   display: flex;
   margin: 50px 200px;
-  border-radius: 5px;
 }
 input[type='text'] {
   flex: 10;
   padding: 10px;
   border: 1px solid #2e3035;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   cursor: pointer;
 }
 input[type='submit'] {
@@ -47,5 +48,8 @@ input[type='submit'] {
   color: #fff;
   flex: 2;
   border: 1px solid #33394b;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
 }
 </style>

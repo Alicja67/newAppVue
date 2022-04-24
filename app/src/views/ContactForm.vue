@@ -41,10 +41,10 @@ export default {
   },
   methods: {
     submitForm(e) {
-      console.log(this.posts);
-      console.log('Button is clicked');
+      // console.log(this.posts);
+      // console.log('Button is clicked');
       axios
-        .post('http://localhost:3000/contacts/send-message', {
+        .post('http://localhost:3000/contact/send-message', {
           author: this.author,
           email: this.email,
           title: this.title,

@@ -28,7 +28,7 @@ const actions = {
   },
   async addTitle({ commit }, title) {
     const response = await axios.post('http://localhost:3000/title', { title });
-    commit('NEW_TITLE', response.data.newTitle);
+    commit('NEW_TITLE', response.data);
   },
   async deleteTitle({ commit }, id) {
     const response = await axios.delete(`http://localhost:3000/title/${id}`);
@@ -53,7 +53,6 @@ const mutations = {
       if (o._id === id) {
         o.title = title;
       }
-
       return o;
     });
   },
