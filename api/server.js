@@ -47,11 +47,5 @@ app.use((req, res) => {
 mongoose.connect(process.env.DB_CONNECTION, () => {
   console.log("Connected to DB");
 });
-// mongoose.connect(
-//   'mongodb://mongo:27017/docker-node-mongo',
-//   { useNewUrlParser: true }
-// )
-// .then(()=> console.log('MongoDB connecion'))
-// .catch(err => console.log(err));
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

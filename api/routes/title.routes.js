@@ -7,7 +7,9 @@ const router = express.Router();
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    res.json(await Titles.findById(id));
+    const data = await Titles.findById(id);
+    if(!data) res.status(404).json({message: 'Data not found. No valid ID'})
+    res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -33,10 +35,10 @@ router.put("/:id", async (req, res) => {
   try {
     const dep = await Titles.findById(id);
     if (dep) {
-      const editedLink = await Titles.updateOne({ _id: id }, { $set: { title } });
-      res.status(200).json({ message: "ok", editedLink });
+      const updatedTitle = await Titles.updateOne({ _id: id }, { $set: { title } });
+      res.status(200).json(updatedTitle);
     } else {
-      res.status(404).json({ message: "Not found..." });
+      res.status(404).json({ message: 'Data not found. No valid ID' });
     }
   } catch (err) {
     res.status(500).json({ message: err });
