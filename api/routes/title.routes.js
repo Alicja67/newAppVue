@@ -21,7 +21,11 @@ router.post("/", async (req, res) => {
   try {
     const post = new Titles({ title });
     const newTitle = await post.save();
-    res.send({ newTitle });
+    if(newTitle){
+      res.status(201).send({ newTitle });
+    } else {
+      res.status(500)
+    }
   } catch (err) {
     res.status(400).json({ error: err.message || err.toString() });
   }
@@ -33,7 +37,7 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const dep = await Titles.findById(id);
+    let dep = await Titles.findById(id);
     if (dep) {
       const updatedTitle = await Titles.updateOne({ _id: id }, { $set: { title } });
       res.status(200).json(updatedTitle);
