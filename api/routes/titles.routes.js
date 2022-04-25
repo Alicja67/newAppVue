@@ -3,12 +3,32 @@ const Titles = require('../models/titles.model');
 
 const router = express.Router();
 
-//GET ALL CONTACTS
+//GET ALL TITLES
 router.get('/', async (req, res) => {
-  // res.json(db.links);
-  // console.log("All titles");
+  const allData = await Titles.find();
+  console.log(allData);
   try {
-    res.status(200).json(await Titles.find());
+    if(allData !== Array.isArray([])) {
+      res.status(404).json({message: 'Data not found'});
+    } else {
+      res.status(200).json(allData);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+});
+
+//DELETE ALL TITLES
+router.delete('/', async (req, res) => {
+  const data = await Titles.find();
+  console.log(data);
+  try {
+    if(data !== Array.isArray([])) {
+      res.status(404).json({ message: 'Data not found.' });
+    } else {
+      await Titles.deleteMany();
+      res.status(204).json({ message: 'All data were deleted' });
+    }
   } catch (err) {
     res.status(500).json({ message: err });
   }
