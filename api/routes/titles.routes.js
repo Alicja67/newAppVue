@@ -5,10 +5,10 @@ const router = express.Router();
 
 //GET ALL TITLES
 router.get('/', async (req, res) => {
-  const allData = await Titles.find();
-  console.log(allData);
   try {
-    if(allData !== Array.isArray([])) {
+    const allData = await Titles.find();
+    console.log(allData.length);
+    if(allData.length === 0) {
       res.status(404).json({message: 'Data not found'});
     } else {
       res.status(200).json(allData);
@@ -20,10 +20,11 @@ router.get('/', async (req, res) => {
 
 //DELETE ALL TITLES
 router.delete('/', async (req, res) => {
-  const data = await Titles.find();
-  console.log(data);
   try {
-    if(data !== Array.isArray([])) {
+    const data = await Titles.find();
+    console.log(data);
+    console.log(data.length);
+    if(data.length === 0) {
       res.status(404).json({ message: 'Data not found.' });
     } else {
       await Titles.deleteMany();

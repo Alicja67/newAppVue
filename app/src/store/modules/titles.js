@@ -20,7 +20,7 @@ const actions = {
     try {
       const response = await axios.get('https://images-api.nasa.gov/search?q=space&media_type=image');
       commit('SET_TITLE', response.data.collection.items);
-      console.log(response.data.collection.items);
+      // console.log(response.data.collection.items);
     } catch (error) {
       if (error.response) {
         // Request made and server responded
@@ -48,7 +48,6 @@ const actions = {
         // Request made and server responded
         console.log(error.response.data.message);
         console.log(error.response.status);
-        console.log(error.response.headers);
         // alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
@@ -117,19 +116,18 @@ const actions = {
     try {
       const response = await axios.delete(`http://localhost:3000/titles`);
       commit('DELETE_ALL_TITLES');
+      console.log(response.data);
     } catch (error) {
       if (error.response) {
         // Request made and server responded
         console.log(error.response.data.message);
         console.log(error.response.status);
-        console.log(error.response.headers);
-        alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
         alert(error);
         setTimeout(function () {
-          commit('UPDATE_TITLE', { id: response.data._id, title: response.data.title });
+          commit('DELETE_ALL_TITLES');
         }, 2000);
       } else {
         // Something happened in setting up the request that triggered an Error
@@ -170,7 +168,7 @@ const mutations = {
   SET_NEWTITLES: (state, newTitles) => (state.newTitles = newTitles),
   NEW_TITLE: (state, title) => state.newTitles.unshift(title),
   DELETE_TITLE: (state, id) => (state.newTitles = state.newTitles.filter((title) => title._id !== id)),
-  DELETE_ALL_TITLES: (state) => (state.newTitles = []),
+  DELETE_ALL_TITLES: (state, data) => (state.newTitles = []),
   UPDATE_TITLE: (state, data) => {
     const { id, title } = data;
     return state.newTitles.map((o) => {

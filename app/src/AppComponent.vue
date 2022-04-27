@@ -2,9 +2,9 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link>
-      <span> . </span>
+      <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/about">About</router-link>
-      <span> . </span>
+      <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/contacts">Contact</router-link>
     </nav>
     <router-view></router-view>
@@ -28,5 +28,8 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
+}
+span {
+  white-space: nowrap;
 }
 </style>

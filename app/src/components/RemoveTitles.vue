@@ -1,6 +1,6 @@
 <template>
-  <form @submit="onSubmit">
-    <button class="remove-button">Remove all added titles</button>
+  <form>
+    <button @click="handleDelete" class="remove-button" type>Remove all added titles</button>
   </form>
 </template>
 <script>
@@ -8,6 +8,14 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'remove-titles',
+  methods: {
+    ...mapActions(['deleteAllTitles']),
+    handleDelete(e) {
+      e.preventDefault();
+      console.log(e);
+      this.deleteAllTitles();
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

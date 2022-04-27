@@ -16,7 +16,7 @@ export default {
   name: 'add-title',
   date() {
     return {
-      title: null,
+      title: '',
     };
   },
   methods: {
@@ -24,7 +24,7 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       this.addTitle(this.title);
-      this.title = null;
+      this.title = '';
     },
   },
 };
@@ -52,5 +52,6 @@ input[type='submit'] {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 10px;
+  border: 1px solid #b0b1b3;
 }
 </style>
