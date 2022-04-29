@@ -3,6 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import SearchView from '../views/SearchView.vue';
 import ContactForm from '../views/ContactForm.vue';
+import SpaceVisitors from '../views/SpaceVisitors.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/contacts',
     name: 'contacts',
     component: ContactForm,
+  },
+  {
+    path: '/visitors',
+    name: 'visitors',
+    component: SpaceVisitors,
   },
 ];
 

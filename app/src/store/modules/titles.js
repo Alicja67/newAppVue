@@ -1,47 +1,23 @@
 import axios from 'axios';
 
 const state = {
-  titles: [],
   newTitles: [],
   nasaData: [],
 };
 
 const getters = {
-  allTitles: (state) => state.titles,
   newTitles: (state) => state.newTitles,
   nasaData: (state) => state.nasaData,
 };
 
 const actions = {
-  async fetchTitles({ commit }, searchValue) {
-    try {
-      const response = await axios.get('https://images-api.nasa.gov/search?q=space&media_type=image');
-      commit('SET_TITLE', response.data.collection.items);
-      // console.log(response.data.collection.items);
-    } catch (error) {
-      if (error.response) {
-        // Request made and server responded
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-        // alert(error.response.data);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.log(error.request);
-        alert(error);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-    }
-  },
   async fetchNasaData({ commit }, searchValue) {
     const API = 'https://images-api.nasa.gov';
     try {
       const response = await axios.get(`${API}/search?q=${searchValue}&media_type=image`);
       // const debounceResponde = debounce(response);
       commit('SET_NASA', response.data.collection.items);
-      console.log('set-nasa', response.data.collection.items);
+      // console.log('set-nasa', response.data.collection.items);
     } catch (error) {
       if (error.response) {
         // Request made and server responded
@@ -53,33 +29,15 @@ const actions = {
         // The request was made but no response was received
         console.log(error.request);
         alert(error);
+        setTimeout(function () {
+          commit('SET_NASA', response.data.collection.items);
+        }, 2000);
       } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
       }
     }
   },
-  // async fetchTitles({ commit }, results) {
-  //   try {
-  //     console.log('results in titles', results);
-  //     commit('SET_TITLE', results);
-  //   } catch (error) {
-  //     if (error.response) {
-  //       // Request made and server responded
-  //       console.log(error.response.data);
-  //       console.log(error.response.status);
-  //       console.log(error.response.headers);
-  //       // alert(error.response.data);
-  //     } else if (error.request) {
-  //       // The request was made but no response was received
-  //       console.log(error.request);
-  //       alert(error);
-  //     } else {
-  //       // Something happened in setting up the request that triggered an Error
-  //       console.log('Error', error.message);
-  //     }
-  //   }
-  // },
   async fetchNewTitles({ commit }) {
     try {
       const response = await axios.get('http://localhost:3000/titles');
@@ -206,7 +164,7 @@ const actions = {
 };
 
 const mutations = {
-  SET_TITLE: (state, titles) => (state.titles = titles),
+  // SET_TITLE: (state, titles) => (state.titles = titles),
   SET_NASA: (state, nasaData) => (state.nasaData = nasaData),
   SET_NEWTITLES: (state, newTitles) => (state.newTitles = newTitles),
   NEW_TITLE: (state, title) => state.newTitles.unshift(title),
@@ -221,6 +179,8 @@ const mutations = {
       return o;
     });
   },
+  SET_CONTACTS: (state, contacts) => (state.contacts = contacts),
+  NEW_CONTACT: (state, contact) => state.contacts.unshift(contact),
   // SET_ERROR: (state, errors) => (state.errors = errors),
 };
 

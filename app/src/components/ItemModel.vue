@@ -57,7 +57,7 @@ export default {
   width: 50%;
   // height: 80%;
   position: fixed;
-  background: rgb(248, 245, 245);
+  background: rgb(238, 234, 234);
   top: 20px;
   // left: 20px;
   // border: 4px solid rgb(212, 208, 208);
@@ -98,6 +98,7 @@ export default {
   }
   .subtitle {
     font-size: 25px;
+    margin: 0 20px 20px 20px;
   }
 }
 .close {

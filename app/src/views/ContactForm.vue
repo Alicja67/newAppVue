@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <h2>Contact me</h2>
-    <form method="post" @submit="submitForm">
+  <div class="wrapper">
+    <h2>Do you want to become a space mission member?</h2>
+    <i class="fa-solid fa-user-astronaut"></i>
+    <i class="fa-solid fa-user-astronaut"></i>
+    <i class="fa-solid fa-user-astronaut"></i>
+    <h3>What gifts will you take for Marsjans on your first space mission to The Red Planet?</h3>
+    <form method="post" @submit="onSubmit">
       <label for="author"> Your name: <input type="text" name="author" v-model="author" required /> </label>
       <label for="email"> Your email: <input type="email" name="email" v-model="email" required /> </label>
       <label for="title"> Title: <input type="text" name="title" v-model="title" required /> </label>
@@ -12,17 +16,15 @@
         </label>
       </div> -->
       <div class="submit-form">
-        <button type="submit">Send message</button>
+        <button type="submit">Sign up</button>
       </div>
     </form>
-    <div>
-      <p>Sender: {{ author }}</p>
-    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'contact-form',
@@ -40,32 +42,43 @@ export default {
     };
   },
   methods: {
-    submitForm(e) {
-      // console.log(this.posts);
-      // console.log('Button is clicked');
-      axios
-        .post('http://localhost:3000/contact/send-message', {
-          author: this.author,
-          email: this.email,
-          title: this.title,
-          message: this.message,
-        })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-
+    ...mapActions(['addContact']),
+    onSubmit(e) {
       e.preventDefault();
-      this.author = null;
-      this.email = null;
-      this.title = null;
-      this.message = null;
+      this.addContact({
+        author: this.author,
+        email: this.email,
+        title: this.title,
+        message: this.message,
+      });
+      this.title = '';
     },
+    // submitForm(e) {
+    //   // console.log(this.posts);
+    //   // console.log('Button is clicked');
+    //   axios
+    //     .post('http://localhost:3000/contact/send-message', {
+    //       author: this.author,
+    //       email: this.email,
+    //       title: this.title,
+    //       message: this.message,
+    //     })
+    //     .then((res) => console.log(res))
+    //     .catch((err) => console.log(err));
+
+    //   e.preventDefault();
+    //   this.author = null;
+    //   this.email = null;
+    //   this.title = null;
+    //   this.message = null;
+    // },
   },
 };
 </script>
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
 
-div {
+.wrapper {
   background: #343a46;
   color: #fff;
   padding: 30px;
@@ -73,6 +86,7 @@ div {
   // font-family: 'Hubballi', cursive;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
+  height: 100vh;
 }
 form {
   display: flex;
@@ -136,5 +150,17 @@ input[type='checkbox'] {
 .submit-form {
   display: flex;
   justify-content: right;
+}
+h2 {
+  font-size: 3rem;
+  margin: 50px 0 50px 0;
+}
+h3 {
+  margin-bottom: 50px;
+}
+i {
+  color: white;
+  font-size: 2rem;
+  margin: 0 0 50px 0;
 }
 </style>

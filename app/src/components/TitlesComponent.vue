@@ -10,7 +10,6 @@
       <div class="title" v-for="nasaTitle in nasaData" :key="nasaTitle.data[0].nasa_id">
         {{ nasaTitle.data[0].title }}
       </div>
-      <!-- <div class="title" v-for="title in allTitles" :key="title.data[0].nasa_id">{{ title.data[0].title }}</div> -->
     </div>
     <div v-else class="form-control">
       <input v-model="titleText" type="text" class="form-control-input" placeholder="Update your title" />
@@ -35,7 +34,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['fetchTitles', 'fetchNewTitles', 'deleteTitle', 'updateTitle']),
+    ...mapActions(['fetchNewTitles', 'deleteTitle', 'updateTitle', 'nasaData']),
     updatingTitle(data) {
       this.currentData = { id: data._id, title: '' };
       this.editing = !this.editing;
@@ -50,7 +49,6 @@ export default {
   },
   computed: { ...mapGetters(['allTitles', 'newTitles', 'nasaData']) },
   created() {
-    this.fetchTitles();
     this.fetchNewTitles();
     this.nasaData();
   },

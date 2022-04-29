@@ -5,7 +5,9 @@
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/tag">Your tag</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
-      <router-link to="/contacts">Contact</router-link>
+      <router-link to="/visitors">Space Members</router-link>
+      <span>&#160; &#160; &#160; &#160;</span>
+      <router-link to="/contacts">Sign up</router-link>
     </nav>
     <router-view></router-view>
   </div>
