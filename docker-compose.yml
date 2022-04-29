@@ -1,12 +1,40 @@
 version: "3"  # optional since v1.27.
 services:
-  web:
+  app:
+    container_name: app
     build:
-      context: ./
+      context: ./app
       dockerfile: Dockerfile
+    image: ala/app:latest
     stdin_open: true
     tty: true
     ports:
-      - "8081:8080"
+      - "80:8080"
     volumes:
-      - .:/app
+      - ./app:/app
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: ala/api:latest
+      # volumes:
+      # - ./:/code
+    # stdin_open: true
+    # tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api:/api
+    # links:
+    #   - mongo
+    #   - app
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+#     volumes:
+#       - mongodb:/data/db
+# volumes:
+#   mongodb:
