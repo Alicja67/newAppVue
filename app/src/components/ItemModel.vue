@@ -1,26 +1,26 @@
 <template>
   <div class="outer-wrapper">
-    <div class="inner-wrapper">
+    <div class="photo-part">
       <div class="photo">
         <img :src="photo" alt="albedo" />
       </div>
-      <div class="description">
-        <h2 class="title">{{ title }}</h2>
-        <p class="subtitle">
-          {{ description }}
-        </p>
-        <!-- <p>Tags:</p> -->
-        <div class="tags">
-          Tags:
-          <ul class="tags" v-for="tag in tags" :key="tag">
-            <li>{{ tag }}</li>
-          </ul>
-        </div>
+      <button type="button" class="close" @click="$emit('closeModel')">
+        <span>×</span>
+      </button>
+    </div>
+    <div class="description">
+      <h2 class="title">{{ title }}</h2>
+      <p class="subtitle">
+        {{ description }}
+      </p>
+      <!-- <p>Tags:</p> -->
+      <div class="tags">
+        Tags:
+        <ul class="tag" v-for="tag in tags" :key="tag">
+          <li>{{ tag }}</li>
+        </ul>
       </div>
     </div>
-    <button type="button" class="close" @click="$emit('closeModel')">
-      <span>×</span>
-    </button>
   </div>
 </template>
 <script>
@@ -62,8 +62,10 @@ export default {
   // left: 20px;
   // border: 4px solid rgb(212, 208, 208);
   box-shadow: 0 30px 30px -10px rgba(71, 65, 65, 0.3);
+  border: 4px solid white;
+  border-radius: 5px;
 }
-.inner-wrapper {
+.photo-part {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,6 +79,9 @@ export default {
   width: 300px;
   height: 300px;
   background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     max-width: 100%;
     max-height: 100%;
@@ -84,8 +89,9 @@ export default {
 }
 .description {
   // position: absolute;
+  background: black;
   text-align: center;
-  margin-top: 30px;
+  padding-top: 30px;
   .title {
     font-size: 30px;
     text-transform: uppercase;
@@ -98,15 +104,23 @@ export default {
   position: absolute;
   top: 20px;
   right: 20px;
-  color: black;
+  color: rgb(241, 238, 238);
   font-size: 20px;
   border: none;
   transition: 0.5s;
+  background: black;
+  border-radius: 5px;
 }
 .close:hover {
   color: grey;
 }
 .tags {
+  list-style-type: none;
+  text-align: left;
+  // margin: 20px;
+  padding: 0 0 20px 20px;
+}
+.tag {
   list-style-type: none;
   text-align: left;
   margin: 0;
