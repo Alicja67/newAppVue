@@ -1,9 +1,9 @@
 /* eslint-disable */
 <template>
   <div class="header-wrapper">
-    <h1 class="title">Kosmiczny spacer</h1>
-    <p class="subtitle">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-    <p class="subtitle">Lorem Ipsum is simply dummy text.</p>
+    <h1 class="title">Space walk</h1>
+    <p class="subtitle-one">Nasa shows amazing photos from the farthest places of space.</p>
+    <p class="subtitle">Where do you want to go?</p>
   </div>
 </template>
 <script>
@@ -22,11 +22,12 @@ export default {
   padding-top: 180px;
 }
 .title {
-  font-size: 4rem;
+  font-size: 5.5rem;
   text-transform: uppercase;
   font-weight: bold;
 }
-.subtitle:last-child {
+.subtitle-one {
   font-weight: bold;
+  font-size: 1.3rem;
 }
 </style>

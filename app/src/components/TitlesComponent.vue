@@ -7,7 +7,10 @@
         <i @click="updatingTitle(one)" v-bind="titleText" :class="[editig ? duringEditingClass : editClass]"></i>
         <i @click="deleteTitle(one._id)" class="fa-solid fa-trash"></i>
       </div>
-      <div class="title" v-for="title in allTitles" :key="title.data[0].nasa_id">{{ title.data[0].title }}</div>
+      <div class="title" v-for="nasaTitle in nasaData" :key="nasaTitle.data[0].nasa_id">
+        {{ nasaTitle.data[0].title }}
+      </div>
+      <!-- <div class="title" v-for="title in allTitles" :key="title.data[0].nasa_id">{{ title.data[0].title }}</div> -->
     </div>
     <div v-else class="form-control">
       <input v-model="titleText" type="text" class="form-control-input" placeholder="Update your title" />
@@ -45,10 +48,11 @@ export default {
       this.titleText = '';
     },
   },
-  computed: { ...mapGetters(['allTitles', 'newTitles']) },
+  computed: { ...mapGetters(['allTitles', 'newTitles', 'nasaData']) },
   created() {
-    // this.fetchTitles();
+    this.fetchTitles();
     this.fetchNewTitles();
+    this.nasaData();
   },
 };
 </script>

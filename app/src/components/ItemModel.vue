@@ -45,7 +45,7 @@ export default {
   },
   mounted() {
     this.photo = this.item.links[0].href;
-    this.description = this.item.data[0].description.substring(0, 200);
+    this.description = this.item.data[0].description.substring(0, 100);
     this.title = this.item.data[0].title;
     this.tags = this.item.data[0].keywords;
   },
@@ -54,8 +54,8 @@ export default {
 
 <style lang="scss" scoped>
 .outer-wrapper {
-  max-width: 60%;
-  max-height: 80%;
+  width: 50%;
+  // height: 80%;
   position: fixed;
   background: rgb(248, 245, 245);
   top: 20px;
@@ -78,8 +78,8 @@ export default {
   height: 300px;
   background: black;
   img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 .description {

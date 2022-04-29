@@ -13,8 +13,8 @@ const routes = [
     component: SearchView,
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/tag',
+    name: 'tag',
     component: AboutViewVue,
   },
   {

@@ -3,7 +3,7 @@
     <nav>
       <router-link to="/">Home</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
-      <router-link to="/about">About</router-link>
+      <router-link to="/tag">Your tag</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/contacts">Contact</router-link>
     </nav>
