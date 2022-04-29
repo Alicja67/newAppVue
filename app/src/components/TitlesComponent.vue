@@ -47,7 +47,7 @@ export default {
   },
   computed: { ...mapGetters(['allTitles', 'newTitles']) },
   created() {
-    this.fetchTitles();
+    // this.fetchTitles();
     this.fetchNewTitles();
   },
 };

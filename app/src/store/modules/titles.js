@@ -16,11 +16,54 @@ const getters = {
 };
 
 const actions = {
-  async fetchTitles({ commit }) {
+  // async fetchTitles({ commit }, searchValue) {
+  //   try {
+  //     const response = await axios.get('https://images-api.nasa.gov/search?q=space&media_type=image');
+  //     commit('SET_TITLE', response.data.collection.items);
+  //     // console.log(response.data.collection.items);
+  //   } catch (error) {
+  //     if (error.response) {
+  //       // Request made and server responded
+  //       console.log(error.response.data);
+  //       console.log(error.response.status);
+  //       console.log(error.response.headers);
+  //       // alert(error.response.data);
+  //     } else if (error.request) {
+  //       // The request was made but no response was received
+  //       console.log(error.request);
+  //       alert(error);
+  //     } else {
+  //       // Something happened in setting up the request that triggered an Error
+  //       console.log('Error', error.message);
+  //     }
+  //   }
+  // },
+  // async fetchTitles({ commit }, searchValue) {
+  //   const API = 'https://images-api.nasa.gov';
+  //   try {
+  //     const response = await axios.get(`${API}${searchValue}&media_type=image`);
+  //     commit('SET_TITLE', response.data.collection.items);
+  //   } catch (error) {
+  //     if (error.response) {
+  //       // Request made and server responded
+  //       console.log(error.response.data);
+  //       console.log(error.response.status);
+  //       console.log(error.response.headers);
+  //       // alert(error.response.data);
+  //     } else if (error.request) {
+  //       // The request was made but no response was received
+  //       console.log(error.request);
+  //       alert(error);
+  //     } else {
+  //       // Something happened in setting up the request that triggered an Error
+  //       console.log('Error', error.message);
+  //     }
+  //   }
+  // },
+  async fetchTitles({ commit }, results) {
     try {
-      const response = await axios.get('https://images-api.nasa.gov/search?q=space&media_type=image');
-      commit('SET_TITLE', response.data.collection.items);
-      // console.log(response.data.collection.items);
+      console.log('results in titles', results);
+      commit('SET_TITLE', results);
     } catch (error) {
       if (error.response) {
         // Request made and server responded

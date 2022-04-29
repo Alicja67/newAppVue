@@ -10,9 +10,12 @@
           {{ description }}
         </p>
         <!-- <p>Tags:</p> -->
-        <ul class="tags" v-for="tag in tags" :key="tag">
-          <li>{{ tag }}</li>
-        </ul>
+        <div class="tags">
+          Tags:
+          <ul class="tags" v-for="tag in tags" :key="tag">
+            <li>{{ tag }}</li>
+          </ul>
+        </div>
       </div>
     </div>
     <button type="button" class="close" @click="$emit('closeModel')">
@@ -42,7 +45,7 @@ export default {
   },
   mounted() {
     this.photo = this.item.links[0].href;
-    this.description = this.item.data[0].description;
+    this.description = this.item.data[0].description.substring(0, 200);
     this.title = this.item.data[0].title;
     this.tags = this.item.data[0].keywords;
   },
@@ -51,14 +54,14 @@ export default {
 
 <style lang="scss" scoped>
 .outer-wrapper {
-  max-width: 1000px;
-  height: 60%;
+  max-width: 60%;
+  max-height: 80%;
   position: fixed;
   background: rgb(248, 245, 245);
-  // top: 20px;
+  top: 20px;
   // left: 20px;
   // border: 4px solid rgb(212, 208, 208);
-  box-shadow: 0 30px 30px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 30px -10px rgba(71, 65, 65, 0.3);
 }
 .inner-wrapper {
   display: flex;
@@ -71,8 +74,8 @@ export default {
 }
 .photo {
   // position: absolute;
-  // width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background: black;
   img {
     width: 100%;
@@ -83,7 +86,6 @@ export default {
   // position: absolute;
   text-align: center;
   margin-top: 30px;
-
   .title {
     font-size: 30px;
     text-transform: uppercase;
@@ -106,5 +108,8 @@ export default {
 }
 .tags {
   list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
 }
 </style>
