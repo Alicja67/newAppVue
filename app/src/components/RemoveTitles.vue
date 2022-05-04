@@ -27,10 +27,10 @@ form {
 .remove-button {
   position: relative;
   padding: 10px;
-  border: 1px solid #b0b1b3;
-  background: #36383b;
+  border: 1px solid #d4d6da;
+  background: #2770dd;
   border-radius: 5px;
-  color: rgb(139, 142, 155);
+  color: rgb(239, 241, 252);
   cursor: pointer;
   font-weight: bold;
   font-size: 1.1rem;

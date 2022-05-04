@@ -26,15 +26,12 @@ services:
       - 3000:3000
     volumes:
       - ./api:/api
-    # links:
-    #   - mongo
-    #   - app
+    links:
+      - mongo
   mongo:
     container_name: mongo
     image: mongo
     ports:
       - 27017:27017
-#     volumes:
-#       - mongodb:/data/db
-# volumes:
-#   mongodb:
+    # volumes:
+    #   - ~/apps/mongo:/data/db

@@ -73,7 +73,7 @@ const actions = {
         console.log(error.response.data.message);
         console.log(error.response.status);
         console.log(error.response.headers);
-        alert(error.response.data.message);
+        // alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
@@ -179,8 +179,8 @@ const mutations = {
       return o;
     });
   },
-  SET_CONTACTS: (state, contacts) => (state.contacts = contacts),
-  NEW_CONTACT: (state, contact) => state.contacts.unshift(contact),
+  // SET_CONTACTS: (state, contacts) => (state.contacts = contacts),
+  // NEW_CONTACT: (state, contact) => state.contacts.unshift(contact),
   // SET_ERROR: (state, errors) => (state.errors = errors),
 };
 

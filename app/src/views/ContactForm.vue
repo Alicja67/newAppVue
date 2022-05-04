@@ -131,17 +131,19 @@ textarea {
   display: block;
 }
 button {
-  background: #0064e7;
-  border: none;
-  border-radius: 15px;
-  padding: 10px 25px;
-  color: #fff;
-  font-family: inherit;
-  margin: 20px 10px;
-  text-transform: uppercase;
-  outline: none;
-  transition: 0.2s;
+  position: relative;
+  padding: 10px;
+  border: 1px solid #b0b1b3;
+  background: #2770dd;
+  border-radius: 5px;
+  color: rgb(231, 232, 236);
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: 1s;
+}
+button:hover {
+  background: #0a0a0a;
 }
 input[type='checkbox'] {
   width: 25px;

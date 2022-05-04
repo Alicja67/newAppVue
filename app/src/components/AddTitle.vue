@@ -44,14 +44,14 @@ input[type='text'] {
 }
 input[type='submit'] {
   cursor: pointer;
-  background: #36383b;
-  color: rgb(139, 142, 155);
+  background: #2770dd;
+  color: rgb(227, 229, 238);
   font-size: 1.1rem;
   flex: 2;
   border: 1px solid #33394b;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 10px;
-  border: 1px solid #b0b1b3;
+  border: 1px solid #dddfe2;
 }
 </style>

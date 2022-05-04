@@ -12,7 +12,7 @@ const actions = {
   async fetchContact({ commit }) {
     try {
       const response = await axios.get('http://localhost:3000/contacts');
-      console.log('set-contacts', response.data);
+      console.log('fetch-contacts', response.data);
       commit('SET_CONTACTS', response.data);
     } catch (error) {
       if (error.response) {
@@ -66,7 +66,7 @@ const actions = {
 
 const mutations = {
   SET_CONTACTS: (state, contacts) => (state.contacts = contacts),
-  NEW_CONTACT: (state, contacts) => state.contacts.push({ author, email, title, message }),
+  NEW_CONTACT: (state, { author, email, title, message }) => state.contacts.push({ author, email, title, message }),
   // SET_ERROR: (state, errors) => (state.errors = errors),
 };
 

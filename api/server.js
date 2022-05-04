@@ -60,8 +60,15 @@ app.use((error, req, res, next) => {
 });
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECTION, () => {
-  console.log('Connected to DB');
+mongoose.connect('mongodb://mongo:27017/SpacerVue', { useNewUrlParser: true });
+const db = mongoose.connection;
+
+db.once('open', () => {
+  console.log('Connected to the database');
 });
+db.on('error', err => console.log('Error ' + err));
+// mongoose.connect(process.env.DB_CONNECTION, () => {
+//   console.log('Connected to DB');
+// });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
