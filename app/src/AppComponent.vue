@@ -9,6 +9,9 @@
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/contacts">Sign up</router-link>
     </nav>
+    <footer>
+      <p><span>©</span> 2022 Copyrights: Alicja Latała</p>
+    </footer>
     <router-view></router-view>
   </div>
 </template>
@@ -33,5 +36,16 @@ nav a {
 }
 span {
   white-space: nowrap;
+}
+footer {
+  // background: black;
+  width: 100vw;
+  margin: 0;
+  position: fixed;
+  bottom: 10px;
+  left: 50px;
+  span {
+    font-size: 1.3rem;
+  }
 }
 </style>

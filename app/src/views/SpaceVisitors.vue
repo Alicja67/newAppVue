@@ -10,20 +10,30 @@
         </p>
       </div>
     </div>
-    <form>
-      <button>Today's gift for aliens</button>
-    </form>
+    <div class="randomMessage">
+      <button @click="handleClick">Today's gift for aliens</button>
+      <p class="randomMessage">{{ displayMessage ? randomMessage : '' }}</p>
+    </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'space-visitors',
+  data() {
+    return {
+      randomMessage: 'banana',
+      displayMessage: false,
+    };
+  },
   methods: {
-    ...mapActions(['fetchContact', 'fetchCon']),
+    ...mapActions(['fetchContact']),
+    handleClick() {
+      this.displayMessage = true;
+    },
   },
   computed: {
-    ...mapGetters(['contacts', 'allContacts']),
+    ...mapGetters(['contacts']),
   },
   created() {
     return this.fetchContact();
@@ -49,9 +59,11 @@ export default {
     margin: 10px;
   }
 }
-form {
+.randomMessage {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 button {
   position: relative;

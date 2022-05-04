@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test",
+    "test": "vitest",
+    "test:unit": "vitest --environment jsdom",
+    "coverage": "vitest run --coverage",
     "lint": "vue-cli-service lint",
     "start": "nodemon server.js"
   },
@@ -15,12 +17,14 @@
     "core-js": "^3.8.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jsdom": "^19.0.0",
     "lodash.debounce": "^4.0.8",
     "material-design": "^0.0.1",
     "mongoose": "^6.2.10",
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
     "uuid": "^8.3.2",
+    "vite": "^2.9.7",
     "vue": "^2.6.14",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "^3.5.1",
@@ -30,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/eslint-parser": "^7.17.0",
+    "@testing-library/vue": "^6.5.1",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
@@ -47,9 +52,11 @@
     "eslint-plugin-vue": "^8.0.3",
     "eslint-plugin-vuejs-accessibility": "^1.1.0",
     "jest": "^27.0.5",
+    "latest": "^0.2.0",
     "prettier": "2.6.2",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
+    "vitest": "^0.10.2",
     "vue-template-compiler": "^2.6.14"
   }
 }
