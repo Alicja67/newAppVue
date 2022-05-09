@@ -3,6 +3,7 @@ yarn.lock
 /node_modules
 /dist
 /build
+/mongo
 
 
 # local env files
