@@ -5,6 +5,7 @@ package-lock.json
 /node_modules
 /dist
 /build
+/ssl
 
 
 # local env files

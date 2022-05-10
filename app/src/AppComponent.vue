@@ -7,9 +7,10 @@
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/visitors">Space Members</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
-      <router-link to="/contacts">Sign up</router-link>
+      <router-link to="/message">Send Message</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
-      <button @click="handleLogOut">LOG OUT</button>
+      <button class="log" @click="handleLogOut()" v-if="logged">Log out</button>
+      <button class="log" @click="handleLogIn()" v-else>Log in</button>
     </nav>
     <footer>
       <p><span>©</span> 2022 Copyrights: Alicja Latała</p>
@@ -22,14 +23,27 @@ import Keycloak from 'keycloak-js';
 // import { KEYCLOCK_URL, KEYCLOCK_REALM_NAME, KEYCLOCK_CLIENT_ID } from 'dotenv/config';
 
 export default {
+  name: 'app-component',
+  data() {
+    return {
+      logged: false,
+    };
+  },
   mounted() {
-    this.login();
+    // this.login();
   },
   methods: {
     handleLogOut() {
       const KEYCLOAK = 'localhost:8080';
       const MY_REALM = 'spacer';
-      window.location.replace(`http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout`);
+      const ENCODED_REDIRECT_URI = 'http://localhost:8081';
+      window.location.replace(
+        `http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${ENCODED_REDIRECT_URI}`
+      );
+    },
+    handleLogIn() {
+      this.login();
+      this.logged = !this.logged;
     },
     login() {
       var keycloak = Keycloak({
@@ -49,7 +63,7 @@ export default {
           onLoad: 'login-required',
         })
         .then((authenticated) => {
-          console.log('TOKEN', this.decodeToken(keycloak.token));
+          // console.log('TOKEN', this.decodeToken(keycloak.token));
           return authenticated;
         })
         .catch((error) => {
@@ -87,6 +101,10 @@ body {
 }
 nav {
   padding: 15px;
+  font-size: 1.3rem;
+  .log {
+    font-size: 1rem;
+  }
 }
 nav a {
   color: white;
@@ -105,5 +123,34 @@ footer {
   span {
     font-size: 1.3rem;
   }
+}
+.log {
+  position: relative;
+  padding: 10px;
+  border: 1px solid #b0b1b3;
+  background: #2770dd;
+  border-radius: 5px;
+  color: rgb(231, 232, 236);
+  cursor: pointer;
+  font-weight: bold;
+  transition: 1s;
+}
+.log:hover {
+  background: #0a0a0a;
+}
+.log {
+  cursor: pointer;
+  height: 100%;
+  background: #27396e;
+  color: rgb(234, 237, 247);
+  font-size: 1.5rem;
+  border-bottom: 1px solid rgb(245, 241, 241);
+  border-right: 1px solid rgb(245, 241, 241);
+  border-left: 1px solid rgb(245, 241, 241);
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 20px;
+  -webkit-box-shadow: 4px 4px 15px -1px #fffcf2;
+  box-shadow: 3px 3px 70px -1px #fffcf2;
 }
 </style>

@@ -19,8 +19,8 @@ const routes = [
     component: AboutViewVue,
   },
   {
-    path: '/contacts',
-    name: 'contacts',
+    path: '/message',
+    name: 'message',
     component: ContactForm,
   },
   {

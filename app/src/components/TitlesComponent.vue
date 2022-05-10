@@ -34,7 +34,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['fetchNewTitles', 'deleteTitle', 'updateTitle', 'nasaData']),
+    ...mapActions(['fetchNewTitles', 'deleteTitle', 'updateTitle']),
     updatingTitle(data) {
       this.currentData = { id: data._id, title: '' };
       this.editing = !this.editing;
@@ -50,7 +50,7 @@ export default {
   computed: { ...mapGetters(['allTitles', 'newTitles', 'nasaData']) },
   created() {
     this.fetchNewTitles();
-    this.nasaData();
+    // this.nasaData();
   },
 };
 </script>

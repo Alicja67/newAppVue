@@ -13,6 +13,7 @@
 import TitlesComponent from '../components/TitlesComponent.vue';
 import AddTitle from '../components/AddTitle.vue';
 import RemoveTitles from '../components/RemoveTitles.vue';
+import Keycloak from 'keycloak-js';
 
 export default {
   name: 'about-view',
@@ -21,23 +22,50 @@ export default {
     AddTitle,
     RemoveTitles,
   },
-  // mounted() {
-  //   this.getData();
-  // },
+  mounted() {
+    this.login();
+  },
   methods: {
-  //   getData() {
-  //     const config = {
-  //       headers: {
-  //         // 'content-type': 'application/vnd.api+json',
-  //         // 'Access-Control-Allow-Origin': '*',
-  //       },
-  //     };
-  //     axios.get('http://localhost:3000/links', config).then(function (response) {
-  //       console.log(response);
-  //       // response.data
-  //     });
-  //   },
-  //   /* eslint-enabled */
+    login() {
+      var keycloak = Keycloak({
+        realm: `spacer`,
+        url: `http://localhost:8080/auth`,
+        clientId: `spacer`,
+        'ssl-required': 'all',
+        resource: `spacer`,
+        'public-client': true,
+        'confidential-port': 0,
+      });
+
+      keycloak
+        .init({
+          // flow: 'implicit',
+          promiseType: 'native',
+          onLoad: 'login-required',
+        })
+        .then((authenticated) => {
+          // console.log('TOKEN', this.decodeToken(keycloak.token));
+          return authenticated;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      keycloak.onTokenExpired = () => {
+        keycloak
+          .updateToken(30)
+          .then((refreshed) => {
+            if (refreshed) {
+              this.$store.commit('TOKEN_SET', keycloak.token);
+            } else {
+              console.log('Token is still valid');
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+    },
   },
 };
 </script>

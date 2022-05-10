@@ -74,10 +74,14 @@ p {
   box-shadow: 0 5px 10px rgb(245, 241, 241);
   border-color: rgb(245, 241, 241);
 }
+.submit:hover {
+  background: #0a0a0a;
+}
 .submit {
   cursor: pointer;
   height: 100%;
-  background: #12141a;
+  transition: 1s;
+  background: #27396e;
   color: rgb(234, 237, 247);
   font-size: 1.5rem;
   border-bottom: 1px solid rgb(245, 241, 241);
@@ -86,6 +90,8 @@ p {
   border-radius: 5px;
   padding: 10px;
   margin-left: 20px;
+  -webkit-box-shadow: 4px 4px 15px -1px #fffcf2;
+  box-shadow: 4px 4px 9px -1px #000000;
 }
 form {
   display: flex;
