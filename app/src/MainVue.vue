@@ -1,17 +1,14 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <span>&#160; &#160; &#160; &#160;</span>
-      <router-link to="/tag">Your tag</router-link>
-      <span>&#160; &#160; &#160; &#160;</span>
-      <router-link to="/visitors">Space Members</router-link>
-      <span>&#160; &#160; &#160; &#160;</span>
-      <router-link to="/message">Send Message</router-link>
-      <span>&#160; &#160; &#160; &#160;</span>
-      <!-- <button class="log" @click="handleLogIn()" v-if="logged">{{ logOut }}</button>
-      <button class="log" @click="handleLogOut()" v-else>{{ logIn }}</button> -->
-    </nav>
+  <div class="app">
+    <div v-if="logged">
+      <button class="log" @click="handleLog">{{ logText }}</button>
+      <div class="description">
+        <h1>One slep to become a space member</h1>
+        <h2>Don't forget to log in!!!</h2>
+      </div>
+    </div>
+    <!-- <button class="log" @click="handleLogIn()" v-else>{{ logIn }}</button> -->
+    <app-component v-else></app-component>
     <footer>
       <p><span>©</span> 2022 Copyrights: Alicja Latała</p>
     </footer>
@@ -20,15 +17,17 @@
 </template>
 <script>
 import Keycloak from 'keycloak-js';
-// import 'dotenv/config';
+import AppComponent from './AppComponent.vue';
+// import { KEYCLOCK_URL, KEYCLOCK_REALM_NAME, KEYCLOCK_CLIENT_ID } from 'dotenv/config';
 
 export default {
-  name: 'app-component',
+  name: 'main-vue',
+  components: {
+    AppComponent,
+  },
   data() {
     return {
       logged: true,
-      logOut: 'Log out',
-      logIn: 'Log in',
       logText: 'Log in',
     };
   },
@@ -39,14 +38,15 @@ export default {
     handleLogOut() {
       const KEYCLOAK = 'localhost:8080';
       const MY_REALM = 'spacer';
-      const ENCODED_REDIRECT_URI = 'https://spacer-magic.mac.pl:8081/';
+      const ENCODED_REDIRECT_URI = 'http://localhost:8081';
       window.location.replace(
-        `http://${process.env.KEYCLOAK}/auth/realms/${process.env.MY_REALM}/protocol/openid-connect/logout?redirect_uri=${process.env.ENCODED_REDIRECT_URI}`
+        `http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${ENCODED_REDIRECT_URI}`
       );
       this.logText = 'Log out';
     },
-    handleLogIn() {
+    handleLog() {
       this.login();
+      this.logText = 'Log out';
       this.logged = !this.logged;
     },
     login() {
@@ -54,7 +54,7 @@ export default {
         realm: `spacer`,
         url: `http://localhost:8080/auth`,
         clientId: `spacer`,
-        // 'ssl-required': 'all',
+        'ssl-required': 'all',
         resource: `spacer`,
         'public-client': true,
         'confidential-port': 0,
@@ -92,30 +92,23 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
 * {
   box-sizing: border-box;
 }
-body {
-  font-family: 'Hubballi', cursive;
-  font-family: 'Montserrat', sans-serif;
-  padding: 0;
-  margin: 0;
-}
-nav {
-  padding: 15px;
-  font-size: 1.3rem;
-  .log {
-    font-size: 1rem;
-  }
-}
-nav a {
-  color: white;
-  text-decoration: none;
-}
-span {
-  white-space: nowrap;
+.app {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url('./assets/moon.jpg');
+  // background-image: url('../assets/moon.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  width: 100%;
+  height: 100vh;
 }
 footer {
   // background: black;
@@ -128,17 +121,6 @@ footer {
     font-size: 1.3rem;
   }
 }
-.log {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #b0b1b3;
-  background: #2770dd;
-  border-radius: 5px;
-  color: rgb(231, 232, 236);
-  cursor: pointer;
-  font-weight: bold;
-  transition: 1s;
-}
 .log:hover {
   background: #0a0a0a;
 }
@@ -146,15 +128,30 @@ footer {
   cursor: pointer;
   height: 100%;
   background: #27396e;
-  color: rgb(234, 237, 247);
+  color: rgb(217, 220, 230);
   font-size: 1.5rem;
-  border-bottom: 1px solid rgb(245, 241, 241);
-  border-right: 1px solid rgb(245, 241, 241);
-  border-left: 1px solid rgb(245, 241, 241);
+  border-bottom: 1px solid rgb(14, 13, 13);
+  border-right: 1px solid rgb(8, 8, 8);
+  border-left: 1px solid rgb(27, 26, 26);
   border-radius: 5px;
   padding: 10px;
   margin-left: 20px;
   -webkit-box-shadow: 4px 4px 15px -1px #fffcf2;
   box-shadow: 3px 3px 70px -1px #fffcf2;
+  position: relative;
+  top: 50px;
+  right: -50px;
+}
+.description {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  h1 {
+    font-size: 4rem;
+  }
 }
 </style>

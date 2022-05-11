@@ -21,18 +21,22 @@ export default {
 <style lang="scss" scoped>
 form {
   display: flex;
-  justify-content: flex-end;
-  margin-right: 30px;
+  justify-content: center;
+  // margin-right: 30px;
 }
 .remove-button {
   position: relative;
   padding: 10px;
   border: 1px solid #d4d6da;
-  background: #2770dd;
+  background: #27396e;
   border-radius: 5px;
   color: rgb(239, 241, 252);
   cursor: pointer;
-  font-weight: bold;
   font-size: 1.1rem;
+  transition: 1s;
+  margin-right: 50px;
+}
+.remove-button:hover {
+  background: #0a0a0a;
 }
 </style>

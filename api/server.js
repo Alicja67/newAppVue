@@ -12,15 +12,40 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv/config');
+const https = require('https');
+const fs = require('fs');
 
 // const bodyParser = require('body-parser');
 // const db = require('./db');
 
 const app = express();
 const PORT = '3000';
+app.use(
+  cors({
+    origin: 'https://spacer-magic.mac.pl:8081', //origin sets domains that we approve
+    methods: 'GET,POST,DELETE,PUT', //we allow only GET and POST methods
+  })
+);
 const corsOptions = {
-  // origin: ["http://localhost", "http://localhost:8080"],
+  origin: [
+    'http://localhost',
+    'http://localhost:8080',
+    'https://spacer-magic.mac.pl:8081',
+    'https://spacer-magic.mac.pl',
+  ],
 };
+
+// const options = {
+//   key: fs.readFileSync(__dirname + '/tls.key', 'utf8'),
+//   cert: fs.readFileSync(__dirname + '/tls.crt', 'utf8'),
+// };
+
+// https
+//   .createServer(options, function (req, res) {
+//     res.writeHead(200);
+//     res.end('Server is running');
+//   })
+//   .listen(PORT);
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -66,9 +91,15 @@ const db = mongoose.connection;
 db.once('open', () => {
   console.log('Connected to the database');
 });
-db.on('error', err => console.log('Error ' + err));
+db.on('error', (err) => console.log('Error ' + err));
 // mongoose.connect(process.env.DB_CONNECTION, () => {
 //   console.log('Connected to DB');
 // });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+// app.listen(PORT, () => {
+//   console.log(`Server started on port ${PORT}`);
+//   const server = https.createServer(this);
+//   return server.listen.apply(server, arguments);
+// });

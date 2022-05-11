@@ -24,7 +24,7 @@ const actions = {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
-        // alert(error.response.data);
+        alert(error.response.data);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
@@ -48,7 +48,7 @@ const actions = {
         // Request made and server responded
         console.log(error.response.data.message);
         console.log(error.response.status);
-        // alert(error.response.data.message);
+        alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
@@ -73,7 +73,7 @@ const actions = {
         console.log(error.response.data.message);
         console.log(error.response.status);
         console.log(error.response.headers);
-        // alert(error.response.data.message);
+        alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);

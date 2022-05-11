@@ -32,19 +32,22 @@ export default {
 <style lang="scss" scoped>
 form {
   display: flex;
-  margin: 50px 200px;
+  margin: 100px 0 100px 30px;
 }
 input[type='text'] {
   flex: 10;
   padding: 10px;
-  border: 1px solid #2e3035;
+  border: 1px solid #c4c8d3;
+  background: #0a0a0a;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   cursor: pointer;
+  transition: 1s;
+  color: #f7f7f8;
 }
 input[type='submit'] {
   cursor: pointer;
-  background: #2770dd;
+  background: #27396e;
   color: rgb(227, 229, 238);
   font-size: 1.1rem;
   flex: 2;
@@ -53,5 +56,16 @@ input[type='submit'] {
   border-bottom-right-radius: 5px;
   padding: 10px;
   border: 1px solid #dddfe2;
+  transition: 1s;
+  margin-right: 50px;
+  padding: 10px 40px 10px;
+  width: 250px;
+}
+input[type='submit']:hover {
+  background: #0a0a0a;
+}
+input[type='text']:hover {
+  background: #f3f1f1;
+  color: black;
 }
 </style>

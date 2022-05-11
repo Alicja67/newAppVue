@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>All titles related to the space tag</h3>
+    <h3>Add tag related to space</h3>
     <div class="titles" v-if="!editing">
       <div class="title" v-for="one in newTitles" :key="one._id">
         {{ one.title }}

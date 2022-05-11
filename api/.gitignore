@@ -4,6 +4,8 @@ yarn.lock
 /dist
 /build
 /mongo
+/ssl
+tls*
 
 
 # local env files
