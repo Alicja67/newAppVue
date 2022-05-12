@@ -50,7 +50,7 @@ export default {
   computed: { ...mapGetters(['allTitles', 'newTitles', 'nasaData']) },
   created() {
     this.fetchNewTitles();
-    // this.nasaData();
+    this.nasaData();
   },
 };
 </script>

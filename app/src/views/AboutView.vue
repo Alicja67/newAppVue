@@ -10,9 +10,6 @@
 </template>
 
 <script>
-/* eslint-disable */
-
-// import axios from 'axios';
 import TitlesComponent from '../components/TitlesComponent.vue';
 import AddTitle from '../components/AddTitle.vue';
 import RemoveTitles from '../components/RemoveTitles.vue';
@@ -41,7 +38,6 @@ export default {
       window.location.replace(
         `http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${ENCODED_REDIRECT_URI}`
       );
-      this.logText = 'Log out';
     },
     login() {
       var keycloak = Keycloak({

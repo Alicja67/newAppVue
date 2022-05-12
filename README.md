@@ -1,0 +1,1 @@
+https://spacer-magic.mac.pl:8081/
