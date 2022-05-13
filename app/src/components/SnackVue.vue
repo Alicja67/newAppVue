@@ -21,7 +21,7 @@ export default {
 .snack-wrapper {
   position: fixed;
   display: flex;
-  top: 30px;
+  top: 100px;
   left: 0;
   width: 100vw;
   height: 100px;

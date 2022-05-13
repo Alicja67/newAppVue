@@ -29,6 +29,7 @@ export default {
       currentData: {},
       editing: false,
       titleText: '',
+      title: '',
       editClass: 'fa-solid fa-pen',
       duringEditingClass: 'fa-solid fa-pen-field',
     };
@@ -50,7 +51,7 @@ export default {
   computed: { ...mapGetters(['allTitles', 'newTitles', 'nasaData']) },
   created() {
     this.fetchNewTitles();
-    this.nasaData();
+    // this.nasaData();
   },
 };
 </script>

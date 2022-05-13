@@ -18,6 +18,7 @@
 import Keycloak from 'keycloak-js';
 import FooterVue from './components/FooterVue.vue';
 // import 'dotenv/config';
+import axios from 'axios';
 
 export default {
   name: 'app-component',
@@ -32,10 +33,22 @@ export default {
       logText: 'Log in',
     };
   },
-  mounted() {
+  created() {
     // this.login();
+    // this.users();
   },
   methods: {
+    // users() {
+    //   axios
+    //     .get('http://localhost:8080/auth/admin/realms/spacer/users', {
+    //       headers: {
+    //         Autorization: TOKEN,
+    //       },
+    //       body: {},
+    //     })
+    //     .then((res) => console.log(res.data))
+    //     .catch((err) => console.log(err));
+    // },
     handleLogOut() {
       const KEYCLOAK = 'localhost:8080';
       const MY_REALM = 'spacer';

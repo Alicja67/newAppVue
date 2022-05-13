@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="log-wrapper">
-      <button class="log" @click="handleLogOut()">{{ logOut }}</button>
+      <button class="log" @click="handleLogOut()">Log out</button>
     </div>
     <add-title> </add-title>
     <remove-titles> </remove-titles>
@@ -22,11 +22,6 @@ export default {
     AddTitle,
     RemoveTitles,
   },
-  data() {
-    return {
-      logOut: 'Log out',
-    };
-  },
   mounted() {
     this.login();
   },
@@ -34,6 +29,7 @@ export default {
     handleLogOut() {
       const KEYCLOAK = 'localhost:8080';
       const MY_REALM = 'spacer';
+      console.log('clicked');
       const ENCODED_REDIRECT_URI = 'https://spacer-magic.mac.pl:8081';
       window.location.replace(
         `http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${ENCODED_REDIRECT_URI}`
