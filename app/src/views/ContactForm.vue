@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <h2>Do you want to become a space mission member?</h2>
     <i class="fa-solid fa-user-astronaut"></i>
     <i class="fa-solid fa-user-astronaut"></i>
     <i class="fa-solid fa-user-astronaut"></i>
@@ -145,6 +144,6 @@ h3 {
 i {
   color: white;
   font-size: 2rem;
-  margin: 0 0 50px 0;
+  margin: 50px 0 50px 0;
 }
 </style>

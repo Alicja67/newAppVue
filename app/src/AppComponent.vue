@@ -9,21 +9,21 @@
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/message">Send Message</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
-      <!-- <button class="log" @click="handleLogIn()" v-if="logged">{{ logOut }}</button>
-      <button class="log" @click="handleLogOut()" v-else>{{ logIn }}</button> -->
     </nav>
-    <footer>
-      <p><span>©</span> 2022 Copyrights: Alicja Latała</p>
-    </footer>
     <router-view></router-view>
+    <footer-vue></footer-vue>
   </div>
 </template>
 <script>
 import Keycloak from 'keycloak-js';
+import FooterVue from './components/FooterVue.vue';
 // import 'dotenv/config';
 
 export default {
   name: 'app-component',
+  components: {
+    FooterVue,
+  },
   data() {
     return {
       logged: true,
