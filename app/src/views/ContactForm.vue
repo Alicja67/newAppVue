@@ -10,39 +10,33 @@
       <label for="email"> Your email: <input type="email" name="email" v-model="email" required /> </label>
       <label for="title"> Title: <input type="text" name="title" v-model="title" required /> </label>
       <label for="message"> Message: <textarea name="message" v-model="message" required> </textarea></label>
-      <!-- <div class="terms">
-        <label for="terms">
-          Accept tems and conditions<input name ="terms" type="checkbox" v-model="terms" required>
-        </label>
-      </div> -->
       <div class="submit-form">
-        <button type="submit">Sign up</button>
+        <button type="submit">Send message</button>
       </div>
+      <snack-vue></snack-vue>
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import { mapActions } from 'vuex';
+import SnackVue from '../components/SnackVue.vue';
 
 export default {
   name: 'contact-form',
-  // mounted() {
-  //   this.submitForm();
-  // },
+  components: {
+    SnackVue,
+  },
   data() {
     return {
       author: null,
       email: null,
       title: null,
       message: null,
-      // errors: [],
-      // terms: false,
     };
   },
   methods: {
-    ...mapActions(['addContact']),
+    ...mapActions(['addContact', 'snack']),
     onSubmit(e) {
       e.preventDefault();
       this.addContact({
@@ -52,26 +46,14 @@ export default {
         message: this.message,
       });
       this.title = '';
+      this.handleSnack();
     },
-    // submitForm(e) {
-    //   // console.log(this.posts);
-    //   // console.log('Button is clicked');
-    //   axios
-    //     .post('http://localhost:3000/contact/send-message', {
-    //       author: this.author,
-    //       email: this.email,
-    //       title: this.title,
-    //       message: this.message,
-    //     })
-    //     .then((res) => console.log(res))
-    //     .catch((err) => console.log(err));
-
-    //   e.preventDefault();
-    //   this.author = null;
-    //   this.email = null;
-    //   this.title = null;
-    //   this.message = null;
-    // },
+    handleSnack() {
+      this.snack({
+        text: `Great! We've got your message :)`,
+        delay: 0,
+      });
+    },
   },
 };
 </script>

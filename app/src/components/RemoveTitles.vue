@@ -1,19 +1,31 @@
 <template>
   <form>
-    <button @click="handleDelete" class="remove-button" type>Remove all added titles</button>
+    <button @click="handleDelete" @click.prevent="handleSnack()" class="remove-button" type>
+      Remove all added titles
+    </button>
+    <snack-vue></snack-vue>
   </form>
 </template>
 <script>
 import { mapActions } from 'vuex';
+import SnackVue from './SnackVue.vue';
 
 export default {
   name: 'remove-titles',
+  components: {
+    SnackVue,
+  },
   methods: {
-    ...mapActions(['deleteAllTitles']),
+    ...mapActions(['deleteAllTitles', 'snack']),
     handleDelete(e) {
       e.preventDefault();
       console.log(e);
       this.deleteAllTitles();
+    },
+    handleSnack() {
+      this.snack({
+        text: `oops! You removed all titles`,
+      });
     },
   },
 };
