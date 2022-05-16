@@ -1,16 +1,35 @@
 import axios from 'axios';
 
+let defaults = {
+  time: 2000,
+  delay: 500,
+  text: '',
+  color: 'green',
+};
+
 const state = {
   newTitles: [],
   nasaData: [],
+  snackTitle: null,
 };
 
 const getters = {
   newTitles: (state) => state.newTitles,
   nasaData: (state) => state.nasaData,
+  snackTitle: (state) => state.snackTitle,
 };
 
 const actions = {
+  snackTitle({ commit }, options) {
+    defaults = { ...defaults, ...options };
+
+    setTimeout(() => {
+      commit('SET_SNACK_TITLE', defaults);
+      setTimeout(() => {
+        commit('SET_SNACK_TITLE', null);
+      }, defaults.time);
+    }, defaults.delay);
+  },
   async fetchNasaData({ commit }, searchValue) {
     const API = 'https://images-api.nasa.gov';
     try {
@@ -28,7 +47,18 @@ const actions = {
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        setTimeout(function () {
+          commit('NEW_TITLE', response.data);
+        }, 2000);
         setTimeout(function () {
           commit('SET_NASA', response.data.collection.items);
         }, 2000);
@@ -46,13 +76,33 @@ const actions = {
     } catch (error) {
       if (error.response) {
         // Request made and server responded
-        console.log(error.response.data.message);
+        const text = error.response.data.message;
+        defaults = { ...defaults, text };
         console.log(error.response.status);
-        alert(error.response.data.message);
+        console.log('defaults', defaults);
+        // this.snackTitle({ commit }, defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        // commit('SET_SNACK_TITLE', defaults);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        setTimeout(function () {
+          commit('NEW_TITLE', response.data);
+        }, 2000);
         setTimeout(function () {
           commit('SET_NEWTITLES', response.data);
         }, 2000);
@@ -70,14 +120,31 @@ const actions = {
     } catch (error) {
       if (error.response) {
         // Request made and server responded
-        console.log(error.response.data.message);
+        const text = 'Are you serious? Where it this amaizing new title?';
+        const time = 3000;
+        defaults = { ...defaults, text, time };
         console.log(error.response.status);
-        console.log(error.response.headers);
-        alert(error.response.data.message);
+        console.log('defaults', defaults);
+        console.log(error.response.data.message);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        // alert(error.response.data.message);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
         setTimeout(function () {
           commit('NEW_TITLE', response.data);
         }, 2000);
@@ -102,7 +169,18 @@ const actions = {
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        setTimeout(function () {
+          commit('NEW_TITLE', response.data);
+        }, 2000);
         setTimeout(function () {
           commit('DELETE_TITLE', id);
         }, 2000);
@@ -125,7 +203,18 @@ const actions = {
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        setTimeout(function () {
+          commit('NEW_TITLE', response.data);
+        }, 2000);
         setTimeout(function () {
           commit('DELETE_ALL_TITLES');
         }, 2000);
@@ -151,7 +240,18 @@ const actions = {
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+        setTimeout(function () {
+          commit('NEW_TITLE', response.data);
+        }, 2000);
         setTimeout(function () {
           commit('UPDATE_TITLE', { id: response.data._id, title: response.data.title });
         }, 2000);
@@ -165,6 +265,7 @@ const actions = {
 
 const mutations = {
   // SET_TITLE: (state, titles) => (state.titles = titles),
+  SET_SNACK_TITLE: (state, text) => (state.snackTitle = text),
   SET_NASA: (state, nasaData) => (state.nasaData = nasaData),
   SET_NEWTITLES: (state, newTitles) => (state.newTitles = newTitles),
   NEW_TITLE: (state, title) => state.newTitles.unshift(title),

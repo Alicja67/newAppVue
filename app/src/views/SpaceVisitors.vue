@@ -33,6 +33,7 @@ export default {
   },
   mounted() {
     this.login();
+    // this.loginAdmin();
   },
   methods: {
     ...mapActions(['fetchContact']),
@@ -47,6 +48,51 @@ export default {
         `http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${ENCODED_REDIRECT_URI}`
       );
       this.logText = 'Log out';
+    },
+    loginAdmin() {
+      var keycloak = Keycloak({
+        realm: `spacer`,
+        // url: `http://localhost:8080/auth`,
+        // url: `http://localhost:8080/auth/realms/spacer/protocol/openid-connect/token`,
+        clientId: `spacer`,
+        username: 'alicja',
+        password: 'test',
+        grant_type: 'password',
+        'ssl-required': 'all',
+        resource: `spacer`,
+        'public-client': true,
+        'confidential-port': 0,
+      });
+      console.log('keycloak', keycloak);
+
+      keycloak
+        .init({
+          // flow: 'implicit',
+          promiseType: 'native',
+          onLoad: 'login-required',
+        })
+        .then((authenticated) => {
+          // console.log('TOKEN', this.decodeToken(keycloak.token));
+          return authenticated;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      keycloak.onTokenExpired = () => {
+        keycloak
+          .updateToken(30)
+          .then((refreshed) => {
+            if (refreshed) {
+              this.$store.commit('TOKEN_SET', keycloak.token);
+            } else {
+              console.log('Token is still valid');
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
     },
     login() {
       var keycloak = Keycloak({

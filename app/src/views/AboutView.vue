@@ -3,6 +3,7 @@
     <div class="log-wrapper">
       <button class="log" @click="handleLogOut()">Log out</button>
     </div>
+    <snack-vue></snack-vue>
     <add-title> </add-title>
     <remove-titles> </remove-titles>
     <titles-component> </titles-component>
@@ -14,6 +15,8 @@ import TitlesComponent from '../components/TitlesComponent.vue';
 import AddTitle from '../components/AddTitle.vue';
 import RemoveTitles from '../components/RemoveTitles.vue';
 import Keycloak from 'keycloak-js';
+import SnackVue from '../components/SnackVue.vue';
+// import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'about-view',
@@ -21,11 +24,17 @@ export default {
     TitlesComponent,
     AddTitle,
     RemoveTitles,
+    SnackVue,
   },
   mounted() {
     this.login();
+    // this.displaySnack();
   },
   methods: {
+    // ...mapActions(['snackTitle']),
+    // displaySnack() {
+    //   this.snackTitle();
+    // },
     handleLogOut() {
       const KEYCLOAK = 'localhost:8080';
       const MY_REALM = 'spacer';

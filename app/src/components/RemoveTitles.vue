@@ -46,7 +46,6 @@ form {
   cursor: pointer;
   font-size: 1.1rem;
   transition: 1s;
-  margin-right: 50px;
 }
 .remove-button:hover {
   background: #0a0a0a;

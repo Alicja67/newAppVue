@@ -1,7 +1,10 @@
 <template>
   <div class="snack-wrapper">
-    <p class="snack" v-if="snack">
+    <p :style="{ background: 'green' }" class="snack" v-if="snack">
       {{ snack.text }}
+    </p>
+    <p :style="{ background: 'red' }" class="snack" v-if="snackTitle">
+      {{ snackTitle.text }}
     </p>
   </div>
 </template>
@@ -13,6 +16,7 @@ export default {
   computed: {
     ...mapGetters({
       snack: 'snack',
+      snackTitle: 'snackTitle',
     }),
   },
 };
@@ -21,7 +25,7 @@ export default {
 .snack-wrapper {
   position: fixed;
   display: flex;
-  top: 100px;
+  top: 70px;
   left: 0;
   width: 100vw;
   height: 100px;
@@ -30,7 +34,7 @@ export default {
 }
 .snack {
   padding: 10px 10px;
-  background: #26bb5f;
+  // background: #26bb5f;
   border: 1px solid white;
   font-weight: bold;
   color: rgb(239, 241, 252);
