@@ -74,20 +74,20 @@ export default {
           console.error(error);
         });
 
-      keycloak.onTokenExpired = () => {
-        keycloak
-          .updateToken(30)
-          .then((refreshed) => {
-            if (refreshed) {
-              this.$store.commit('TOKEN_SET', keycloak.token);
-            } else {
-              console.log('Token is still valid');
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
+      // keycloak.onTokenExpired = () => {
+      //   keycloak
+      //     .updateToken(30)
+      //     .then((refreshed) => {
+      //       if (refreshed) {
+      //         this.$store.commit('TOKEN_SET', keycloak.token);
+      //       } else {
+      //         console.log('Token is still valid');
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // };
     },
   },
 };

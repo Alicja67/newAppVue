@@ -1,15 +1,15 @@
 <template>
   <div>
     <h3>Add tag related to space</h3>
-    <div class="titles" v-if="!editing">
+    <div class="titles" v-if="editing">
       <div class="title" v-for="one in newTitles" :key="one._id">
         {{ one.title }}
         <i @click="updatingTitle(one)" v-bind="titleText" :class="[editig ? duringEditingClass : editClass]"></i>
         <i @click="deleteTitle(one._id)" class="fa-solid fa-trash"></i>
       </div>
-      <div class="title" v-for="nasaTitle in nasaData" :key="nasaTitle.data[0].nasa_id">
+      <!-- <div class="title" v-for="nasaTitle in nasaData" :key="nasaTitle.data[0].nasa_id">
         {{ nasaTitle.data[0].title }}
-      </div>
+      </div> -->
     </div>
     <div v-else class="form-control">
       <input v-model="titleText" type="text" class="form-control-input" placeholder="Update your title" />
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       currentData: {},
-      editing: false,
+      editing: true,
       titleText: '',
       title: '',
       editClass: 'fa-solid fa-pen',
@@ -48,7 +48,7 @@ export default {
       this.titleText = '';
     },
   },
-  computed: { ...mapGetters(['allTitles', 'newTitles', 'nasaData']) },
+  computed: { ...mapGetters(['newTitles', 'nasaData']) },
   created() {
     this.fetchNewTitles();
     // this.nasaData();

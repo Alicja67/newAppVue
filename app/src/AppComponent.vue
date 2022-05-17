@@ -9,6 +9,10 @@
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/message">Send Message</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
+      <router-link to="/map">Map</router-link>
+      <span>&#160; &#160; &#160; &#160;</span>
+      <router-link to="/register">Register</router-link>
+      <span>&#160; &#160; &#160; &#160;</span>
     </nav>
     <router-view></router-view>
     <footer-vue></footer-vue>
@@ -36,11 +40,25 @@ export default {
   created() {
     // this.login();
     // this.users();
+    // this.getToken();
   },
   methods: {
+    // getToken() {
+    //   axios
+    //     .post('http://localhost:8080/auth/realms/spacer/protocol/openid-connect/token', {
+    //       body: {
+    //         client_id: 'spacer',
+    //         username: 'alicja',
+    //         password: 'test',
+    //         grant_type: 'password',
+    //       },
+    //     })
+    //     .then((res) => console.log(res.data))
+    //     .catch((err) => console.log(err));
+    // },
     // users() {
     //   axios
-    //     .get('http://localhost:8080/auth/admin/realms/spacer/users', {
+    //     .post('http://localhost:8080/auth/admin/realms/spacer/users', {
     //       headers: {
     //         Autorization: TOKEN,
     //       },
@@ -87,20 +105,20 @@ export default {
           console.error(error);
         });
 
-      keycloak.onTokenExpired = () => {
-        keycloak
-          .updateToken(30)
-          .then((refreshed) => {
-            if (refreshed) {
-              this.$store.commit('TOKEN_SET', keycloak.token);
-            } else {
-              console.log('Token is still valid');
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
+      // keycloak.onTokenExpired = () => {
+      //   keycloak
+      //     .updateToken(30)
+      //     .then((refreshed) => {
+      //       if (refreshed) {
+      //         this.$store.commit('TOKEN_SET', keycloak.token);
+      //       } else {
+      //         console.log('Token is still valid');
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // };
     },
   },
 };

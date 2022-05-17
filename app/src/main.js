@@ -5,10 +5,19 @@ import MainVue from './MainVue.vue';
 import router from './router';
 import store from './store';
 import MdCard from 'vue-material';
+import * as VueGoogleMaps from 'vue2-google-maps';
 // import 'vue-material/dist/vue-material.min.css';
 // import 'vue-material/dist/theme/default.css';
 
 // Vue.config.productionTip = false;
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'YOUR_API_TOKEN',
+    libraries: 'places',
+  },
+});
+
 Vue.use(MdCard);
 
 new Vue({

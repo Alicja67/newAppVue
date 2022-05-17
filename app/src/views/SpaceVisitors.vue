@@ -35,10 +35,18 @@ export default {
     this.login();
     // this.loginAdmin();
   },
+  computed: {
+    ...mapGetters({
+      contacts: 'contacts',
+    }),
+  },
   methods: {
     ...mapActions(['fetchContact']),
     handleClick() {
       this.displayMessage = true;
+      const randomIndex = Math.floor(Math.random() * this.contacts.length);
+      const randomText = this.contacts[randomIndex].message;
+      this.randomMessage = randomText;
     },
     handleLogOut() {
       const KEYCLOAK = 'localhost:8080';
@@ -79,20 +87,20 @@ export default {
           console.error(error);
         });
 
-      keycloak.onTokenExpired = () => {
-        keycloak
-          .updateToken(30)
-          .then((refreshed) => {
-            if (refreshed) {
-              this.$store.commit('TOKEN_SET', keycloak.token);
-            } else {
-              console.log('Token is still valid');
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
+      // keycloak.onTokenExpired = () => {
+      //   keycloak
+      //     .updateToken(30)
+      //     .then((refreshed) => {
+      //       if (refreshed) {
+      //         this.$store.commit('TOKEN_SET', keycloak.token);
+      //       } else {
+      //         console.log('Token is still valid');
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // };
     },
     login() {
       var keycloak = Keycloak({
@@ -119,20 +127,20 @@ export default {
           console.error(error);
         });
 
-      keycloak.onTokenExpired = () => {
-        keycloak
-          .updateToken(30)
-          .then((refreshed) => {
-            if (refreshed) {
-              this.$store.commit('TOKEN_SET', keycloak.token);
-            } else {
-              console.log('Token is still valid');
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
+      // keycloak.onTokenExpired = () => {
+      //   keycloak
+      //     .updateToken(30)
+      //     .then((refreshed) => {
+      //       if (refreshed) {
+      //         this.$store.commit('TOKEN_SET', keycloak.token);
+      //       } else {
+      //         console.log('Token is still valid');
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // };
     },
   },
   computed: {

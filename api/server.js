@@ -7,6 +7,9 @@ const contactsRoutes = require('./routes/contacts.routes');
 const contactRoutes = require('./routes/contact.routes');
 const titlesRoutes = require('./routes/titles.routes');
 const titleRoutes = require('./routes/title.routes');
+const usersRoutes = require('./routes/users.routes');
+const userRoutes = require('./routes/user.routes');
+
 // const path = require("path");
 const cors = require('cors');
 const morgan = require('morgan');
@@ -65,6 +68,8 @@ app.use('/contacts', contactsRoutes);
 app.use('/contact', contactRoutes);
 app.use('/titles', titlesRoutes);
 app.use('/title', titleRoutes);
+app.use('/users', usersRoutes);
+app.use('/user', userRoutes);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '/app/dist/index.html'));
 // });

@@ -3,8 +3,8 @@
     <!-- <h3>Add new title</h3> -->
     <div class="add">
       <form @submit="onSubmit">
-        <input type="text" v-model="title" placeholder="Add new title..." />
-        <input type="submit" value="Submit" />
+        <input type="text" v-model="title" placeholder="Write new title..." />
+        <input type="submit" value="Add title" />
       </form>
     </div>
   </div>
@@ -14,7 +14,7 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'add-title',
-  date() {
+  data() {
     return {
       title: '',
     };
@@ -24,7 +24,9 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       this.addTitle(this.title);
+      console.log('titlefirst', this.title);
       this.title = '';
+      console.log('title', this.title);
     },
   },
 };
@@ -67,5 +69,8 @@ input[type='submit']:hover {
 input[type='text']:hover {
   background: #f3f1f1;
   color: black;
+}
+p {
+  color: white;
 }
 </style>

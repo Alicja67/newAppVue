@@ -5,6 +5,8 @@ import MainVue from '../MainVue.vue';
 import SearchView from '../views/SearchView.vue';
 import ContactForm from '../views/ContactForm.vue';
 import SpaceVisitors from '../views/SpaceVisitors.vue';
+import MapGoogle from '../views/MapGoogle.vue';
+import RegistrationComponent from '../views/RegistrationComponent.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,16 @@ const routes = [
     path: '/visitors',
     name: 'visitors',
     component: SpaceVisitors,
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component: MapGoogle,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegistrationComponent,
   },
 ];
 

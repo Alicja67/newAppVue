@@ -49,7 +49,7 @@ export default {
     },
     handleSnack() {
       this.snack({
-        text: `Great! We've got your message :)`,
+        text: `Great ${this.author}! We've got your message :)`,
         delay: 0,
       });
     },
@@ -144,6 +144,6 @@ h3 {
 i {
   color: white;
   font-size: 2rem;
-  margin: 50px 0 50px 0;
+  margin: 70px 0 50px 0;
 }
 </style>
