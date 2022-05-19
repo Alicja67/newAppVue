@@ -10,6 +10,8 @@ const titleRoutes = require('./routes/title.routes');
 const usersRoutes = require('./routes/users.routes');
 const userRoutes = require('./routes/user.routes');
 
+
+
 // const path = require("path");
 const cors = require('cors');
 const morgan = require('morgan');
@@ -70,9 +72,10 @@ app.use('/titles', titlesRoutes);
 app.use('/title', titleRoutes);
 app.use('/users', usersRoutes);
 app.use('/user', userRoutes);
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/app/dist/index.html'));
-// });
+
+app.get('/check', (req, res) => {
+  res.send('Online');
+});
 
 app.use((req, res, next) => {
   const error = new Error('Not found');

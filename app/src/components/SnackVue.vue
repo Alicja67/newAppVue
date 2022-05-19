@@ -6,6 +6,9 @@
     <p :style="{ background: 'red' }" class="snack" v-if="snackTitle">
       {{ snackTitle.text }}
     </p>
+    <p :style="{ background: 'red' }" class="snack" v-if="snackUser">
+      {{ snackUser.text }}
+    </p>
   </div>
 </template>
 <script>
@@ -17,6 +20,7 @@ export default {
     ...mapGetters({
       snack: 'snack',
       snackTitle: 'snackTitle',
+      snackUser: 'snackUser',
     }),
   },
 };

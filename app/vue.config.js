@@ -70,19 +70,21 @@ const { defineConfig } = require('@vue/cli-service');
 // };
 
 // const { defineConfig } = require("@vue/cli-service");
-const fs = require("fs");
+const fs = require('fs');
 module.exports = defineConfig({
-  transpileDependencies: ["vuetify"],
+  transpileDependencies: ['vuetify'],
   devServer: {
     https: {
-      key: fs.readFileSync("./ssl/tls.key"),
-      cert: fs.readFileSync("./ssl/tls.crt"),
+      key: fs.readFileSync('./ssl/tls.key'),
+      cert: fs.readFileSync('./ssl/tls.crt'),
     },
-    allowedHosts: [
-      "mac.pl",
-      "spacer-magic.mac.pl",
-      "spacer-magic.mac.pl:8081",
-      "localhost:8081",
-    ],
+    // proxy: {
+    //   '/auth/*': {
+    //     target: 'https://spacer-magic.mac.pl:8080',
+    //     // pathRewrite: { '^/8081': '' },
+    //     changeOrigin: true,
+    //   },
+    // },
+    allowedHosts: ['mac.pl', 'spacer-magic.mac.pl', 'spacer-magic.mac.pl:8081', 'localhost:8081'],
   },
 });

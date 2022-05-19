@@ -16,6 +16,7 @@
     </nav>
     <router-view></router-view>
     <footer-vue></footer-vue>
+    <!-- <button @click="getToken">Get token</button> -->
   </div>
 </template>
 <script>
@@ -23,6 +24,7 @@ import Keycloak from 'keycloak-js';
 import FooterVue from './components/FooterVue.vue';
 // import 'dotenv/config';
 import axios from 'axios';
+import qs from 'qs';
 
 export default {
   name: 'app-component',
@@ -43,19 +45,20 @@ export default {
     // this.getToken();
   },
   methods: {
-    // getToken() {
-    //   axios
-    //     .post('http://localhost:8080/auth/realms/spacer/protocol/openid-connect/token', {
-    //       body: {
-    //         client_id: 'spacer',
-    //         username: 'alicja',
-    //         password: 'test',
-    //         grant_type: 'password',
-    //       },
-    //     })
-    //     .then((res) => console.log(res.data))
-    //     .catch((err) => console.log(err));
-    // },
+    getToken() {
+      console.log('Go');
+      const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
+      const KEYCLOCK_REALM_NAME = 'spacer';
+      let URL = `${KEYCLOCK_URL}/auth/realms/${KEYCLOCK_REALM_NAME}/protocol/openid-connect/token`;
+      const data = {
+        client_id: `spacer`,
+        // client_secret: `${DATA_CLIENT_SECRET}`,
+        grant_type: 'password',
+        username: `alicja`,
+        password: `test`,
+      };
+      return axios.post(URL, qs.stringify(data));
+    },
     // users() {
     //   axios
     //     .post('http://localhost:8080/auth/admin/realms/spacer/users', {

@@ -11,13 +11,23 @@
         <button type="submit">Register</button>
       </div>
     </form>
+    <snack-vue></snack-vue>
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex';
+// import KcAdminClient from 'keycloak-admin';
+import axios from 'axios';
+import Keycloak from 'keycloak-js';
+import KcAdminClient from '@keycloak/keycloak-admin-client';
+import qs from 'qs';
+import SnackVue from '../components/SnackVue.vue';
 
 export default {
   name: 'registration-component',
+  components: {
+    SnackVue,
+  },
   data() {
     return {
       firstName: null,
@@ -25,22 +35,80 @@ export default {
       email: null,
       login: null,
       password: null,
+      token: null,
+      credentials: [{ type: 'password', value: '', temporary: false }],
     };
   },
+  mounted() {
+    this.getToken();
+  },
   methods: {
-    ...mapActions(['addUser']),
-    onSubmit(e) {
+    ...mapActions(['addUser', 'snack']),
+    getToken() {
+      const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
+      const KEYCLOCK_REALM_NAME = 'spacer';
+      let URL = `${KEYCLOCK_URL}/auth/realms/${KEYCLOCK_REALM_NAME}/protocol/openid-connect/token`;
+      const data = {
+        client_id: `admin-cli`,
+        // client_secret: `${DATA_CLIENT_SECRET}`,
+        grant_type: 'password',
+        username: `alicja`,
+        password: `test`,
+      };
+      return axios.post(URL, qs.stringify(data)).then((res) => {
+        this.token = res.data.access_token;
+        // console.log(this.token);
+      });
+    },
+    async onSubmit(e) {
       e.preventDefault();
-      console.log('firstName', this.firstName);
-      this.addUser({
+      const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
+      const KEYCLOCK_REALM_NAME = 'spacer';
+      let URL = `${KEYCLOCK_URL}/auth/admin/realms/${KEYCLOCK_REALM_NAME}/users`;
+      let config = {
+        headers: {
+          Authorization: 'Bearer ' + this.token,
+          'Content-Type': 'application/json',
+        },
+      };
+      const newUser = {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
-        login: this.login,
-        password: this.password,
+        username: this.login,
+        enabled: true,
+        credentials: [{ type: 'password', value: this.password, temporary: false }],
+      };
+      console.log('new user', newUser);
+      await axios.post(URL, JSON.stringify(newUser), config).then((res) => {
+        this.token = res.data.access_token;
+        // console.log(res);
       });
-      this.clearData();
-      // this.handleSnack();
+      await axios
+        .get(URL, config)
+        .then((res) => {
+          const addedUserData = res.data.find((user) => user.username === this.login);
+          console.log(addedUserData);
+          if (addedUserData.id) {
+            this.addUser({
+              firstName: addedUserData.firstName,
+              lastName: addedUserData.lastName,
+              email: addedUserData.email,
+              login: addedUserData.username,
+              password: this.password,
+            });
+            this.handleSnack(`Yeah!!! You are the new user now!`);
+          } else {
+            this.handleSnack(`Oops! Something went wrong! Try again.`);
+          }
+          this.clearData();
+        })
+        .catch((err) => console.log(err));
+    },
+    handleSnack(message) {
+      this.snack({
+        text: message,
+      });
     },
     clearData() {
       this.firstName = null;

@@ -12,7 +12,7 @@ const actions = {
   async fetchContact({ commit }) {
     try {
       const response = await axios.get('http://localhost:3000/contacts');
-      console.log('fetch-contacts', response.data);
+      // console.log('fetch-contacts', response.data);
       commit('SET_CONTACTS', response.data);
     } catch (error) {
       if (error.response) {

@@ -1,11 +1,21 @@
 import axios from 'axios';
 
+let defaults = {
+  time: 2000,
+  delay: 500,
+  text: '',
+  color: 'green',
+};
+
 const state = {
   users: [],
+  // error: '',
+  snackTitle: null,
 };
 
 const getters = {
   users: (state) => state.users,
+  snackUser: (state) => state.snackTitle,
 };
 
 const actions = {
@@ -50,10 +60,31 @@ const actions = {
         console.log(error.response.data.message);
         console.log(error.response.status);
         // alert(error.response.data.message);
+        const text = error.response.data.message;
+        const time = 3000;
+        defaults = { ...defaults, text, time };
+        console.log(error.response.status);
+        console.log('defaults', defaults);
+        console.log(error.response.data.message);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);
-        alert(error);
+        const text = error;
+        defaults = { ...defaults, text };
+        console.log('defaults', defaults);
+        setTimeout(() => {
+          commit('SET_SNACK_TITLE', defaults);
+          setTimeout(() => {
+            commit('SET_SNACK_TITLE', null);
+          }, defaults.time);
+        }, defaults.delay);
+
         setTimeout(function () {
           commit('NEW_USER', response.data);
         }, 2000);
@@ -66,7 +97,9 @@ const actions = {
 };
 
 const mutations = {
+  SET_SNACK_TITLE: (state, text) => (state.snackTitle = text),
   SET_USERS: (state, users) => (state.users = users),
+  // ERROR: (state, error) => (state.error = error),
   NEW_USER: (state, { firstName, lastName, email, login, password }) =>
     state.users.push({ firstName, lastName, email, login, password }),
 };
