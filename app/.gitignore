@@ -7,6 +7,9 @@ package-lock.json
 /build
 /ssl
 tls*
+/keycloak
+/etc
+.ssl
 
 
 # local env files

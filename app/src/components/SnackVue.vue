@@ -1,12 +1,12 @@
 <template>
   <div class="snack-wrapper">
-    <p :style="{ background: 'green' }" class="snack" v-if="snack">
+    <p :style="{ background: snack.color }" class="snack" v-if="snack">
       {{ snack.text }}
     </p>
-    <p :style="{ background: 'red' }" class="snack" v-if="snackTitle">
+    <p :style="{ background: snackTitle.color }" class="snack" v-if="snackTitle">
       {{ snackTitle.text }}
     </p>
-    <p :style="{ background: 'red' }" class="snack" v-if="snackUser">
+    <p :style="{ background: snackUser.color }" class="snack" v-if="snackUser">
       {{ snackUser.text }}
     </p>
   </div>
@@ -39,7 +39,7 @@ export default {
 .snack {
   padding: 10px 10px;
   // background: #26bb5f;
-  border: 1px solid white;
+  // border: 1px solid white;
   font-weight: bold;
   color: rgb(239, 241, 252);
   cursor: pointer;

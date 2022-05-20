@@ -9,12 +9,13 @@ let defaults = {
 
 const state = {
   users: [],
-  // error: '',
+  user: null,
   snackTitle: null,
 };
 
 const getters = {
   users: (state) => state.users,
+  user: (state) => state.user,
   snackUser: (state) => state.snackTitle,
 };
 
@@ -43,6 +44,15 @@ const actions = {
       }
     }
   },
+  async fetchLastAddedUser({ commit }, login) {
+    try {
+      const response = await axios.get(`http://localhost:3000/user/${login}`);
+      console.log('fetch-user', response.data);
+      commit('SET_USER', response.data);
+    } catch (err) {
+      console.log(err.response);
+    }
+  },
   async addUser({ commit }, { firstName, lastName, email, login, password }) {
     try {
       const response = await axios.post('http://localhost:3000/user/register', {
@@ -52,7 +62,7 @@ const actions = {
         login,
         password,
       });
-      console.log('set-add', response.data);
+      console.log('new user in DB', response.data);
       commit('NEW_USER', response.data);
     } catch (error) {
       if (error.response) {
@@ -99,6 +109,7 @@ const actions = {
 const mutations = {
   SET_SNACK_TITLE: (state, text) => (state.snackTitle = text),
   SET_USERS: (state, users) => (state.users = users),
+  SET_USER: (state, user) => (state.user = urser),
   // ERROR: (state, error) => (state.error = error),
   NEW_USER: (state, { firstName, lastName, email, login, password }) =>
     state.users.push({ firstName, lastName, email, login, password }),

@@ -12,6 +12,9 @@ package-lock.json
 .env.local
 .env.*.local
 .env
+.keycloak
+/ssl
+/etc
 
 # Log files
 npm-debug.log*

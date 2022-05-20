@@ -1,11 +1,12 @@
 let defaults = {
-  time: 2000,
+  time: 6000,
   delay: 500,
   text: '',
+  color: '',
 };
 
 const state = {
-  snack: null,
+  snack: [],
 };
 
 const getters = {
@@ -13,9 +14,9 @@ const getters = {
 };
 
 const actions = {
-  snack({ commit }, options) {
-    defaults = { ...defaults, ...options };
-
+  snack({ commit }, { text, color }) {
+    defaults = { ...defaults, ...{ text, color } };
+    console.log('snack default', defaults);
     setTimeout(() => {
       commit('SET_SNACK', defaults);
       setTimeout(() => {

@@ -12,14 +12,14 @@
       </div>
     </form>
     <snack-vue></snack-vue>
+    <div v-for="user in users" :key="user.login">
+      <p>{{ user.login }}</p>
+    </div>
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
-// import KcAdminClient from 'keycloak-admin';
+import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios';
-import Keycloak from 'keycloak-js';
-import KcAdminClient from '@keycloak/keycloak-admin-client';
 import qs from 'qs';
 import SnackVue from '../components/SnackVue.vue';
 
@@ -37,13 +37,22 @@ export default {
       password: null,
       token: null,
       credentials: [{ type: 'password', value: '', temporary: false }],
+      online: false,
+      addedLogin: '',
     };
   },
   mounted() {
     this.getToken();
+    this.isConnectedToDB();
+  },
+  computed: {
+    ...mapGetters(['users']),
+  },
+  created() {
+    return this.fetchUser();
   },
   methods: {
-    ...mapActions(['addUser', 'snack']),
+    ...mapActions(['addUser', 'snack', 'fetchUser']),
     getToken() {
       const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
       const KEYCLOCK_REALM_NAME = 'spacer';
@@ -57,9 +66,10 @@ export default {
       };
       return axios.post(URL, qs.stringify(data)).then((res) => {
         this.token = res.data.access_token;
-        // console.log(this.token);
+        console.log('Token in generated');
       });
     },
+
     async onSubmit(e) {
       e.preventDefault();
       const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
@@ -71,6 +81,7 @@ export default {
           'Content-Type': 'application/json',
         },
       };
+
       const newUser = {
         firstName: this.firstName,
         lastName: this.lastName,
@@ -79,35 +90,103 @@ export default {
         enabled: true,
         credentials: [{ type: 'password', value: this.password, temporary: false }],
       };
-      console.log('new user', newUser);
-      await axios.post(URL, JSON.stringify(newUser), config).then((res) => {
-        this.token = res.data.access_token;
-        // console.log(res);
-      });
+
       await axios
-        .get(URL, config)
+        .get('http://localhost:3000/check')
         .then((res) => {
-          const addedUserData = res.data.find((user) => user.username === this.login);
-          console.log(addedUserData);
-          if (addedUserData.id) {
-            this.addUser({
-              firstName: addedUserData.firstName,
-              lastName: addedUserData.lastName,
-              email: addedUserData.email,
-              login: addedUserData.username,
-              password: this.password,
-            });
-            this.handleSnack(`Yeah!!! You are the new user now!`);
-          } else {
-            this.handleSnack(`Oops! Something went wrong! Try again.`);
+          if (res.data === 'Online') {
+            this.online = true;
+            console.log('Connected to BD in registerButton', this.online);
           }
-          this.clearData();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.online = false;
+          console.log('Disconnected to DB!', this.online, err);
+        });
+      console.log('new user', newUser);
+
+      if (this.online) {
+        await axios
+          .post(URL, JSON.stringify(newUser), config)
+          .then((res) => {
+            console.log('Added new user to keycloak');
+          })
+          .catch((err) => {
+            const errorMessagee = err.response.data.errorMessage;
+            console.log('NO USER added to Keycloak!!!', errorMessagee);
+            this.handleSnack(`${errorMessagee}! Try again.`, 'red');
+          });
+        await axios
+          .get(URL, config)
+          .then((res) => {
+            const addedUserData = res.data.find((user) => user.username === this.login);
+            this.addedLogin = addedUserData.username;
+            console.log('addedUserData', addedUserData, this.addedLogin);
+            if (addedUserData.id) {
+              this.addUser({
+                firstName: addedUserData.firstName,
+                lastName: addedUserData.lastName,
+                email: addedUserData.email,
+                login: addedUserData.username,
+                password: this.password,
+              });
+              this.fetchUser();
+            }
+          })
+          .catch((err) => {
+            this.handleSnack(`Oops! Something went wrong! Try again.`, 'red');
+            console.log(err.response);
+          })
+          .finally(() => {
+            axios.get('http://localhost:3000/users').then((res) => {
+              // const ifAddedToDB = res.data.find((user) => {
+              //   user.login == this.addedLogin;
+              // });
+              const addedToDB = res.data[res.data.length - 1].login;
+              console.log('data', res.data);
+              console.log('addedToDB', addedToDB);
+              console.log('addedLogin', this.addedLogin);
+              if (addedToDB === this.addedLogin) {
+                console.log('Add user to DB');
+                this.handleSnack(`Yeah!!! Now you have access to secret NASA data!`, 'green');
+              }
+            });
+            //   } else {
+            //     console.log('NO USER added to DB!! Error with getting user from Keycloak');
+            //     this.handleSnack(`Oops! Something went wrong! Try again.`, 'red');
+            //   }
+            this.clearData();
+          });
+      } else {
+        this.handleSnack(`Sorry! Data Base is disconnected :( Try again later.`, 'red');
+        console.log('DB disconnected!!! NO USER add to keycloak');
+        this.clearData();
+      }
     },
-    handleSnack(message) {
+    isConnectedToDB() {
+      const isConnected = function () {
+        axios
+          .get('http://localhost:3000/check')
+          .then((res) => {
+            if (res.data === 'Online') {
+              this.online = true;
+              // console.log('Connected to BD', this.online);
+            } else {
+              this.online = false;
+              // console.log('online', this.online);
+            }
+          })
+          .catch(() => {
+            this.online = false;
+            console.log('Disconnected to DB!', this.online);
+          });
+      };
+      setInterval(isConnected, 20000);
+    },
+    handleSnack(text, color) {
       this.snack({
-        text: message,
+        text: text,
+        color: color,
       });
     },
     clearData() {
