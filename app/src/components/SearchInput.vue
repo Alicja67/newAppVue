@@ -1,6 +1,6 @@
 <template>
   <form @submit="onSubmit">
-    <input name="search" id="search" type="text" :class="{ dark }" v-model="searchValue" />
+    <input class="search-input" name="search" id="search" type="text" :class="{ dark }" v-model="searchValue" />
     <input class="submit" type="submit" value="GO!" />
     <!-- <ul>
     <li v-for='result in results' :key='result.data[0].nasa_id'>
@@ -41,26 +41,25 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-input {
+.search-input {
   height: 50px;
   border: 0;
   border-bottom: 1px solid rgb(245, 241, 241);
-  border-right: 1px solid rgb(245, 241, 241);
-  border-left: 1px solid rgb(245, 241, 241);
   border-radius: 5px;
   background: none;
   margin-top: 60px;
   transition: box-shadow 0.5s;
   text-align: center;
-  color: rgb(245, 241, 241);
+  color: rgb(230, 232, 238);
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  transition: 1s;
 }
-input:focus {
+.search-input:hover {
   outline: none;
-  box-shadow: 0 5px 10px rgb(245, 241, 241);
+  box-shadow: 0 5px 10px rgb(114, 119, 182);
   background: none;
 }
 p {
@@ -79,19 +78,22 @@ p {
 }
 .submit {
   cursor: pointer;
-  height: 100%;
-  transition: 1s;
-  background: #27396e;
-  color: rgb(234, 237, 247);
-  font-size: 1.5rem;
-  border-bottom: 1px solid rgb(245, 241, 241);
-  border-right: 1px solid rgb(245, 241, 241);
-  border-left: 1px solid rgb(245, 241, 241);
+  background: #9b6822;
+  color: rgb(227, 229, 238);
+  font-size: 1.1rem;
+  flex: 2;
+  border: 1px solid #9b6822;
   border-radius: 5px;
   padding: 10px;
-  margin-left: 20px;
-  -webkit-box-shadow: 4px 4px 15px -1px #fffcf2;
-  box-shadow: 4px 4px 9px -1px #000000;
+  transition: 1s;
+  margin-right: 50px;
+  padding: 10px 40px 10px;
+  width: 250px;
+  margin-left: 10px;
+}
+.submit:hover {
+  background: #0a0a0a;
+  border-color: black;
 }
 form {
   display: flex;

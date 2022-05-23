@@ -1,14 +1,12 @@
 import AboutViewVue from '@/views/AboutView.vue';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import MainVue from '../MainVue.vue';
 import SearchView from '../views/SearchView.vue';
-import ContactForm from '../views/ContactForm.vue';
+import MessageComponent from '../views/MessageComponent.vue';
 import SpaceVisitors from '../views/SpaceVisitors.vue';
-import MapGoogle from '../views/MapGoogle.vue';
+import ProfileUser from '../views/ProfileUser.vue';
 import RegistrationComponent from '../views/RegistrationComponent.vue';
 import login from '../utils/loggingUtils';
-import Keycloak from 'keycloak-js';
 
 Vue.use(VueRouter);
 
@@ -26,7 +24,7 @@ const routes = [
   {
     path: '/message',
     name: 'message',
-    component: ContactForm,
+    component: MessageComponent,
   },
   {
     path: '/visitors',
@@ -34,9 +32,9 @@ const routes = [
     component: SpaceVisitors,
   },
   {
-    path: '/map',
-    name: 'map',
-    component: MapGoogle,
+    path: '/profile',
+    name: 'profile',
+    component: ProfileUser,
   },
   {
     path: '/register',
@@ -56,7 +54,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'tag' || to.name === 'visitors') {
+  if (to.name === 'visitors' || to.name === 'tag') {
     login();
   }
   next();

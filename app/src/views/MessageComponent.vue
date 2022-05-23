@@ -22,7 +22,7 @@ import { mapActions } from 'vuex';
 import SnackVue from '../components/SnackVue.vue';
 
 export default {
-  name: 'contact-form',
+  name: 'message-component',
   components: {
     SnackVue,
   },
@@ -60,7 +60,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
 
 .wrapper {
-  background: #343a46;
   color: #fff;
   padding: 30px;
   text-align: center;
@@ -96,7 +95,7 @@ label {
 }
 input,
 textarea {
-  background: rgba(7, 3, 3, 0.2);
+  background: rgba(7, 3, 3, 0.4);
   padding: 0.6rem 1rem;
   border: none;
   margin: 0 1rem;
@@ -110,21 +109,6 @@ textarea {
   width: 400px;
   height: 200px;
   display: block;
-}
-button {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #b0b1b3;
-  background: #2770dd;
-  border-radius: 5px;
-  color: rgb(231, 232, 236);
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.2rem;
-  transition: 1s;
-}
-button:hover {
-  background: #0a0a0a;
 }
 input[type='checkbox'] {
   width: 25px;
@@ -144,6 +128,6 @@ h3 {
 i {
   color: white;
   font-size: 2rem;
-  margin: 70px 0 50px 0;
+  margin: 20px 0 20px 0;
 }
 </style>

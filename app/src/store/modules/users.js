@@ -11,19 +11,21 @@ const state = {
   users: [],
   user: null,
   snackTitle: null,
+  loggedUser: null,
 };
 
 const getters = {
   users: (state) => state.users,
   user: (state) => state.user,
   snackUser: (state) => state.snackTitle,
+  loggedUser: (state) => state.loggedUser,
 };
 
 const actions = {
   async fetchUser({ commit }) {
     try {
       const response = await axios.get('http://localhost:3000/users');
-      console.log('fetch-users', response.data);
+      // console.log('fetch-users', response.data);
       commit('SET_USERS', response.data);
     } catch (error) {
       if (error.response) {
@@ -44,16 +46,20 @@ const actions = {
       }
     }
   },
-  async fetchLastAddedUser({ commit }, login) {
+  async fetchLastAddedUser({ commit }, id) {
     try {
-      const response = await axios.get(`http://localhost:3000/user/${login}`);
-      console.log('fetch-user', response.data);
+      const response = await axios.get(`http://localhost:3000/user/${id}`);
+      // console.log('fetch-user', response.data);
       commit('SET_USER', response.data);
     } catch (err) {
       console.log(err.response);
     }
   },
-  async addUser({ commit }, { firstName, lastName, email, login, password }) {
+  async fetchLoggedUser({ commit }, { email, id, username, fullname }) {
+    console.log(email, id, username);
+    commit('SET_LOGGED_USER', { email, id, username, fullname });
+  },
+  async addUser({ commit }, { firstName, lastName, email, login, password, id }) {
     try {
       const response = await axios.post('http://localhost:3000/user/register', {
         firstName,
@@ -61,6 +67,7 @@ const actions = {
         email,
         login,
         password,
+        id,
       });
       console.log('new user in DB', response.data);
       commit('NEW_USER', response.data);
@@ -73,7 +80,6 @@ const actions = {
         const text = error.response.data.message;
         const time = 3000;
         defaults = { ...defaults, text, time };
-        console.log(error.response.status);
         console.log('defaults', defaults);
         console.log(error.response.data.message);
         setTimeout(() => {
@@ -111,8 +117,9 @@ const mutations = {
   SET_USERS: (state, users) => (state.users = users),
   SET_USER: (state, user) => (state.user = urser),
   // ERROR: (state, error) => (state.error = error),
-  NEW_USER: (state, { firstName, lastName, email, login, password }) =>
-    state.users.push({ firstName, lastName, email, login, password }),
+  NEW_USER: (state, { firstName, lastName, email, login, password, id }) =>
+    state.users.push({ firstName, lastName, email, login, password, id }),
+  SET_LOGGED_USER: (state, loggedUser) => (state.loggedUser = loggedUser),
 };
 
 export default {

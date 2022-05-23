@@ -1,7 +1,6 @@
 import Vue from 'vue';
 
 import App from './AppComponent.vue';
-import MainVue from './MainVue.vue';
 import router from './router';
 import store from './store';
 import MdCard from 'vue-material';

@@ -45,6 +45,7 @@ export default {
   },
   mounted() {
     this.photo = this.item.links[0].href;
+    console.log('photo', this.photo);
     this.description = this.item.data[0].description.substring(0, 100);
     this.title = this.item.data[0].title;
     this.tags = this.item.data[0].keywords;

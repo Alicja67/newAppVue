@@ -74,8 +74,8 @@ h3 {
   grid-row-gap: 1rem;
 }
 .title {
-  border: 1px solid rgb(231, 210, 210);
-  background: #343a46;
+  border: 1px solid #0e0f0f;
+  background: #0a0a0a;
   padding: 1rem;
   border-radius: 5px;
   text-align: center;
@@ -85,7 +85,8 @@ h3 {
   // font-family: 'Hubballi', cursive;
 }
 .title:hover {
-  background: #25272c;
+  background: #cdced1;
+  color: black;
 }
 i {
   color: white;

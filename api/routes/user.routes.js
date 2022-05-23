@@ -19,10 +19,10 @@ router.get('/:id', async (req, res) => {
 
 //ADD NEW DATA
 router.post('/register', async (req, res) => {
-  const { firstName, lastName, email, login, password } = req.body;
+  const { firstName, lastName, email, login, password, id } = req.body;
   try {
-    if (firstName && lastName && email && login && password ) {
-      const post = new Users({ firstName, lastName, email, login, password });
+    if (firstName && lastName && email && login && password && id) {
+      const post = new Users({ firstName, lastName, email, login, password, id });
       const newUser = await post.save();
       res.status(201).json(newUser);
     }

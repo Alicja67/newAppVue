@@ -21,7 +21,6 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Keycloak from 'keycloak-js';
 
 export default {
   name: 'space-visitors',
@@ -89,36 +88,5 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-button {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #b0b1b3;
-  background: #27396e;
-  border-radius: 5px;
-  color: rgb(231, 232, 236);
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.2rem;
-  transition: 1s;
-}
-button:hover {
-  background: #0a0a0a;
-}
-.log {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #d4d6da;
-  background: #27396e;
-  border-radius: 5px;
-  color: rgb(239, 241, 252);
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: 1s;
-  margin-right: 50px;
-  font-size: 1.5rem;
-}
-.log:hover {
-  background: #0a0a0a;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h2>Register now! :)</h2>
+    <h2>Registration</h2>
     <form method="post" @submit="onSubmit">
       <label for="firstName"> First name: <input type="text" name="firstName" v-model="firstName" required /> </label>
       <label for="lastName"> Last name: <input type="text" name="lastName" v-model="lastName" required /> </label>
@@ -12,9 +12,6 @@
       </div>
     </form>
     <snack-vue></snack-vue>
-    <div v-for="user in users" :key="user.login">
-      <p>{{ user.login }}</p>
-    </div>
   </div>
 </template>
 <script>
@@ -37,6 +34,7 @@ export default {
       password: null,
       token: null,
       credentials: [{ type: 'password', value: '', temporary: false }],
+      id: '',
       online: false,
       addedLogin: '',
       errorMessage: '',
@@ -67,7 +65,7 @@ export default {
       };
       return axios.post(URL, qs.stringify(data)).then((res) => {
         this.token = res.data.access_token;
-        console.log('Token in generated');
+        console.log('Token is generated');
       });
     },
 
@@ -134,6 +132,7 @@ export default {
                   email: addedUserData.email,
                   login: addedUserData.username,
                   password: this.password,
+                  id: addedUserData.id,
                 });
                 this.fetchUser();
               }
@@ -207,46 +206,40 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 h2 {
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 100px 100px 60px 60px;
 }
 form {
   display: flex;
+  width: 100vw;
   flex-direction: column;
-  // align-items: center;
+  align-items: center;
+  text-align: left;
   justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: bold;
   label {
     margin: 10px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
+    width: 400px;
     input {
       padding: 10px;
-      border: 1px solid #c4c8d3;
-      background: #0a0a0a;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      background: rgba(7, 3, 3, 0.4);
+      border-radius: 5px;
       cursor: pointer;
       transition: 1s;
       color: #f7f7f8;
+      border: 1px solid transparent;
     }
-  }
-  button {
-    margin: 60px 0 0 150px;
-    position: relative;
-    padding: 10px;
-    border: 1px solid #d4d6da;
-    background: #27396e;
-    border-radius: 5px;
-    color: rgb(239, 241, 252);
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: 1s;
-  }
-  button:hover {
-    background: #0a0a0a;
   }
 }
 </style>

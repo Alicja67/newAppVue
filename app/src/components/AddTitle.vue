@@ -39,7 +39,7 @@ form {
 input[type='text'] {
   flex: 10;
   padding: 10px;
-  border: 1px solid #c4c8d3;
+  border: 1px solid #102e20;
   background: #0a0a0a;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -49,15 +49,14 @@ input[type='text'] {
 }
 input[type='submit'] {
   cursor: pointer;
-  background: #27396e;
+  background: #257b26;
   color: rgb(227, 229, 238);
   font-size: 1.1rem;
   flex: 2;
-  border: 1px solid #33394b;
+  border: 1px solid #257b26;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 10px;
-  border: 1px solid #dddfe2;
   transition: 1s;
   margin-right: 50px;
   padding: 10px 40px 10px;
