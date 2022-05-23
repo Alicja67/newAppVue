@@ -39,6 +39,7 @@ export default {
       credentials: [{ type: 'password', value: '', temporary: false }],
       online: false,
       addedLogin: '',
+      errorMessage: '',
     };
   },
   mounted() {
@@ -112,26 +113,32 @@ export default {
             console.log('Added new user to keycloak');
           })
           .catch((err) => {
-            const errorMessagee = err.response.data.errorMessage;
-            console.log('NO USER added to Keycloak!!!', errorMessagee);
-            this.handleSnack(`${errorMessagee}! Try again.`, 'red');
+            this.errorMessage = err.response.data.errorMessage;
+            console.log('err.response.data.errorMessage', err.response.data.errorMessage, err.response);
+            console.log('NO USER added to Keycloak!!!', this.errorMessage);
+            this.handleSnack(`${this.errorMessage}! Try again.`, 'red');
           });
         await axios
           .get(URL, config)
           .then((res) => {
-            const addedUserData = res.data.find((user) => user.username === this.login);
-            this.addedLogin = addedUserData.username;
-            console.log('addedUserData', addedUserData, this.addedLogin);
-            if (addedUserData.id) {
-              this.addUser({
-                firstName: addedUserData.firstName,
-                lastName: addedUserData.lastName,
-                email: addedUserData.email,
-                login: addedUserData.username,
-                password: this.password,
-              });
-              this.fetchUser();
+            console.log('goo');
+            console.log('errorMessage', this.errorMessage);
+            if (!this.errorMessage) {
+              const addedUserData = res.data.find((user) => user.username === this.login);
+              this.addedLogin = addedUserData.username;
+              console.log('addedUserData', addedUserData, this.addedLogin);
+              if (addedUserData.id) {
+                this.addUser({
+                  firstName: addedUserData.firstName,
+                  lastName: addedUserData.lastName,
+                  email: addedUserData.email,
+                  login: addedUserData.username,
+                  password: this.password,
+                });
+                this.fetchUser();
+              }
             }
+            this.errorMessage = '';
           })
           .catch((err) => {
             this.handleSnack(`Oops! Something went wrong! Try again.`, 'red');
