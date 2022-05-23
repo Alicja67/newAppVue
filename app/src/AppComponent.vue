@@ -16,113 +16,15 @@
     </nav>
     <router-view></router-view>
     <footer-vue></footer-vue>
-    <!-- <button @click="getToken">Get token</button> -->
   </div>
 </template>
 <script>
-import Keycloak from 'keycloak-js';
 import FooterVue from './components/FooterVue.vue';
-// import 'dotenv/config';
-import axios from 'axios';
-import qs from 'qs';
 
 export default {
   name: 'app-component',
   components: {
     FooterVue,
-  },
-  data() {
-    return {
-      logged: true,
-      logOut: 'Log out',
-      logIn: 'Log in',
-      logText: 'Log in',
-    };
-  },
-  created() {
-    // this.login();
-    // this.users();
-    // this.getToken();
-  },
-  methods: {
-    getToken() {
-      console.log('Go');
-      const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
-      const KEYCLOCK_REALM_NAME = 'spacer';
-      let URL = `${KEYCLOCK_URL}/auth/realms/${KEYCLOCK_REALM_NAME}/protocol/openid-connect/token`;
-      const data = {
-        client_id: `spacer`,
-        // client_secret: `${DATA_CLIENT_SECRET}`,
-        grant_type: 'password',
-        username: `alicja`,
-        password: `test`,
-      };
-      return axios.post(URL, qs.stringify(data));
-    },
-    // users() {
-    //   axios
-    //     .post('http://localhost:8080/auth/admin/realms/spacer/users', {
-    //       headers: {
-    //         Autorization: TOKEN,
-    //       },
-    //       body: {},
-    //     })
-    //     .then((res) => console.log(res.data))
-    //     .catch((err) => console.log(err));
-    // },
-    handleLogOut() {
-      const KEYCLOAK = 'localhost:8080';
-      const MY_REALM = 'spacer';
-      const ENCODED_REDIRECT_URI = 'https://spacer-magic.mac.pl:8081/';
-      window.location.replace(
-        `http://${process.env.KEYCLOAK}/auth/realms/${process.env.MY_REALM}/protocol/openid-connect/logout?redirect_uri=${process.env.ENCODED_REDIRECT_URI}`
-      );
-      this.logText = 'Log out';
-    },
-    handleLogIn() {
-      this.login();
-      this.logged = !this.logged;
-    },
-    login() {
-      var keycloak = Keycloak({
-        realm: `spacer`,
-        url: `http://localhost:8080/auth`,
-        clientId: `spacer`,
-        // 'ssl-required': 'all',
-        resource: `spacer`,
-        'public-client': true,
-        'confidential-port': 0,
-      });
-
-      keycloak
-        .init({
-          // flow: 'implicit',
-          promiseType: 'native',
-          onLoad: 'login-required',
-        })
-        .then((authenticated) => {
-          // console.log('TOKEN', this.decodeToken(keycloak.token));
-          return authenticated;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      // keycloak.onTokenExpired = () => {
-      //   keycloak
-      //     .updateToken(30)
-      //     .then((refreshed) => {
-      //       if (refreshed) {
-      //         this.$store.commit('TOKEN_SET', keycloak.token);
-      //       } else {
-      //         console.log('Token is still valid');
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.error(error);
-      //     });
-      // };
-    },
   },
 };
 </script>

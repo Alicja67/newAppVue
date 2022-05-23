@@ -7,6 +7,8 @@ import ContactForm from '../views/ContactForm.vue';
 import SpaceVisitors from '../views/SpaceVisitors.vue';
 import MapGoogle from '../views/MapGoogle.vue';
 import RegistrationComponent from '../views/RegistrationComponent.vue';
+import login from '../utils/loggingUtils';
+import Keycloak from 'keycloak-js';
 
 Vue.use(VueRouter);
 
@@ -41,12 +43,23 @@ const routes = [
     name: 'register',
     component: RegistrationComponent,
   },
+  {
+    path: '*',
+    redirect: '/',
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'tag' || to.name === 'visitors') {
+    login();
+  }
+  next();
 });
 
 export default router;

@@ -31,9 +31,6 @@ export default {
       displayMessage: false,
     };
   },
-  mounted() {
-    this.login();
-  },
   computed: {
     ...mapGetters({
       contacts: 'contacts',
@@ -48,53 +45,16 @@ export default {
       this.randomMessage = randomText;
     },
     handleLogOut() {
+      const URL =
+        'https://spacer-magic.mac.pl:8080/auth/realms/spacer/protocol/openid-connect/logout?redirect_uri=https://spacer-magic.mac.pl:8081';
       const KEYCLOAK = 'spacer-magic.mac.pl:8080';
       const MY_REALM = 'spacer';
-      const ENCODED_REDIRECT_URI = 'https://spacer-magic.mac.pl:8081';
-      window.location.replace(
-        `http://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${ENCODED_REDIRECT_URI}`
-      );
-      this.logText = 'Log out';
-    },
-    login() {
-      var keycloak = Keycloak({
-        realm: `spacer`,
-        url: `https://spacer-magic.mac.pl:8080/auth`,
-        clientId: `spacer`,
-        'ssl-required': 'all',
-        resource: `spacer`,
-        'public-client': true,
-        'confidential-port': 0,
-      });
-
-      keycloak
-        .init({
-          // flow: 'implicit',
-          promiseType: 'native',
-          onLoad: 'login-required',
-        })
-        .then((authenticated) => {
-          // console.log('TOKEN', this.decodeToken(keycloak.token));
-          return authenticated;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      // keycloak.onTokenExpired = () => {
-      //   keycloak
-      //     .updateToken(30)
-      //     .then((refreshed) => {
-      //       if (refreshed) {
-      //         this.$store.commit('TOKEN_SET', keycloak.token);
-      //       } else {
-      //         console.log('Token is still valid');
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.error(error);
-      //     });
-      // };
+      const REDIRECT_URI = 'https://spacer-magic.mac.pl:8081';
+      console.log('You are logged out');
+      // window.location.replace(
+      //   `https://${KEYCLOAK}/auth/realms/${MY_REALM}/protocol/openid-connect/logout?redirect_uri=${REDIRECT_URI}`
+      // );
+      window.location.replace(URL);
     },
   },
   computed: {
