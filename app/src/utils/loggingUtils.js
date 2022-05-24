@@ -13,7 +13,6 @@ const login = () => {
 
   keycloak
     .init({
-      // flow: 'implicit',
       promiseType: 'native',
       onLoad: 'login-required',
     })
@@ -22,6 +21,7 @@ const login = () => {
       const authenticatedUser = keycloak.idTokenParsed.name;
       const id = keycloak.idTokenParsed.jti;
       const email = keycloak.idTokenParsed.email;
+      console.log('keycloak', keycloak.idTokenParsed.sub);
       console.log('id', id);
       console.log('authenticatedUser', authenticatedUser);
       console.log('email', email);

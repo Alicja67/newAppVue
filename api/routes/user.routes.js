@@ -32,4 +32,26 @@ router.post('/register', async (req, res) => {
   }
 });
 
+//EDIT BY ID
+router.put('/:id', async (req, res) => {
+  const { firstName, lastName, email, login } = req.body;
+  const { id } = req.params;
+
+  try {
+    let dataToUpdate = await Users.findById(id);
+    if (dataToUpdate) {
+      if (!firstName && !lastName && !email && !login ) {
+        res.status(404).json({ message: 'Sothing went wrong...' });
+      }
+      await Users.updateOne({ _id: id }, { $set: { firstName, lastName, email, login } });
+      dataToUpdate = await Users.findById(id);
+      res.status(200).json(dataToUpdate);
+    } else {
+      res.status(404).json({ message: 'Data not found. No valid ID' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+});
+
 module.exports = router;

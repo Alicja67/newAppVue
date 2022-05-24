@@ -5,33 +5,118 @@
     </div>
     <div class="description">
       <h1 class="main-title">Hello {{ username }}</h1>
-      <h3>Your full name: {{ fullName }}</h3>
       <h3>Your keycloak ID: {{ id }}</h3>
-      <h3>Your email: {{ email }}</h3>
+      <div class="edit-wrapper">
+        <div class="data-wrapper">
+          <h3 v-if="!editing">Your full name: {{ fullName }}</h3>
+          <input class="input-edit" v-else v-model="newFullname" type="text" placeholder="new full name..." />
+          <h3 v-if="!editing">Your email: {{ email }}</h3>
+          <input class="input-edit" v-else v-model="newEmail" placeholder="new email..." type="email" />
+        </div>
+        <button @click="handleEdit">{{ !editing ? 'EDIT' : 'EDITING' }}</button>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
 import qs from 'qs';
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Keycloak from 'keycloak-js';
 
 export default {
   name: 'profile-user',
   data() {
     return {
+      editing: false,
       id: '',
       email: '',
+      newEmail: '',
       fullName: '',
+      newFullname: '',
       username: '',
+      token: '',
+      online: false,
     };
   },
   mounted() {
     this.login();
+    this.getToken();
+  },
+  computed: {
+    ...mapGetters(['loggedUsers']),
   },
   methods: {
-    ...mapActions(['fetchLoggedUser']),
+    ...mapActions(['fetchLoggedUser', 'updateUser']),
+    getToken() {
+      const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
+      const KEYCLOCK_REALM_NAME = 'spacer';
+      let URL = `${KEYCLOCK_URL}/auth/realms/${KEYCLOCK_REALM_NAME}/protocol/openid-connect/token`;
+      const data = {
+        client_id: `admin-cli`,
+        grant_type: 'password',
+        username: `alicja`,
+        password: `test`,
+      };
+      return axios.post(URL, qs.stringify(data)).then((res) => {
+        this.token = res.data.access_token;
+        console.log('Token is generated');
+      });
+    },
+    async handleEdit() {
+      let url = `https://spacer-magic.mac.pl:8080/auth/admin/realms/spacer/users/${this.id}`;
+      let config = {
+        headers: {
+          Authorization: 'Bearer ' + this.token,
+          'Content-Type': 'application/json',
+        },
+      };
+      const newData = {
+        firstName: this.newFullname.split(' ')[0] || this.fullName.split(' ')[0],
+        lastName: this.newFullname.split(' ')[1] || this.fullName.split(' ')[0],
+        email: this.newEmail || this.email,
+        username: this.username,
+      };
+      await axios
+        .get('http://localhost:3000/check')
+        .then((res) => {
+          if (res.data === 'Online') {
+            this.online = true;
+            console.log('Connected to BD in registerButton', this.online);
+          }
+        })
+        .catch((err) => {
+          this.online = false;
+          console.log('Disconnected to DB!', this.online, err);
+        });
+
+      if (this.online) {
+        this.editing = true;
+        await axios
+          .put(url, JSON.stringify(newData), config)
+          .then((res) => {
+            console.log('editing, newEmail', this.editing, newData);
+            console.log('res.data', res.data);
+            this.fullName = this.newFullname;
+            this.email = this.newEmail;
+            this.updateUser(id, {
+              firstName: this.newFullname.split(' ')[0] || 'No',
+              lastName: this.newFullname.split(' ')[1] || 'Name',
+              email: this.newEmail || this.email,
+              login: this.username,
+            });
+            this.editing = false;
+          })
+          .catch((err) => {
+            // this.errorMessage = err.response.data.error;
+            console.log('err.response', err.response);
+            // this.handleSnack(`${this.errorMessage}! Try again.`, 'red');
+          });
+      } else {
+        // this.handleSnack(`Sorry! Data Base is disconnected :( Try again later.`, 'red');
+        console.log('Error');
+      }
+    },
     login() {
       var keycloak = Keycloak({
         realm: `spacer`,
@@ -51,7 +136,7 @@ export default {
         })
         .then((authenticated) => {
           console.log(JSON.stringify(keycloak.tokenParsed));
-          this.id = keycloak.idTokenParsed.jti;
+          this.id = keycloak.idTokenParsed.sub;
           this.email = keycloak.idTokenParsed.email || 'not define';
           this.username = keycloak.idTokenParsed.preferred_username;
           this.fullName = keycloak.idTokenParsed.name || 'not define';
@@ -135,6 +220,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import '../assets/scss/variable';
+
 body {
   background: black;
   color: white;
@@ -150,5 +237,37 @@ body {
   justify-content: center;
   align-items: center;
   height: calc(100vh - 300px);
+}
+.edit-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  width: 700px;
+  margin-top: 60px;
+  button {
+    height: 100%;
+    margin: 0;
+    padding: 30px 47px 30px 30px;
+    text-align: center;
+  }
+}
+.data-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+  height: 100%;
+  h3 {
+    margin: 0;
+    padding: 15px;
+    background: rgba(7, 3, 3, 0.3);
+    text-align: right;
+    width: 100%;
+  }
+}
+.input-edit {
+  background: $dark-font-color;
+  width: 100%;
+  color: rgb(255, 251, 251);
 }
 </style>

@@ -22,6 +22,30 @@ const getters = {
 };
 
 const actions = {
+  async updateUser({ commit }, id, { firstName, lastName, email, login }) {
+    try {
+      const response = await axios.put(`http://localhost:3000/user/${id}`);
+      console.log('updateUser', response.data);
+      commit('UPDATE_USER', response.data);
+    } catch (error) {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data.message);
+        console.log(error.response.status);
+        // alert(error.response.data.message);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+        // alert(error);
+        setTimeout(function () {
+          commit('UPDATE_USER', response.data);
+        }, 2000);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+    }
+  },
   async fetchUser({ commit }) {
     try {
       const response = await axios.get('http://localhost:3000/users');
@@ -120,6 +144,7 @@ const mutations = {
   NEW_USER: (state, { firstName, lastName, email, login, password, id }) =>
     state.users.push({ firstName, lastName, email, login, password, id }),
   SET_LOGGED_USER: (state, loggedUser) => (state.loggedUser = loggedUser),
+  UPDATE_USER: (state, updatedUser) => (state.loggedUser = { ...loggedUser, ...updatedUser }),
 };
 
 export default {
