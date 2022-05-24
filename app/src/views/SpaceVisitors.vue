@@ -3,8 +3,9 @@
     <div class="log-wrapper">
       <button class="log" @click="handleLogOut()">Log out</button>
     </div>
-    <h2 class="title">I's nice to meet all space explorers</h2>
+    <h2 class="main-title">Check random message</h2>
     <div class="contacts">
+      <h3>All authors:</h3>
       <div v-for="contact in contacts" :key="contact._id">
         <p class="author">
           <i class="fa-solid fa-heart"></i>
@@ -65,10 +66,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.title {
+@import '../assets/scss/text';
+
+.main-title {
   text-align: center;
   margin-top: 150px;
-  font-size: 2rem;
+  font-size: 4.5rem;
 }
 .contacts {
   display: inline-block;
@@ -77,8 +80,10 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 50px 0 100px 0;
+  margin: 80px 0 60px 0;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   .author {
     margin: 10px;
   }
@@ -88,5 +93,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: $subtitle-font-family;
+  font-size: $subtitle-one-font-size;
 }
 </style>

@@ -28,31 +28,21 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
-* {
-  box-sizing: border-box;
-  overflow: auto;
-}
+<style lang="scss" scoped>
+@import './assets/scss/main';
+@import './assets/scss/variable';
+@import './assets/scss/nav';
+@import './assets/scss/text';
+@import './assets/scss/footer';
+
 body {
-  font-family: 'Hubballi', cursive;
+  font-family: $title-font-family;
   font-family: 'Montserrat', sans-serif;
   padding: 0;
   margin: 0;
   overflow: auto;
 }
-nav {
-  padding: 15px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  .log {
-    font-size: 1rem;
-  }
-}
-nav a {
-  color: white;
-  text-decoration: none;
-}
+
 span {
   white-space: nowrap;
 }

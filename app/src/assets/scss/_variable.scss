@@ -1,0 +1,17 @@
+$light-background-color: rgb(247, 240, 240);
+@import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
+
+* {
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+$dark-background-color: rgb(7, 6, 6);
+$title-font-family: 'Hubballi', cursive;
+$subtitle-font-family: 'Montserrat', sans-serif;
+$title-font-size: 6rem;
+$subtitle-one-font-size: 1.5rem;
+$subtitle-two-font-size: 1.3rem;
+$nav-font-size: 1.3rem;
+$light-font-color: rgb(226, 219, 219);
+$dark-font-color: rgb(12, 12, 12);

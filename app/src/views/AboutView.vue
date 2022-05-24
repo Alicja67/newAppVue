@@ -5,8 +5,8 @@
     </div>
     <snack-vue></snack-vue>
     <add-title> </add-title>
-    <remove-titles> </remove-titles>
     <titles-component> </titles-component>
+    <remove-titles> </remove-titles>
   </div>
 </template>
 
@@ -41,6 +41,10 @@ export default {
 };
 </script>
 <style lang="scss">
+@import '../assets/scss/variable';
+@import '../assets/scss/input';
+@import '../assets/scss/main';
+
 div {
   overflow: auto;
 }
@@ -48,7 +52,7 @@ body {
   position: fixed;
   z-index: -1;
   top: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url('../assets/planet.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url('../assets/images/planet.jpg');
   // background-image: url('../assets/moon.jpg');
   background-attachment: fixed;
   background-size: cover;
@@ -58,88 +62,5 @@ body {
   height: 100vh;
   color: white;
   overflow: auto;
-}
-input[type='text'] {
-  flex: 10;
-  padding: 10px;
-  border: 1px solid #365f37;
-  background: #0a0a0a;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  cursor: pointer;
-  transition: 1s;
-  color: #f7f7f8;
-  width: 100px;
-}
-input[type='email'] {
-  flex: 10;
-  padding: 10px;
-  border: 1px solid #365f37;
-  background: #0a0a0a;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  cursor: pointer;
-  transition: 1s;
-  color: #f7f7f8;
-}
-input[type='submit'] {
-  cursor: pointer;
-  background: #257b26;
-  color: rgb(227, 229, 238);
-  font-size: 1.1rem;
-  flex: 2;
-  border: 1px solid #365f37;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 10px;
-  transition: 1s;
-  margin-right: 50px;
-  padding: 10px 40px 10px;
-  width: 250px;
-}
-input[type='submit']:hover {
-  background: #0a0a0a;
-}
-input[type='text']:hover {
-  background: #f3f1f1;
-  color: black;
-}
-.log {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #365f37;
-  background: #257b26;
-  border-radius: 5px;
-  color: rgb(239, 241, 252);
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: 1s;
-  margin-right: 50px;
-  font-size: 1.5rem;
-}
-.log:hover {
-  background: #0a0a0a;
-}
-button {
-  position: relative;
-  padding: 15px;
-  border: 1px solid #365f37;
-  background: #257b26;
-  border-radius: 5px;
-  color: rgb(231, 232, 236);
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.3rem;
-  transition: 1s;
-  margin-top: 20px;
-}
-button:hover {
-  background: #0a0a0a;
-}
-.log-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 50px;
-  margin-top: -40px;
 }
 </style>

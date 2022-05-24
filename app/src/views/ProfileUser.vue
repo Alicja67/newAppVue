@@ -4,7 +4,7 @@
       <button class="log" @click="handleLogOut()">Log out</button>
     </div>
     <div class="description">
-      <h1>Hello {{ username }}</h1>
+      <h1 class="main-title">Hello {{ username }}</h1>
       <h3>Your full name: {{ fullName }}</h3>
       <h3>Your keycloak ID: {{ id }}</h3>
       <h3>Your email: {{ email }}</h3>
@@ -143,13 +143,12 @@ body {
   display: flex;
   justify-content: flex-end;
   margin-right: 50px;
-  margin-top: -40px;
 }
 .description {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 300px);
 }
 </style>

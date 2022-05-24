@@ -78,11 +78,11 @@ p {
 }
 .submit {
   cursor: pointer;
-  background: #9b6822;
+  background: #a0a0a0;
   color: rgb(227, 229, 238);
   font-size: 1.1rem;
   flex: 2;
-  border: 1px solid #9b6822;
+  border: 1px solid #a0a0a0;
   border-radius: 5px;
   padding: 10px;
   transition: 1s;

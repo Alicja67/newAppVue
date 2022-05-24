@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
+@import './variable';
+
+* {
+  box-sizing: border-box;
+  overflow: auto;
+}
+body {
+  font-family: 'Hubballi', cursive;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+.main-title {
+  font-size: $title-font-size;
+  font-family: $title-font-family;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $light-font-color;
+}
+.subtitle-one {
+  font-weight: bold;
+  font-family: $subtitle-font-family;
+  font-size: $subtitle-one-font-size;
+  color: $light-font-color;
+}
+.subtitle-two {
+  font-family: $subtitle-font-family;
+  font-size: $subtitle-two-font-size;
+  color: $light-font-color;
+  font-weight: 500;
+}

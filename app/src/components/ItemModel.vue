@@ -8,7 +8,7 @@
         <span>×</span>
       </button>
     </div>
-    <div class="description">
+    <div class="description-wrapper">
       <h2 class="title">{{ title }}</h2>
       <p class="subtitle">
         {{ description }}
@@ -54,16 +54,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/input';
+@import '../assets/scss/variable';
+@import '../assets/scss/text';
+
 .outer-wrapper {
   width: 50%;
   // height: 80%;
   position: fixed;
-  background: rgb(238, 234, 234);
+  background: $light-font-color;
   top: 20px;
   // left: 20px;
   // border: 4px solid rgb(212, 208, 208);
   box-shadow: 0 30px 30px -10px rgba(71, 65, 65, 0.3);
-  border: 4px solid white;
+  border: 4px solid rgb(243, 242, 242);
   border-radius: 5px;
 }
 .photo-part {
@@ -73,13 +77,13 @@ export default {
   height: 100%;
   padding: 50px;
   flex-direction: column;
-  color: black;
+  color: $dark-font-color;
 }
 .photo {
   // position: absolute;
   width: 300px;
   height: 300px;
-  background: black;
+  background: $dark-font-color;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,30 +92,38 @@ export default {
     max-height: 100%;
   }
 }
-.description {
-  // position: absolute;
-  background: black;
+.description-wrapper {
+  background: $dark-font-color;
   text-align: center;
   padding-top: 30px;
   .title {
-    font-size: 30px;
+    font-size: 1.9rem !important;
+    font-family: $title-font-family;
     text-transform: uppercase;
+    color: $light-font-color;
   }
   .subtitle {
-    font-size: 25px;
+    font-size: 1.2rem;
     margin: 0 20px 20px 20px;
+    color: $light-font-color;
+    font-family: $subtitle-font-family;
   }
 }
 .close {
   position: absolute;
   top: 20px;
   right: 20px;
-  color: rgb(241, 238, 238);
+  color: $light-font-color;
   font-size: 20px;
   border: none;
   transition: 0.5s;
-  background: black;
+  background: $dark-font-color;
   border-radius: 5px;
+  padding: 5px 10px !important;
+  span {
+    height: 10px;
+    width: 1px;
+  }
 }
 .close:hover {
   color: grey;
@@ -119,13 +131,18 @@ export default {
 .tags {
   list-style-type: none;
   text-align: left;
-  // margin: 20px;
   padding: 0 0 20px 20px;
+  color: $light-font-color;
+  font-family: $subtitle-font-family;
 }
 .tag {
   list-style-type: none;
   text-align: left;
   margin: 0;
   padding: 0;
+  color: $light-font-color;
+  font-family: $subtitle-font-family;
+  font-style: italic;
+  font-size: 0.9rem;
 }
 </style>

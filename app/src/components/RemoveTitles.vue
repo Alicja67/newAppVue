@@ -1,6 +1,6 @@
 <template>
   <form>
-    <button @click="handleDelete" @click.prevent="handleSnack()">Remove all added titles</button>
+    <button type="submit" @click="handleDelete" @click.prevent="handleSnack()">Remove all added titles</button>
     <snack-vue></snack-vue>
   </form>
 </template>
@@ -29,8 +29,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import '../assets/scss/variable';
+@import '../assets/scss/input';
+
 form {
   display: flex;
   justify-content: center;
+}
+button {
+  margin-top: 40px;
 }
 </style>

@@ -3,12 +3,24 @@
     <i class="fa-solid fa-user-astronaut"></i>
     <i class="fa-solid fa-user-astronaut"></i>
     <i class="fa-solid fa-user-astronaut"></i>
-    <h3>What gifts will you take for Marsjans on your first space mission to The Red Planet?</h3>
+    <h3 class="subtitle-one">What gifts will you take for Marsjans on your first space mission to The Red Planet?</h3>
     <form method="post" @submit="onSubmit">
-      <label for="author"> Your name: <input type="text" name="author" v-model="author" required /> </label>
-      <label for="email"> Your email: <input type="email" name="email" v-model="email" required /> </label>
-      <label for="title"> Title: <input type="text" name="title" v-model="title" required /> </label>
-      <label for="message"> Message: <textarea name="message" v-model="message" required> </textarea></label>
+      <label class="form-label" for="author">
+        <p>Your name:</p>
+        <input class="form-input" type="text" name="author" v-model="author" required />
+      </label>
+      <label class="form-label" for="email">
+        <p>Your email:</p>
+        <input class="form-input" type="email" name="email" v-model="email" required />
+      </label>
+      <label class="form-label" for="title">
+        <p>Title:</p>
+        <input class="form-input" type="text" name="title" v-model="title" required />
+      </label>
+      <label class="form-label" for="message">
+        <p>Message:</p>
+        <textarea class="form-input" name="message" v-model="message" required> </textarea>
+      </label>
       <div class="submit-form">
         <button type="submit">Send message</button>
       </div>
@@ -58,6 +70,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Hubballi&family=Montserrat:ital,wght@0,300;0,600;1,300&display=swap');
+@import '../assets/scss/text';
+@import '../assets/scss/form';
 
 .wrapper {
   color: #fff;
@@ -68,47 +82,9 @@ export default {
   margin: 0;
   height: 100vh;
 }
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-h1 {
-  font-weight: lighter;
-}
-p {
-  color: #999;
-  font-size: 0.8rem;
-}
 a {
   color: #999;
   font-size: 0.8rem;
-}
-label {
-  display: block;
-  margin: 1rem;
-  width: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: right;
-}
-input,
-textarea {
-  background: rgba(7, 3, 3, 0.4);
-  padding: 0.6rem 1rem;
-  border: none;
-  margin: 0 1rem;
-  border-radius: 0.5rem;
-  outline: none;
-  color: #fff;
-  font-size: inherit;
-}
-textarea {
-  margin: 1rem auto;
-  width: 400px;
-  height: 200px;
-  display: block;
 }
 input[type='checkbox'] {
   width: 25px;
@@ -117,10 +93,6 @@ input[type='checkbox'] {
 .submit-form {
   display: flex;
   justify-content: right;
-}
-h2 {
-  font-size: 3rem;
-  margin: 50px 0 50px 0;
 }
 h3 {
   margin-bottom: 50px;

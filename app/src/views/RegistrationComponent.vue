@@ -1,12 +1,27 @@
 <template>
   <div class="wrapper">
-    <h2>Registration</h2>
+    <h2 class="main-title">Become a part of NASA project!</h2>
     <form method="post" @submit="onSubmit">
-      <label for="firstName"> First name: <input type="text" name="firstName" v-model="firstName" required /> </label>
-      <label for="lastName"> Last name: <input type="text" name="lastName" v-model="lastName" required /> </label>
-      <label for="email"> E-mail: <input type="email" name="email" v-model="email" required /> </label>
-      <label for="login"> Login: <input type="text" name="login" v-model="login" required /> </label>
-      <label for="password"> Password: <input type="password" name="password" v-model="password" required /> </label>
+      <label class="form-label" for="firstName">
+        <p>First name:</p>
+        <input class="form-input" type="text" name="firstName" v-model="firstName" required />
+      </label>
+      <label class="form-label" for="lastName">
+        <p>Last name:</p>
+        <input class="form-input" type="text" name="lastName" v-model="lastName" required />
+      </label>
+      <label class="form-label" for="email">
+        <p>E-mail:</p>
+        <input class="form-input" type="email" name="email" v-model="email" required />
+      </label>
+      <label class="form-label" for="login">
+        <p>Login:</p>
+        <input class="form-input" type="text" name="login" v-model="login" required />
+      </label>
+      <label class="form-label" for="password">
+        <p>Password:</p>
+        <input class="form-input" type="password" name="password" v-model="password" required />
+      </label>
       <div class="submit-form">
         <button type="submit">Register</button>
       </div>
@@ -206,40 +221,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import '../assets/scss/form';
+@import '../assets/scss/text';
+
 .wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-h2 {
-  font-size: 3rem;
-  margin: 100px 100px 60px 60px;
-}
-form {
-  display: flex;
-  width: 100vw;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  font-weight: bold;
-  label {
-    margin: 10px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 400px;
-    input {
-      padding: 10px;
-      background: rgba(7, 3, 3, 0.4);
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 1s;
-      color: #f7f7f8;
-      border: 1px solid transparent;
-    }
-  }
+.main-title {
+  font-size: 4rem;
+  margin: 100px 0 60px 0;
 }
 </style>
