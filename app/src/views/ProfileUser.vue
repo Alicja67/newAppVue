@@ -13,8 +13,10 @@
           <h3 v-if="!editing">Your email: {{ email }}</h3>
           <input class="input-edit" v-else v-model="newEmail" placeholder="new email..." type="email" />
         </div>
-        <button @click="handleEdit">{{ !editing ? 'EDIT' : 'EDITING' }}</button>
+        <button @click="handleEdit">{{ !editing ? 'EDIT' : 'UPDATE' }}</button>
       </div>
+      <button class="provider" @click="handleProvider">Add Google/GitHub account to your aplication</button>
+      <snack-vue></snack-vue>
     </div>
   </div>
 </template>
@@ -23,9 +25,13 @@ import axios from 'axios';
 import qs from 'qs';
 import { mapGetters, mapActions } from 'vuex';
 import Keycloak from 'keycloak-js';
+import SnackVue from '../components/SnackVue.vue';
 
 export default {
   name: 'profile-user',
+  components: {
+    SnackVue,
+  },
   data() {
     return {
       editing: false,
@@ -47,7 +53,15 @@ export default {
     ...mapGetters(['loggedUsers']),
   },
   methods: {
-    ...mapActions(['fetchLoggedUser', 'updateUser']),
+    ...mapActions(['fetchLoggedUser', 'updateUser', 'snack']),
+    handleProvider() {
+      const KEYCLOAK = 'spacer-magic.mac.pl:8080';
+      const MY_REALM = 'spacer';
+      window.location.replace(`https://${KEYCLOAK}/auth/realms/${MY_REALM}/account/#/security/linked-accounts`);
+      //   window.location.replace(
+      //     'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?scope=openid%20profile%20email&state=ETsQyPGmoh4eN0cj4M8zykOoeiUVSvx9018yUJcLvaY.osMlTVcOwnk.account-console&response_type=code&client_id=456288635239-gn52u3h9jahcqtpq6tt0fhh691kimsts.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fspacer-magic.mac.pl%3A8080%2Fauth%2Frealms%2Fspacer%2Fbroker%2Fgoogle%2Fendpoint&nonce=e6JWgFnuKb2dcgeG5TIJ6g&flowName=GeneralOAuthFlow'
+      //   );
+    },
     getToken() {
       const KEYCLOCK_URL = `https://spacer-magic.mac.pl:8080`;
       const KEYCLOCK_REALM_NAME = 'spacer';
@@ -91,31 +105,44 @@ export default {
         });
 
       if (this.online) {
-        this.editing = true;
+        this.editing = !this.editing;
+        this.email = this.newEmail;
+        this.fullName = this.newFullname;
         await axios
           .put(url, JSON.stringify(newData), config)
           .then((res) => {
             console.log('editing, newEmail', this.editing, newData);
             console.log('res.data', res.data);
-            this.fullName = this.newFullname;
-            this.email = this.newEmail;
-            this.updateUser(id, {
+            this.updateUser({
+              id: this.id,
               firstName: this.newFullname.split(' ')[0] || 'No',
               lastName: this.newFullname.split(' ')[1] || 'Name',
               email: this.newEmail || this.email,
               login: this.username,
             });
-            this.editing = false;
+            this.fetchLoggedUser({
+              id: this.id,
+              email: this.email,
+              username: this.username,
+              fullname: this.fullName,
+            });
+            // this.handleSnack(`Great! You update your data.`, 'green');
           })
           .catch((err) => {
-            // this.errorMessage = err.response.data.error;
+            this.errorMessage = err.response.data.error;
             console.log('err.response', err.response);
-            // this.handleSnack(`${this.errorMessage}! Try again.`, 'red');
+            this.handleSnack(`${this.errorMessage}! Try again.`, 'red');
           });
       } else {
-        // this.handleSnack(`Sorry! Data Base is disconnected :( Try again later.`, 'red');
+        this.handleSnack(`Sorry! Data Base is disconnected :( Try again later.`, 'red');
         console.log('Error');
       }
+    },
+    handleSnack(text, color) {
+      this.snack({
+        text: text,
+        color: color,
+      });
     },
     login() {
       var keycloak = Keycloak({
@@ -135,13 +162,13 @@ export default {
           onLoad: 'login-required',
         })
         .then((authenticated) => {
-          console.log(JSON.stringify(keycloak.tokenParsed));
+          // console.log(JSON.stringify(keycloak.tokenParsed));
           this.id = keycloak.idTokenParsed.sub;
           this.email = keycloak.idTokenParsed.email || 'not define';
           this.username = keycloak.idTokenParsed.preferred_username;
           this.fullName = keycloak.idTokenParsed.name || 'not define';
-          console.log('id', this.id);
-          console.log('email', this.email);
+          // console.log('id', this.id);
+          // console.log('email', this.email);
           console.log('You are log in!');
           this.fetchLoggedUser({
             id: this.id,
@@ -269,5 +296,9 @@ body {
   background: $dark-font-color;
   width: 100%;
   color: rgb(255, 251, 251);
+}
+.provider {
+  // background: blue;
+  margin-top: 100px;
 }
 </style>

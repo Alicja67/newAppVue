@@ -22,6 +22,10 @@
         <p>Password:</p>
         <input class="form-input" type="password" name="password" v-model="password" required />
       </label>
+      <label class="form-label" for="password">
+        <p class="google-label">Add Google Authorisation?</p>
+        <input class="google-checkbox" type="checkbox" id="myCheckBox" />
+      </label>
       <div class="submit-form">
         <button type="submit">Register</button>
       </div>
@@ -134,7 +138,6 @@ export default {
         await axios
           .get(URL, config)
           .then((res) => {
-            console.log('goo');
             console.log('errorMessage', this.errorMessage);
             if (!this.errorMessage) {
               const addedUserData = res.data.find((user) => user.username === this.login);
@@ -233,5 +236,19 @@ export default {
 .main-title {
   font-size: 4rem;
   margin: 100px 0 60px 0;
+}
+.form-label-provider {
+  display: flex;
+  justify-content: center;
+  width: 600px;
+}
+.google-label {
+  width: 300px;
+}
+.google-checkbox {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  right: 150px;
 }
 </style>

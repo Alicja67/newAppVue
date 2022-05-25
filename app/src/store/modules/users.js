@@ -22,9 +22,9 @@ const getters = {
 };
 
 const actions = {
-  async updateUser({ commit }, id, { firstName, lastName, email, login }) {
+  async updateUser({ commit }, { id, firstName, lastName, email, login }) {
     try {
-      const response = await axios.put(`http://localhost:3000/user/${id}`);
+      const response = await axios.put(`http://localhost:3000/user/${id}`, { firstName, lastName, email, login });
       console.log('updateUser', response.data);
       commit('UPDATE_USER', response.data);
     } catch (error) {

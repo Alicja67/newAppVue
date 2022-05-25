@@ -18,15 +18,15 @@ const login = () => {
     })
     .then((authenticated) => {
       console.log(JSON.stringify(keycloak.tokenParsed));
-      const authenticatedUser = keycloak.idTokenParsed.name;
-      const id = keycloak.idTokenParsed.jti;
-      const email = keycloak.idTokenParsed.email;
-      console.log('keycloak', keycloak.idTokenParsed.sub);
-      console.log('id', id);
-      console.log('authenticatedUser', authenticatedUser);
-      console.log('email', email);
+      // const authenticatedUser = keycloak.idTokenParsed.name;
+      // const id = keycloak.idTokenParsed.jti;
+      // const email = keycloak.idTokenParsed.email;
+      // console.log('keycloak', keycloak.idTokenParsed.sub);
+      // console.log('id', id);
+      // console.log('authenticatedUser', authenticatedUser);
+      // console.log('email', email);
       console.log('You are log in!');
-      console.log('authenticated', authenticated);
+      // console.log('authenticated', authenticated);
       return authenticated;
     })
     .catch((error) => {

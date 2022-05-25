@@ -56,6 +56,20 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// //EDIT BY ID
+// router.put('/:id', async (req, res) => {
+//   const { title } = req.body;
+//   const { id } = req.params;
+
+//   try {
+//     let dataToUpdate = await Titles.findByIdAndUpdate(id, { $set: { title } });
+//     dataToUpdate = await Titles.findById(id);
+//     res.json(dataToUpdate);
+//   } catch (err) {
+//     res.status(500).json({ message: err });
+//   }
+// });
+
 //DELETE BY ID
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
