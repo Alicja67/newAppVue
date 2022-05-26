@@ -22,10 +22,10 @@
         <p>Password:</p>
         <input class="form-input" type="password" name="password" v-model="password" required />
       </label>
-      <label class="form-label" for="password">
+      <!-- <label class="form-label" for="password">
         <p class="google-label">Add Google Authorisation?</p>
-        <input class="google-checkbox" type="checkbox" id="myCheckBox" />
-      </label>
+        <input class="google-checkbox" type="checkbox" id="myCheckBox" v-model="checked" />
+      </label> -->
       <div class="submit-form">
         <button type="submit">Register</button>
       </div>
@@ -56,7 +56,9 @@ export default {
       id: '',
       online: false,
       addedLogin: '',
+      addedId: '',
       errorMessage: '',
+      checked: false,
     };
   },
   mounted() {
@@ -107,6 +109,13 @@ export default {
         username: this.login,
         enabled: true,
         credentials: [{ type: 'password', value: this.password, temporary: false }],
+        // federatedIdentities: [
+        //   {
+        //     identityProvider: 'google',
+        //     userId: '104657905513285607426',
+        //     userName: 'latala.mateusz@gmail.com',
+        //   },
+        // ],
       };
 
       await axios
@@ -142,7 +151,8 @@ export default {
             if (!this.errorMessage) {
               const addedUserData = res.data.find((user) => user.username === this.login);
               this.addedLogin = addedUserData.username;
-              console.log('addedUserData', addedUserData, this.addedLogin);
+              this.addedId = addedUserData.id;
+              console.log('addedUserData', addedUserData, this.addedLogin, this.addedId);
               if (addedUserData.id) {
                 this.addUser({
                   firstName: addedUserData.firstName,
@@ -173,6 +183,12 @@ export default {
               if (addedToDB === this.addedLogin) {
                 console.log('Add user to DB');
                 this.handleSnack(`Yeah!!! Now you have access to secret NASA data!`, 'green');
+              } else {
+                axios.delete(`https://spacer-magic.mac.pl:8080/auth/admin/realms/spacer/users/${this.addedId}`, {
+                  headers: { Authorization: `Bearer ${this.token}` },
+                });
+                this.handleSnack(`Oops! Something went wrong!`, 'red');
+                console.log('User were deleted from Keycloak due to error with DB.');
               }
             });
             //   } else {

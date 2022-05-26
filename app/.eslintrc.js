@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: ['vue', 'prettier'],
   rules: {
+    'no-unused-vars': 'off',
     // 'prettier/prettier': 2,
     'prettier/prettier': [
       'error',
