@@ -9,6 +9,8 @@
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/message">Send Message</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
+      <router-link to="/chat">Chat</router-link>
+      <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/profile">Profile</router-link>
       <span>&#160; &#160; &#160; &#160;</span>
       <router-link to="/register">Register</router-link>

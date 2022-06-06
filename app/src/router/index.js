@@ -5,6 +5,7 @@ import SearchView from '../views/SearchView.vue';
 import MessageComponent from '../views/MessageComponent.vue';
 import SpaceVisitors from '../views/SpaceVisitors.vue';
 import ProfileUser from '../views/ProfileUser.vue';
+import ChatVue from '../views/ChatVue.vue';
 import RegistrationComponent from '../views/RegistrationComponent.vue';
 import login from '../utils/loggingUtils';
 
@@ -30,6 +31,11 @@ const routes = [
     path: '/visitors',
     name: 'visitors',
     component: SpaceVisitors,
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: ChatVue,
   },
   {
     path: '/profile',
