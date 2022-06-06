@@ -1,9 +1,9 @@
 /* eslint-disable */
 <template>
   <div class="header-wrapper">
-    <h1 class="title">Kosmiczny spacer</h1>
-    <p class="subtitle">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-    <p class="subtitle">Lorem Ipsum is simply dummy text.</p>
+    <h1 class="main-title">Space walk</h1>
+    <p class="subtitle-one">Nasa shows amazing photos from the farthest places of space.</p>
+    <p class="subtitle-two">What do you want to explore?</p>
   </div>
 </template>
 <script>
@@ -12,6 +12,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import '../assets/scss/text';
+
 .header-wrapper {
   color: white;
   display: flex;
@@ -20,13 +22,5 @@ export default {
   text-align: center;
   flex-direction: column;
   padding-top: 180px;
-}
-.title {
-  font-size: 4rem;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.subtitle:last-child {
-  font-weight: bold;
 }
 </style>

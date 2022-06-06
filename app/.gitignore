@@ -5,6 +5,11 @@ package-lock.json
 /node_modules
 /dist
 /build
+/ssl
+tls*
+/keycloak
+/etc
+.ssl
 
 
 # local env files

@@ -1,38 +1,42 @@
 <template>
   <form>
-    <button @click="handleDelete" class="remove-button" type>Remove all added titles</button>
+    <button type="submit" @click="handleDelete" @click.prevent="handleSnack()">Remove all added titles</button>
+    <snack-vue></snack-vue>
   </form>
 </template>
 <script>
 import { mapActions } from 'vuex';
+import SnackVue from './SnackVue.vue';
 
 export default {
   name: 'remove-titles',
+  components: {
+    SnackVue,
+  },
   methods: {
-    ...mapActions(['deleteAllTitles']),
+    ...mapActions(['deleteAllTitles', 'snack']),
     handleDelete(e) {
       e.preventDefault();
       console.log(e);
       this.deleteAllTitles();
     },
+    handleSnack() {
+      this.snack({
+        text: `oops! You removed all titles`,
+      });
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
+@import '../assets/scss/variable';
+@import '../assets/scss/input';
+
 form {
   display: flex;
-  justify-content: flex-end;
-  margin-right: 30px;
+  justify-content: center;
 }
-.remove-button {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #b0b1b3;
-  background: #36383b;
-  border-radius: 5px;
-  color: rgb(139, 142, 155);
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.1rem;
+button {
+  margin-top: 40px;
 }
 </style>

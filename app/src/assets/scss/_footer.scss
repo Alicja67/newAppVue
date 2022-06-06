@@ -1,0 +1,16 @@
+@import './text';
+@import './variable';
+
+footer {
+  background: $dark-background-color;
+  color: rgb(153, 149, 149);
+  font-size: 1.1rem;
+  font-family: $title-font-family;
+  position: absolute;
+  bottom: 0 !important;
+  left: 0px !important;
+  width: 100vw;
+  p {
+    padding-left: 20px;
+  }
+}

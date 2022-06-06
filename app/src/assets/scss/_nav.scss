@@ -1,0 +1,13 @@
+@import './text';
+@import './variable';
+
+nav {
+  font-family: $subtitle-font-family;
+  font-size: $nav-font-size;
+  padding: 15px;
+  font-weight: bold;
+}
+nav a {
+  color: rgb(243, 240, 240);
+  text-decoration: none;
+}

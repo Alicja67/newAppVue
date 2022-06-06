@@ -1,0 +1,46 @@
+@import '../scss/text';
+@import '../scss/variable';
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-label {
+  margin: 1rem;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  transition: 1s all;
+}
+p {
+  width: 150px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+.form-input {
+  display: block;
+  background: rgba(7, 3, 3, 0.4);
+  padding: 0.6rem 1rem;
+  border: none;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  outline: none;
+  color: $light-font-color;
+  font-size: inherit;
+  width: 330px;
+  transition: 1s all;
+}
+.form-input:hover {
+  background: rgba(7, 3, 3, 0.7);
+  color: rgb(233, 219, 219);
+}
+textarea {
+  height: 200px;
+}
+button {
+  margin-left: 100px;
+}

@@ -12,7 +12,7 @@ export default {
   position: fixed;
   z-index: -1;
   top: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url('../assets/moon.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url('../assets/images/space1.jpg');
   // background-image: url('../assets/moon.jpg');
   background-attachment: fixed;
   background-size: cover;

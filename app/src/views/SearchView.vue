@@ -6,7 +6,7 @@
     <div class="results" v-if="results && !loading && step === 1">
       <item-component
         @click.native="handleModelOpen(item)"
-        v-for="item in results"
+        v-for="item in nasaData"
         :item="item"
         :key="item.data[0].nasa_id"
       ></item-component>
@@ -17,13 +17,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-import debounce from 'lodash.debounce';
+// import axios from 'axios';
+// import debounce from 'lodash.debounce';
 import ItemComponent from '@/components/ItemComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SearchInput from '../components/SearchInput.vue';
 import HeroImage from '../components/HeroImage.vue';
 import ItemModel from '../components/ItemModel.vue';
+import { mapGetters, mapActions } from 'vuex';
 const API = 'https://images-api.nasa.gov';
 export default {
   name: 'search-view',
@@ -45,27 +46,36 @@ export default {
     };
   },
   methods: {
-    handleInput: debounce(function () {
-      console.log(this.searchValue);
-      this.loading = true;
-      axios
-        .get(`${API}/search?q=${this.searchValue}&media_type=image`)
-        .then((response) => {
-          this.results = response.data.collection.items;
-          console.log(response.data.collection.items);
-          this.loading = false;
-          this.step = 1;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }, 500),
+    ...mapActions(['fetchNasaData']),
+    handleInput() {
+      this.fetchNasaData(this.searchValue);
+      console.log('searchValue', this.searchValue);
+      this.loading = false;
+      this.step = 1;
+      // this.searchValue = '';
+    },
+    // handleInput: debounce(function () {
+    //   console.log(this.searchValue);
+    //   this.loading = true;
+    //   axios
+    //     .get(`${API}/search?q=${this.searchValue}&media_type=image`)
+    //     .then((response) => {
+    //       this.results = response.data.collection.items;
+    //       console.log(response.data.collection.items);
+    //       this.loading = false;
+    //       this.step = 1;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }, 500),
     handleModelOpen(item) {
       this.modelOpen = true;
       this.modalItem = item;
       console.log(item.data[0].keywords);
     },
   },
+  computed: { ...mapGetters(['nasaData']) },
 };
 </script>
 
@@ -105,8 +115,8 @@ export default {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid rgb(134, 132, 132);
+  border-color: rgb(134, 132, 132) transprent rgb(134, 132, 132) transparent;
   animation: loading 1.2s linear infinite;
 }
 @keyframes loading {

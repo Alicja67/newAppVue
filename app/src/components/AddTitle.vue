@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- <h3>Add new title</h3> -->
+    <h3 class="main-title">Add tag related to space</h3>
     <div class="add">
       <form @submit="onSubmit">
-        <input type="text" v-model="title" placeholder="Add new title..." />
-        <input type="submit" value="Submit" />
+        <input type="text" v-model="title" placeholder="Write new title..." />
+        <input type="submit" value="Add title" />
       </form>
     </div>
   </div>
@@ -14,7 +14,7 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'add-title',
-  date() {
+  data() {
     return {
       title: '',
     };
@@ -24,34 +24,28 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       this.addTitle(this.title);
+      console.log('titlefirst', this.title);
       this.title = '';
+      console.log('title', this.title);
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+@import '../assets/scss/input';
+@import '../assets/scss/text';
+
 form {
   display: flex;
-  margin: 50px 200px;
+  margin: 10px 0 50px 30px;
 }
 input[type='text'] {
-  flex: 10;
-  padding: 10px;
-  border: 1px solid #2e3035;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  cursor: pointer;
+  text-align: center;
 }
-input[type='submit'] {
-  cursor: pointer;
-  background: #36383b;
-  color: rgb(139, 142, 155);
-  font-size: 1.1rem;
-  flex: 2;
-  border: 1px solid #33394b;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 10px;
-  border: 1px solid #b0b1b3;
+.main-title {
+  margin-top: 70px;
+  z-index: 1;
+  text-align: center;
+  font-size: 3.5rem;
 }
 </style>

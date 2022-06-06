@@ -9,7 +9,7 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "80:8080"
+      - "8081:8080"
     volumes:
       - ./app:/app
   api:
@@ -26,15 +26,59 @@ services:
       - 3000:3000
     volumes:
       - ./api:/api
-    # links:
-    #   - mongo
-    #   - app
+    links:
+      - mongo
   mongo:
     container_name: mongo
     image: mongo
     ports:
       - 27017:27017
-#     volumes:
-#       - mongodb:/data/db
-# volumes:
-#   mongodb:
+    volumes:
+      - ./api/mongo:/data/db
+  postgres:
+    # restart: always
+    image: postgres:12
+    container_name: 'spacer-sso-postgres'
+    volumes:
+      - spacer_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    networks:
+      - keycloak-net
+  keycloak:
+    # restart: always
+    image: 'jboss/keycloak'
+    # build: ./keycloak
+    container_name: 'spacer-ssoo'
+    # hostname: 'sso'
+    environment:
+      # KEYCLOAK_WELCOME_THEME: mac
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8080:8443
+      - 443:443
+    volumes:
+      - ./ssl:/etc/x509/https
+      # - ./keycloak/mac:/opt/jboss/keycloak/themes/mac
+      # - ./keycloak/keycloak:/opt/jboss/keycloak/themes/keycloak
+    depends_on:
+      - postgres
+    networks:
+      - keycloak-net
+
+networks:
+  keycloak-net:
+
+volumes:
+  spacer_postgres_data:
+    driver: local
