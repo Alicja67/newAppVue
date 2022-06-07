@@ -10,33 +10,32 @@ const titleRoutes = require('./routes/title.routes');
 const usersRoutes = require('./routes/users.routes');
 const userRoutes = require('./routes/user.routes');
 
-
-
 // const path = require("path");
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv/config');
-const https = require('https');
-const fs = require('fs');
-
-// const bodyParser = require('body-parser');
-// const db = require('./db');
+// const https = require('https');
+const http = require('http');
+const { Server } = require('socket.io');
+// const fs = require('fs');
 
 const app = express();
 const PORT = '3000';
+
 app.use(
   cors({
     origin: 'https://spacer-magic.mac.pl:8081', //origin sets domains that we approve
     methods: 'GET,POST,DELETE,PUT', //we allow only GET and POST methods
   })
 );
+
 const corsOptions = {
   origin: [
     'http://localhost',
     'http://localhost:8080',
     'https://spacer-magic.mac.pl:8081',
-    'https://spacer-magic.mac.pl',
+    'https://spacer-magic.mac.pl:8081/chat',
   ],
 };
 
@@ -59,9 +58,6 @@ app.use(morgan('dev'));
 // app.use(express.static(path.join(__dirname, '/app/dist')));
 
 //import ROUTES
-app.get('/', (req, res) => {
-  res.send(`This is Alisha's REST API aplication`);
-});
 app.use('/datas', datasRoutes);
 app.use('/data', dataRoutes);
 app.use('/links', linksRoutes);
@@ -75,6 +71,10 @@ app.use('/user', userRoutes);
 
 app.get('/check', (req, res) => {
   res.send('Online');
+});
+
+app.get('/', (req, res) => {
+  res.send(`This is Alisha's REST API aplication`);
 });
 
 app.use((req, res, next) => {
@@ -104,7 +104,28 @@ db.on('error', (err) => console.log('Error ' + err));
 //   console.log('Connected to DB');
 // });
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+//Connect to socket.io
+const server = http.createServer(app);
+// const io = require('socket.io')(server);
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
+io.on('connection', (socket) => {
+  console.log(`user ${socket.id} is connected`);
+
+  socket.on('message', (data) => {
+    socket.broadcast.emit('message:received', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`user ${socket.id} left`);
+  });
+});
+
+server.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 // app.listen(PORT, () => {
 //   console.log(`Server started on port ${PORT}`);
