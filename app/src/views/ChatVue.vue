@@ -1,16 +1,18 @@
 <template>
   <div>
+    <snack-vue></snack-vue>
     <div class="log-wrapper">
       <button class="log" @click="logOut">Log out</button>
     </div>
     <div v-if="!joined" class="parent-container">
-      <h1 class="join-title">Write your login and join CHAT</h1>
+      <h1 class="title beforeLogin">Write your login and join CHAT</h1>
       <div class="name-container">
         <input type="text" class="user-name" v-model="currentUser" />
         <button class="join-button" @click="join">Join</button>
       </div>
     </div>
     <div class="text-input-container" v-else>
+      <h1 class="title afterLogin">Welcome to our chat :)</h1>
       <div class="list-container" v-for="message in messages" :key="message.id">
         <b>{{ message.user }}</b>
         : {{ message.text }}
@@ -30,9 +32,14 @@
 </template>
 <script>
 import { io } from 'socket.io-client';
+import SnackVue from '../components/SnackVue.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'chat-vue',
+  components: {
+    SnackVue,
+  },
   data() {
     return {
       joined: false,
@@ -42,13 +49,21 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['snack']),
     join() {
       console.log('currentUser', this.currentUser);
-      this.joined = true;
-      this.socketInstace = io('http://localhost:3000');
-      this.socketInstace.on('message:received', (data) => {
-        this.messages = this.messages.concat(data);
-      });
+      if (this.currentUser) {
+        this.joined = true;
+        this.socketInstace = io('http://localhost:3000');
+        this.socketInstace.on('message:received', (data) => {
+          this.messages = this.messages.concat(data);
+        });
+      } else {
+        this.snack({
+          text: `Don't forget to add your login!`,
+          color: 'red',
+        });
+      }
     },
     sendMessage() {
       console.log('this.message', this.text);
@@ -87,9 +102,13 @@ export default {
   position: fixed;
   padding-top: 0px;
 }
-.join-title {
+.beforeLogin {
   font-size: 3rem;
   margin: 100px 0;
+}
+.afterLogin {
+  font-size: 2rem;
+  margin: 20px auto;
 }
 .user-name {
   height: 53px;
@@ -104,9 +123,11 @@ export default {
   height: 150px;
   padding: 10px;
 }
-// .text-input-container {
-//   height: 100vh;
-// }
+.text-input-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .list-container {
   background: rgb(226, 226, 231);
   color: black;
