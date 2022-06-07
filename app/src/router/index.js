@@ -60,7 +60,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'visitors' || to.name === 'tag') {
+  if (to.name === 'visitors' || to.name === 'tag' || to.name === 'chat') {
     login();
   }
   next();
